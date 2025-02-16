@@ -1,7 +1,17 @@
 openapi: 3.0.1
 info:
-  title: Reference
+  title: AppyWay Platform API
   version: '1.0'
+  description: >-
+    AppyWay Platform API  allows developers to access a wide range of data
+    related to parking, traffic, and mobility. With this API, developers can
+    integrate real-time parking availability, traffic flow information, and
+    electric vehicle charging locations into their own applications. This
+    enables users to quickly find parking spaces, plan their routes to avoid
+    congestion, and locate nearby charging stations for their electric vehicles.
+    By leveraging the capabilities of the AppyWay Platform API, developers can
+    create innovative solutions that improve the overall mobility experience for
+    users.
 servers:
   - url: https://api.appyway.com/v1/reference
 paths:
