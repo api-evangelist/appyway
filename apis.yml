@@ -7,7 +7,9 @@ apis:
     tags: []
     humanURL: >-
       https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: properties/appyway-availability-realtime-api-openapi.yml
     description: >-
       AppyWay Availability RealTime API allows businesses to access real-time
       data on parking availability, traffic congestion, and road closure
