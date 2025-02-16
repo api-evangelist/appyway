@@ -72,7 +72,9 @@ apis:
     name: AppyWay Platform API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: properties/appyway-platform-api-openapi.yml
     description: >-
       AppyWay Platform API  allows developers to access a wide range of data
       related to parking, traffic, and mobility. With this API, developers can
