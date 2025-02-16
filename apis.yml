@@ -11,23 +11,29 @@ apis:
       - url: ' https://appyway.com/parking-kerbside-api/'
         type: Documentation
     description: >-
-      Whether you’re looking to optimise your journeys, your drivers’
-      performance, or your customers’ experience, we’ve got the UK’s best
-      parking and kerbside dataset that can make it happen, covering  500 UK
-      Towns 
+      Whether youre looking to optimise your journeys, your drivers performance,
+      or your customers experience, weve got the UKs best parking and kerbside
+      dataset that can make it happen, covering  500 UK Towns 
 name: AppyWay
 tags:
-  - API
+  - Parking
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-02-08'
-modified: '2025-02-08'
+modified: '2025-02-15'
 position: Consumer
 description: >-
-  Whether you’re looking to optimise your journeys, your drivers’ performance,
-  or your customers’ experience, we’ve got the UK’s best parking and kerbside
-  dataset that can make it happen, covering  500 UK Towns 
+  AppyWay leverages innovative technology to transform outdated parking systems
+  and urban mobility infrastructure. By providing real-time data and insights,
+  they enable cities and businesses to optimize traffic flow, reduce congestion,
+  and improve access to parking. Through their smart parking solutions, AppyWay
+  simplifies the parking experience for drivers while also helping to create
+  more sustainable and efficient urban environments. Their platform allows for
+  dynamic pricing, reservation options, and predictive analytics, ultimately
+  enhancing the overall mobility ecosystem. With a focus on creating smarter
+  cities, AppyWay is revolutionizing the way we think about parking and
+  transportation.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
