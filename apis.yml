@@ -29,7 +29,10 @@ apis:
       experience.
   - aid: appyway:appyway-traffic-data-api
     name: AppyWay Traffic Data API
-    tags: []
+    tags:
+      - Traffic
+      - Real-Time
+      - Historical
     humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
     properties:
       - type: OpenAPI
