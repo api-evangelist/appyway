@@ -11,7 +11,7 @@ AppyWay leverages innovative technology to transform outdated parking systems an
 
 ## Tags:
 
- - Parking
+ - Parking, Electrical Vehicle Charging
 
 ## Timestamps
 
@@ -28,10 +28,12 @@ AppyWay Availability RealTime API allows businesses to access real-time data on 
 
 #### Tags:
 
- - No Tags
+ - Parking, Traffic, Congestion, Road Closure
 
 #### Properties
 
+- [OpenAPI](properties/appyway-availability-realtime-api-openapi.yml)
+- [Documentation](https://appyway.com/integrations/)
 ### AppyWay Traffic Data API
 The AppyWay Traffic Data API provides real-time and historical traffic data for developers to integrate into their applications. This data includes information on traffic congestion, accidents, road closures, and other key events that can impact a driver's journey. By utilizing this API, developers can provide their users with up-to-date traffic information, optimize routes for more efficient travel, and enhance overall road safety. With AppyWay's Traffic Data API, users can enjoy a smoother and more seamless driving experience, ultimately saving time and reducing stress on the road.
 
@@ -40,10 +42,12 @@ The AppyWay Traffic Data API provides real-time and historical traffic data for 
 
 #### Tags:
 
- - No Tags
+ - Traffic, Real-Time, Historical
 
 #### Properties
 
+- [OpenAPI](properties/appyway-traffic-data-api-openapi.yml)
+- [Documentation](https://appyway.com/integrations/)
 ### AppyWay Explorer API
 The AppyWay Explorer API allows developers to access a wealth of data related to parking and electric vehicle charging infrastructure. With this API, developers can seamlessly integrate real-time information such as parking availability, pricing, and location details into their own applications. This allows for improved user experience and convenience for drivers seeking parking spaces or charging stations. Additionally, the API offers insights into traffic conditions and traffic flow, providing valuable information for urban planning and transportation management. Overall, the AppyWay Explorer API streamlines the process of accessing and utilizing parking and charging infrastructure data, ultimately improving efficiency and accessibility in urban environments.
 
@@ -52,10 +56,12 @@ The AppyWay Explorer API allows developers to access a wealth of data related to
 
 #### Tags:
 
- - No Tags
+ - Parking, Electrical Vehicle Charging
 
 #### Properties
 
+- [OpenAPI](properties/appyway-explorer-api-openapi.yml)
+- [Documentation](https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api)
 ### AppyWay Platform API
 AppyWay Platform API  allows developers to access a wide range of data related to parking, traffic, and mobility. With this API, developers can integrate real-time parking availability, traffic flow information, and electric vehicle charging locations into their own applications. This enables users to quickly find parking spaces, plan their routes to avoid congestion, and locate nearby charging stations for their electric vehicles. By leveraging the capabilities of the AppyWay Platform API, developers can create innovative solutions that improve the overall mobility experience for users.
 
@@ -64,10 +70,12 @@ AppyWay Platform API  allows developers to access a wide range of data related t
 
 #### Tags:
 
- - No Tags
+ - Parking, Traffic
 
 #### Properties
 
+- [OpenAPI](properties/appyway-platform-api-openapi.yml)
+- [Documentation](https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api)
 
 ## Common Properties
 
