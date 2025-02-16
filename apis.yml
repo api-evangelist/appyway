@@ -2,49 +2,38 @@ aid: appyway
 url: >-
   https://raw.githubusercontent.com/api-evangelist/appyway/refs/heads/main/apis.yml
 apis:
-  - aid: appyway:appyway
-    name: AppyWay
-    tags:
-      - API
-    humanURL: ' https://appyway.com/parking-kerbside-api/'
-    properties:
-      - url: ' https://appyway.com/parking-kerbside-api/'
-        type: Documentation
-    description: >-
-      Whether youre looking to optimise your journeys, your drivers performance,
-      or your customers experience, weve got the UKs best parking and kerbside
-      dataset that can make it happen, covering  500 UK Towns 
   - aid: appyway:availability-realtime-api
     name: Availability RealTime API
-    description: Availability RealTime
+    tags: []
     humanURL: >-
       https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
-    tags: []
     properties: []
+    description: Availability RealTime
   - aid: appyway:traffic-data-api
     name: Traffic Data API
-    description: Traffic Data
-    humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
     tags: []
+    humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
     properties: []
+    description: Traffic Data
   - aid: appyway:explorer-api
     name: Explorer API
-    description: Explorer
-    humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
     tags: []
+    humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
     properties: []
+    description: Explorer
   - aid: appyway:platform-api
     name: Platform API
-    description: Reference
-    humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
     tags: []
+    humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
     properties: []
+    description: Reference
 name: AppyWay
 tags:
   - Parking
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
+common: []
 created: '2025-02-08'
 modified: '2025-02-15'
 position: Consumer
@@ -63,4 +52,3 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
-common: []
