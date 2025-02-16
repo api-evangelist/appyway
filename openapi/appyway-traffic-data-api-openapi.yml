@@ -1,7 +1,16 @@
 openapi: 3.0.1
 info:
-  title: Traffic Data
+  title: AppyWay Traffic Data API
   version: '1.0'
+  description: >-
+    The AppyWay Traffic Data API provides real-time and historical traffic data
+    for developers to integrate into their applications. This data includes
+    information on traffic congestion, accidents, road closures, and other key
+    events that can impact a driver's journey. By utilizing this API, developers
+    can provide their users with up-to-date traffic information, optimize routes
+    for more efficient travel, and enhance overall road safety. With AppyWay's
+    Traffic Data API, users can enjoy a smoother and more seamless driving
+    experience, ultimately saving time and reducing stress on the road.
 servers:
   - url: https://api.appyway.com/v1/traffic-data
 paths:
