@@ -14,6 +14,31 @@ apis:
       Whether youre looking to optimise your journeys, your drivers performance,
       or your customers experience, weve got the UKs best parking and kerbside
       dataset that can make it happen, covering  500 UK Towns 
+  - aid: appyway:availability-realtime-api
+    name: Availability RealTime API
+    description: Availability RealTime
+    humanURL: >-
+      https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+    tags: []
+    properties: []
+  - aid: appyway:traffic-data-api
+    name: Traffic Data API
+    description: Traffic Data
+    humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
+    tags: []
+    properties: []
+  - aid: appyway:explorer-api
+    name: Explorer API
+    description: Explorer
+    humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
+    tags: []
+    properties: []
+  - aid: appyway:platform-api
+    name: Platform API
+    description: Reference
+    humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+    tags: []
+    properties: []
 name: AppyWay
 tags:
   - Parking
@@ -38,3 +63,4 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
+common: []
