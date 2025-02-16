@@ -3,26 +3,26 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/appyway/refs/heads/main/apis.yml
 apis:
   - aid: appyway:availability-realtime-api
-    name: Availability RealTime API
+    name: AppyWay Availability RealTime API
     tags: []
     humanURL: >-
       https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
     properties: []
     description: Availability RealTime
   - aid: appyway:traffic-data-api
-    name: Traffic Data API
+    name: AppyWay Traffic Data API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
     properties: []
     description: Traffic Data
   - aid: appyway:explorer-api
-    name: Explorer API
+    name: AppyWay Explorer API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
     properties: []
     description: Explorer
   - aid: appyway:platform-api
-    name: Platform API
+    name: AppyWay Platform API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
     properties: []
