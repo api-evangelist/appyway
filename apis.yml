@@ -51,7 +51,9 @@ apis:
     name: AppyWay Explorer API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: properties/appyway-explorer-api-openapi.yml
     description: >-
       The AppyWay Explorer API allows developers to access a wealth of data
       related to parking and electric vehicle charging infrastructure. With this
