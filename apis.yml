@@ -49,7 +49,9 @@ apis:
       reducing stress on the road.
   - aid: appyway:appyway-explorer-api
     name: AppyWay Explorer API
-    tags: []
+    tags:
+      - Parking
+      - Electrical Vehicle Charging
     humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
     properties:
       - type: OpenAPI
