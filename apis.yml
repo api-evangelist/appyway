@@ -70,7 +70,9 @@ apis:
       efficiency and accessibility in urban environments.
   - aid: appyway:appyway-platform-api
     name: AppyWay Platform API
-    tags: []
+    tags:
+      - Parking
+      - Traffic
     humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
     properties:
       - type: OpenAPI
