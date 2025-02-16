@@ -31,7 +31,9 @@ apis:
     name: AppyWay Traffic Data API
     tags: []
     humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: properties/appyway-traffic-data-api-openapi.yml
     description: >-
       The AppyWay Traffic Data API provides real-time and historical traffic
       data for developers to integrate into their applications. This data
