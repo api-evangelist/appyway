@@ -2545,3 +2545,28 @@ components:
 security:
   - apiKey: []
   - oAuth2: []
+tags:
+  - name: ActivityTypes
+  - name: AuthorityTypes
+  - name: BaseMaps
+  - name: Countries
+  - name: EntitlementTypes
+  - name: ExceptionTypes
+  - name: ExemptionTimeTypes
+  - name: ExemptionTypes
+  - name: FacilityTypes
+  - name: FuelTypes
+  - name: MovingExceptionTypes
+  - name: MovingRestrictionTypes
+  - name: NoteVisibilityTypes
+  - name: OffStreetRestrictionTypes
+  - name: OnStreetParkingTypes
+  - name: PaymentMethods
+  - name: PaymentProviders
+  - name: PermittedVehicles
+  - name: PermitTypes
+  - name: Regions
+  - name: RestrictionTypes
+  - name: Status
+  - name: VehicleTypes
+  - name: ZoneTypes

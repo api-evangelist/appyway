@@ -5640,3 +5640,9 @@ components:
 security:
   - apiKey: []
   - oAuth2: []
+tags:
+  - name: Authorities
+  - name: Bulk
+  - name: Parking
+  - name: Status
+  - name: Zones

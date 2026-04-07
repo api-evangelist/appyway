@@ -360,3 +360,6 @@ components:
 security:
   - apiKey: []
   - oAuth2: []
+tags:
+  - name: Availability
+  - name: Status
