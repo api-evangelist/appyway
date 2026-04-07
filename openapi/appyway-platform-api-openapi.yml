@@ -19,7 +19,7 @@ paths:
     post:
       tags:
         - Countries
-      summary: Change Country Special Days
+      summary: AppyWay Change Country Special Days
       description: Change Country Special Days
       operationId: post-changecountryspecialdays
       requestBody:
@@ -90,7 +90,7 @@ paths:
     post:
       tags:
         - Regions
-      summary: Change Region Venues
+      summary: AppyWay Change Region Venues
       description: Change Region Venues
       operationId: post-changeregionvenues
       requestBody:
@@ -170,7 +170,7 @@ paths:
     post:
       tags:
         - ActivityTypes
-      summary: Fetch All Activity Types
+      summary: AppyWay Fetch All Activity Types
       description: Returns a list with all the activity types.
       operationId: post-fetchallactivitytypes
       responses:
@@ -201,7 +201,7 @@ paths:
     post:
       tags:
         - AuthorityTypes
-      summary: Fetch All Authority Types
+      summary: AppyWay Fetch All Authority Types
       description: Returns a list with all the authority types.
       operationId: post-fetchallauthoritytypes
       responses:
@@ -232,7 +232,7 @@ paths:
     post:
       tags:
         - BaseMaps
-      summary: Fetch All Base Maps
+      summary: AppyWay Fetch All Base Maps
       description: >-
         Return a list with all supported base maps and availability for
         supported countries.
@@ -264,7 +264,7 @@ paths:
     post:
       tags:
         - Countries
-      summary: Fetch All Countries
+      summary: AppyWay Fetch All Countries
       description: Returns a list with all the supported countries.
       operationId: post-fetchallcountries
       responses:
@@ -286,7 +286,7 @@ paths:
                         dates:
                           - '2020-01-20'
                     bounds:
-                      - - 0
+                      -   - 0
                     defaultBaseMapId: 0
                     entitlementTypes:
                       - 0
@@ -310,7 +310,7 @@ paths:
     post:
       tags:
         - EntitlementTypes
-      summary: Fetch All Entitlement Types
+      summary: AppyWay Fetch All Entitlement Types
       description: Returns a list with all the entitlement types.
       operationId: post-fetchallentitlementtypes
       responses:
@@ -348,7 +348,7 @@ paths:
     post:
       tags:
         - ExceptionTypes
-      summary: Fetch All Exception Types
+      summary: AppyWay Fetch All Exception Types
       description: Returns a list with all the exception types.
       operationId: post-fetchallexceptiontypes
       responses:
@@ -377,7 +377,7 @@ paths:
     post:
       tags:
         - ExemptionTimeTypes
-      summary: Fetch All Exemption Time Types
+      summary: AppyWay Fetch All Exemption Time Types
       description: Returns a list with all the exemption time types.
       operationId: post-fetchallexemptiontimetypes
       responses:
@@ -406,7 +406,7 @@ paths:
     post:
       tags:
         - ExemptionTypes
-      summary: Fetch All Exemption Types
+      summary: AppyWay Fetch All Exemption Types
       description: Returns a list with all the exemption types.
       operationId: post-fetchallexemptiontypes
       responses:
@@ -435,7 +435,7 @@ paths:
     post:
       tags:
         - FacilityTypes
-      summary: Fetch All Facility Types
+      summary: AppyWay Fetch All Facility Types
       description: Returns a list with all the facility types.
       operationId: post-fetchallfacilitytypes
       responses:
@@ -463,7 +463,7 @@ paths:
     post:
       tags:
         - FuelTypes
-      summary: Fetch All Fuel Types
+      summary: AppyWay Fetch All Fuel Types
       description: Returns a list with all the fuel types.
       operationId: post-fetchallfueltypes
       responses:
@@ -491,7 +491,7 @@ paths:
     post:
       tags:
         - MovingExceptionTypes
-      summary: Fetch All Moving Exception Types
+      summary: AppyWay Fetch All Moving Exception Types
       description: Returns a list with all the moving exception types.
       operationId: post-fetchallmovingexceptiontypes
       responses:
@@ -524,7 +524,7 @@ paths:
     post:
       tags:
         - MovingRestrictionTypes
-      summary: Fetch All Moving Restriction Types
+      summary: AppyWay Fetch All Moving Restriction Types
       description: Returns a list with all the moving restriction types.
       operationId: post-fetchallmovingrestrictiontypes
       responses:
@@ -559,7 +559,7 @@ paths:
     post:
       tags:
         - NoteVisibilityTypes
-      summary: Fetch All Note Visibility Types
+      summary: AppyWay Fetch All Note Visibility Types
       description: Returns a list with all the note visibility types.
       operationId: post-fetchallnotevisibilitytypes
       responses:
@@ -588,7 +588,7 @@ paths:
     post:
       tags:
         - OffStreetRestrictionTypes
-      summary: Fetch All OffStreet Restriction Types
+      summary: AppyWay Fetch All OffStreet Restriction Types
       description: Returns a list with all the off street restriction types.
       operationId: post-fetchalloffstreetrestrictiontypes
       responses:
@@ -625,7 +625,7 @@ paths:
     post:
       tags:
         - OnStreetParkingTypes
-      summary: Fetch All On-Street Parking Types
+      summary: AppyWay Fetch All On-Street Parking Types
       description: Returns a list with all the on-street parking types.
       operationId: post-fetchallonstreetparkingtypes
       responses:
@@ -654,7 +654,7 @@ paths:
     post:
       tags:
         - PaymentMethods
-      summary: Fetch All Payment Methods
+      summary: AppyWay Fetch All Payment Methods
       description: Returns a list with all the supported payment methods.
       operationId: post-fetchallpaymentmethods
       responses:
@@ -683,7 +683,7 @@ paths:
     post:
       tags:
         - PaymentProviders
-      summary: Fetch All Payment Providers
+      summary: AppyWay Fetch All Payment Providers
       description: Returns a list with all the supported payment providers.
       operationId: post-fetchallpaymentproviders
       responses:
@@ -714,7 +714,7 @@ paths:
     post:
       tags:
         - PermittedVehicles
-      summary: Fetch All Permitted Vehicles
+      summary: AppyWay Fetch All Permitted Vehicles
       description: >-
         Returns a list with all the permitted vehicles and associated moving
         restriction types.
@@ -746,7 +746,7 @@ paths:
     post:
       tags:
         - PermitTypes
-      summary: Fetch All Permit Types
+      summary: AppyWay Fetch All Permit Types
       description: Returns a list with all the permit types.
       operationId: post-fetchallpermittypes
       responses:
@@ -774,7 +774,7 @@ paths:
     post:
       tags:
         - Regions
-      summary: Fetch All Regions
+      summary: AppyWay Fetch All Regions
       description: Returns a list with all the supported country regions.
       operationId: post-fetchallregions
       responses:
@@ -811,7 +811,7 @@ paths:
     post:
       tags:
         - RestrictionTypes
-      summary: Fetch All Restriction Types
+      summary: AppyWay Fetch All Restriction Types
       description: Returns a list with all the restriction types.
       operationId: post-fetchallrestrictiontypes
       responses:
@@ -848,7 +848,7 @@ paths:
     post:
       tags:
         - VehicleTypes
-      summary: Fetch All Vehicle Types
+      summary: AppyWay Fetch All Vehicle Types
       description: Returns a list with all the vehicle types.
       operationId: post-fetchallvehicletypes
       responses:
@@ -876,7 +876,7 @@ paths:
     post:
       tags:
         - ZoneTypes
-      summary: Fetch All Zone Types
+      summary: AppyWay Fetch All Zone Types
       description: Returns a list with all the zone types.
       operationId: post-fetchallzonetypes
       responses:
@@ -907,7 +907,7 @@ paths:
     post:
       tags:
         - Countries
-      summary: Fetch Country By Id
+      summary: AppyWay Fetch Country By Id
       description: Returns a country object if a valid identifier is provided.
       operationId: post-fetchcountrybyid
       requestBody:
@@ -946,7 +946,7 @@ paths:
                       dates:
                         - '2020-01-20'
                   bounds:
-                    - - 0
+                    -   - 0
                   defaultBaseMapId: 0
                   entitlementTypes:
                     - 0
@@ -983,7 +983,7 @@ paths:
     post:
       tags:
         - Regions
-      summary: Fetches a Region By Id
+      summary: AppyWay Fetches a Region By Id
       description: Returns a country region object if a valid identifier is provided.
       operationId: post-fetchregionbyid
       requestBody:
@@ -1050,7 +1050,7 @@ paths:
     get:
       tags:
         - Status
-      summary: Ping
+      summary: AppyWay Ping
       description: Returns Status (pong) of the Reference service
       operationId: get-ping
       responses:

@@ -19,8 +19,7 @@ paths:
       tags:
         - Authorities
       summary: >-
-        Gets the basic authority information for all authorities that you are
-        entitled to access
+        AppyWay Gets the basic authority information for all authorities that you are entitled to access
       description: >-
         Gets the basic authority information for all authorities that you are
         entitled to access
@@ -34,7 +33,7 @@ paths:
                 $ref: '#/components/schemas/AuthorityListResult'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorityListResult'
@@ -171,7 +170,7 @@ paths:
     get:
       tags:
         - Authorities
-      summary: Get Full Authority By Slug
+      summary: AppyWay Get Full Authority By Slug
       description: >-
         Returns an object which has the location of the documents containing the
         full restrictions of an authority <br /> 
@@ -203,7 +202,7 @@ paths:
                 $ref: '#/components/schemas/AuthoritySnapshotInfoDocResult'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthoritySnapshotInfoDocResult'
@@ -296,7 +295,7 @@ paths:
                             properties:
                               name: string
                           coordinates:
-                            - - - 0
+                            -   -   - 0
                         properties:
                           zoneId: string
                           authorityId: string
@@ -662,7 +661,7 @@ paths:
                             properties:
                               name: string
                           coordinates:
-                            - - - 0
+                            -   -   - 0
                         properties:
                           zoneId: string
                           authorityId: string
@@ -946,7 +945,7 @@ paths:
     get:
       tags:
         - GIS
-      summary: Export Authority moving Restrictions as GeoJSON by ID
+      summary: AppyWay Export Authority moving Restrictions as GeoJSON by ID
       description: Returns a GeoJSON containing the moving restrictions of an authority.
       operationId: get-exportauthoritymovingrestrictionsbyid-authorityid-geojson
       parameters:
@@ -981,7 +980,7 @@ paths:
     get:
       tags:
         - GIS
-      summary: Export Authority static Restrictions as GeoJSON by ID
+      summary: AppyWay Export Authority static Restrictions as GeoJSON by ID
       description: Returns a GeoJSON containing the restrictions of an authority. <br />
       operationId: get-exportauthorityrestrictionsbyid-authorityid-geojson
       parameters:
@@ -1012,7 +1011,7 @@ paths:
                 $ref: '#/components/schemas/GeoJsonExportStreamResultOkResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeoJsonExportStreamResultOkResponse'
@@ -1053,7 +1052,7 @@ paths:
                 $ref: '#/components/schemas/BadRequestResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestResponse'
@@ -1084,7 +1083,7 @@ paths:
     get:
       tags:
         - GIS
-      summary: Export Authority static Restrictions as GeoJSON by a given slug.
+      summary: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
       description: Returns a GeoJSON containing the moving restrictions of an authority.
       operationId: get-exportauthorityrestrictionsbyslug-slug-geojson
       parameters:
@@ -1119,8 +1118,7 @@ paths:
       tags:
         - Authorities
       summary: >-
-        Fetch basic authority information for all authorities that you are
-        entitled to access
+        AppyWay Fetch basic authority information for all authorities that you are entitled to access
       description: >-
         Fetch basic authority information for all authorities that you are
         entitled to access
@@ -1134,7 +1132,7 @@ paths:
                 $ref: '#/components/schemas/AuthorityIReadOnlyCollectionOkResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthorityIReadOnlyCollectionOkResponse'
@@ -1271,7 +1269,7 @@ paths:
     post:
       tags:
         - Authorities
-      summary: Fetch the basic authority information by slug
+      summary: AppyWay Fetch the basic authority information by slug
       description: Returns the the basic authority information by slug (authority name)
       operationId: post-fetchfullauthoritybyslug
       requestBody:
@@ -1305,7 +1303,7 @@ paths:
                 $ref: '#/components/schemas/FullAuthorityOkResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/FullAuthorityOkResponse'
@@ -1376,7 +1374,7 @@ paths:
                       properties:
                         name: string
                     coordinates:
-                      - - - 0
+                      -   -   - 0
             text/json:
               schema:
                 $ref: '#/components/schemas/FullAuthorityOkResponse'
@@ -1447,7 +1445,7 @@ paths:
                       properties:
                         name: string
                     coordinates:
-                      - - - 0
+                      -   -   - 0
         '400':
           description: Bad Request
           content:
@@ -1456,7 +1454,7 @@ paths:
                 $ref: '#/components/schemas/BadRequestResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestResponse'
@@ -1487,7 +1485,7 @@ paths:
     post:
       tags:
         - Authorities
-      summary: Fetch Full Authority By Slug
+      summary: AppyWay Fetch Full Authority By Slug
       description: >-
         Returns an object which has the location of the documents containing the
         full restrictions of an authority <br /> 
@@ -1529,7 +1527,7 @@ paths:
                 $ref: '#/components/schemas/AuthoritySnapshotInfoDocOkResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthoritySnapshotInfoDocOkResponse'
@@ -1622,7 +1620,7 @@ paths:
                             properties:
                               name: string
                           coordinates:
-                            - - - 0
+                            -   -   - 0
                         properties:
                           zoneId: string
                           authorityId: string
@@ -1988,7 +1986,7 @@ paths:
                             properties:
                               name: string
                           coordinates:
-                            - - - 0
+                            -   -   - 0
                         properties:
                           zoneId: string
                           authorityId: string
@@ -2270,7 +2268,7 @@ paths:
                 $ref: '#/components/schemas/BadRequestResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestResponse'
@@ -2301,7 +2299,7 @@ paths:
     get:
       tags:
         - Status
-      summary: Ping
+      summary: AppyWay Ping
       description: Returns Status (pong) of the API service
       operationId: get-ping
       responses:
@@ -2317,7 +2315,7 @@ paths:
     get:
       tags:
         - GIS
-      summary: Executes a Web Feature Service (WFS) query.
+      summary: AppyWay Executes a Web Feature Service (WFS) query.
       description: Executes a Web Feature Service (WFS) query.
       operationId: get-wfs
       responses:
@@ -2329,7 +2327,7 @@ paths:
                 $ref: '#/components/schemas/WfsStreamActionResultOkResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/WfsStreamActionResultOkResponse'
@@ -2350,7 +2348,7 @@ paths:
                 $ref: '#/components/schemas/BadRequestResponse'
               examples:
                 default:
-                  value: null
+                  value:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestResponse'
@@ -3187,7 +3185,7 @@ components:
         - 28
         - 29
       type: integer
-      description: |
+      description: |2
 
 
         *OperatingHoursSetAssignment (0)
@@ -3244,7 +3242,7 @@ components:
         - 3
         - 4
       type: integer
-      description: |
+      description: |2
 
 
         *HdPlus (1)
@@ -3286,7 +3284,7 @@ components:
         - 1
         - 2
       type: integer
-      description: |
+      description: |2
 
 
         *Generating (0)
@@ -3300,7 +3298,7 @@ components:
         - 2
         - 3
       type: integer
-      description: >
+      description: >2
 
 
         *Maps (0) - Represents the 'Proposed Order' and 'Made Order' map
@@ -3567,7 +3565,7 @@ components:
         - 9
         - 10
       type: integer
-      description: |
+      description: |2
 
 
         *Authority (0)
@@ -3850,7 +3848,7 @@ components:
         - 5
         - 6
       type: integer
-      description: |
+      description: |2
 
 
         *Petrol (1)
@@ -4487,7 +4485,7 @@ components:
         - 21
         - 22
       type: integer
-      description: |
+      description: |2
 
 
         *WeightLimitEnvironmental (0)
@@ -4866,7 +4864,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderType'
-          description: |
+          description: |2
 
 
             *Tro (0)
@@ -4878,7 +4876,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderState'
-          description: >
+          description: >2
 
 
             *EditingDraft (0) - The order is being configured in Mapper.
@@ -4947,7 +4945,7 @@ components:
         - 8
         - 9
       type: integer
-      description: >
+      description: >2
 
 
         *EditingDraft (0) - The order is being configured in Mapper.
@@ -4992,7 +4990,7 @@ components:
         - 3
         - 4
       type: integer
-      description: |
+      description: |2
 
 
         *Tro (0)
@@ -5006,7 +5004,7 @@ components:
         - 1
         - 2
       type: integer
-      description: |
+      description: |2
 
 
         *Unknown (0)
@@ -5311,7 +5309,7 @@ components:
         - 2
         - 3
       type: integer
-      description: |
+      description: |2
 
 
         *Static (1)
@@ -5786,7 +5784,7 @@ components:
         - 0
         - 1
       type: integer
-      description: |
+      description: |2
 
 
         *Flat (0)

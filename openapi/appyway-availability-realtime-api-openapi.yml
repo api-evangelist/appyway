@@ -21,7 +21,7 @@ paths:
     get:
       tags:
         - Status
-      summary: Ping
+      summary: AppyWay Ping
       description: Returns Status (pong) of the Availability Realtime service
       operationId: get-ping
       responses:
@@ -37,7 +37,7 @@ paths:
     post:
       tags:
         - Availability
-      summary: Fetch realtime availability by entity Ids
+      summary: AppyWay Fetch realtime availability by entity Ids
       description: Returns the availability for the list of given entity Ids.
       operationId: post-queries-fetchavailabilitybyentityids
       requestBody:
@@ -210,7 +210,7 @@ components:
             Availability aggregation group key formed by the group id and entity
             id
           nullable: true
-        (Collection): null
+        (Collection):
       additionalProperties: false
     FetchAvailabilityForAllSourceTypesByEntityIdsQuery:
       type: object
@@ -233,7 +233,7 @@ components:
             Availability aggregation group key formed by the group id and entity
             id
           nullable: true
-        (Collection): null
+        (Collection):
       additionalProperties: false
     FetchH3AvailabilityByCentreAndViewportSizeQuery:
       type: object
