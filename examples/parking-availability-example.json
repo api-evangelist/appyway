@@ -1,0 +1,17 @@
+{
+  "locationId": "LOC-LONDON-001",
+  "name": "Trafalgar Square Car Park",
+  "availableSpaces": 42,
+  "totalSpaces": 150,
+  "occupancyPercent": 72.0,
+  "timestamp": "2026-04-19T14:30:00Z",
+  "coordinates": {
+    "latitude": 51.508,
+    "longitude": -0.1281
+  },
+  "evCharging": true,
+  "restrictions": [
+    "2-hour maximum",
+    "residents exempt after 6pm"
+  ]
+}

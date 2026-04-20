@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appyway/main/json-schema/parking-availability-schema.json",
+  "title": "ParkingAvailability",
+  "description": "Real-time parking availability data from AppyWay",
+  "type": "object",
+  "properties": {
+    "locationId": {
+      "type": "string",
+      "description": "Unique parking location identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Parking location name"
+    },
+    "availableSpaces": {
+      "type": "integer",
+      "description": "Number of available parking spaces"
+    },
+    "totalSpaces": {
+      "type": "integer",
+      "description": "Total number of parking spaces"
+    },
+    "occupancyPercent": {
+      "type": "number",
+      "description": "Current occupancy percentage"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of availability data"
+    },
+    "coordinates": {
+      "type": "object",
+      "description": "Geographic coordinates of the parking location",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    },
+    "evCharging": {
+      "type": "boolean",
+      "description": "Whether EV charging is available"
+    },
+    "restrictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Parking restrictions (residents only, time-limited, etc.)"
+    }
+  },
+  "required": [
+    "locationId",
+    "availableSpaces",
+    "totalSpaces",
+    "timestamp"
+  ]
+}

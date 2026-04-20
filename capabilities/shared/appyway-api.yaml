@@ -1,0 +1,106 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: AppyWay API
+  description: >-
+    API for the AppyWay urban mobility platform providing real-time parking
+    availability, traffic data, and kerbside management for cities and businesses.
+  tags:
+    - AppyWay
+    - Parking
+    - Traffic
+    - Urban Mobility
+    - Smart Cities
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      APPYWAY_API_KEY: APPYWAY_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: appyway
+      baseUri: "https://api.appyway.com/v1"
+      description: AppyWay urban mobility API
+      authentication:
+        type: apikey
+        header: X-API-Key
+        key: "{{APPYWAY_API_KEY}}"
+      resources:
+        - name: availability
+          path: /availability
+          description: Real-time parking availability data
+          operations:
+            - name: get-availability
+              method: GET
+              description: Returns real-time parking availability
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: traffic
+          path: /traffic
+          description: Real-time and historical traffic data
+          operations:
+            - name: get-traffic
+              method: GET
+              description: Returns traffic flow and congestion data
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: locations
+          path: /locations
+          description: Parking and kerbside location data
+          operations:
+            - name: list-locations
+              method: GET
+              description: Returns a list of parking locations
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: mcp
+      port: 9090
+      namespace: appyway-mcp
+      transport: http
+      tools:
+        - name: get-parking-availability
+          description: Gets real-time parking availability data for a location or area
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "appyway.get-availability"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-traffic-data
+          description: Gets real-time traffic flow and congestion data
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "appyway.get-traffic"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-parking-locations
+          description: Lists parking locations with availability and restriction data
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "appyway.list-locations"
+          outputParameters:
+            - type: object
+              mapping: "$."

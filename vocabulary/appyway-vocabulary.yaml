@@ -1,0 +1,127 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: AppyWay
+  description: >-
+    Vocabulary for the AppyWay urban mobility and parking management platform,
+    covering real-time parking availability, traffic data, kerbside management,
+    and EV charging location data for smart city applications.
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - name: AppyWay Availability Real-Time API
+      namespace: appyway-availability
+      version: "1.0.0"
+      baseUrl: "https://api.appyway.com/v1"
+      status: active
+    - name: AppyWay Traffic Data API
+      namespace: appyway-traffic
+      version: "1.0.0"
+      baseUrl: "https://api.appyway.com/v1"
+      status: active
+    - name: AppyWay Explorer API
+      namespace: appyway-explorer
+      version: "1.0.0"
+      baseUrl: "https://api.appyway.com/v1"
+      status: active
+
+  resources:
+    - name: availability
+      description: Real-time parking space availability data
+      api: AppyWay Availability Real-Time API
+      actions:
+        - get
+        - list
+    - name: traffic
+      description: Real-time and historical traffic flow data
+      api: AppyWay Traffic Data API
+      actions:
+        - get
+        - list
+    - name: locations
+      description: Parking and kerbside location information
+      api: AppyWay Explorer API
+      actions:
+        - list
+        - get
+
+  actions:
+    - name: get
+      httpMethod: GET
+      pattern: read
+    - name: list
+      httpMethod: GET
+      pattern: read
+
+  schemas:
+    core:
+      - name: ParkingAvailability
+        description: Real-time availability data for a parking location
+      - name: TrafficData
+        description: Traffic flow and congestion data for an area
+      - name: ParkingLocation
+        description: A parking or kerbside location with restrictions and metadata
+
+  parameters:
+    identifiers:
+      - name: locationId
+        description: Unique parking location identifier
+    filters:
+      - name: latitude
+        description: Latitude coordinate for location-based queries
+      - name: longitude
+        description: Longitude coordinate for location-based queries
+      - name: radius
+        description: Search radius in meters
+
+  enums:
+    restrictionTypes:
+      - residents-only
+      - time-limited
+      - pay-and-display
+      - permit-holders
+      - loading-only
+      - disabled-badge-holders
+    parkingTypes:
+      - on-street
+      - car-park
+      - bay
+      - kerbside
+
+  authentication:
+    schemes:
+      - type: apikey
+        description: API key via X-API-Key request header
+
+capability:
+  workflows:
+    - name: Smart Parking
+      description: Find and route to available parking using real-time AppyWay data
+      resources:
+        - availability
+        - locations
+  personas:
+    - name: City Planner
+      description: Uses traffic and parking data for urban mobility planning
+    - name: Driver
+      description: Finds available parking and avoids congestion zones
+    - name: Fleet Operator
+      description: Manages fleet routing and parking compliance using kerbside data
+  domains:
+    - name: Parking Availability
+      description: Real-time data on parking space availability
+      resources:
+        - availability
+    - name: Traffic Management
+      description: Real-time and historical traffic flow data
+      resources:
+        - traffic
+    - name: Kerbside Data
+      description: Location data for parking bays with restrictions and charging
+      resources:
+        - locations
+
+  namespaces: []
+  binds: []

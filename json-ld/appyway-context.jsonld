@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "geo": "https://www.w3.org/2003/01/geo/wgs84_pos#",
+    "appyway": "https://appyway.com/vocab#",
+    "locationId": "schema:identifier",
+    "name": "schema:name",
+    "availableSpaces": "appyway:availableSpaces",
+    "totalSpaces": "appyway:totalSpaces",
+    "occupancyPercent": "appyway:occupancyPercent",
+    "timestamp": "schema:dateModified",
+    "coordinates": "geo:SpatialThing",
+    "latitude": "geo:lat",
+    "longitude": "geo:long",
+    "evCharging": "appyway:evCharging",
+    "restrictions": "appyway:restrictions"
+  }
+}

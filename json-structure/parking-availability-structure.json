@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appyway/main/json-structure/parking-availability-structure.json",
+  "title": "ParkingAvailability",
+  "description": "Real-time parking availability data from AppyWay",
+  "type": "record",
+  "fields": [
+    {
+      "name": "locationId",
+      "type": "string",
+      "description": "Unique parking location identifier"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Parking location name"
+    },
+    {
+      "name": "availableSpaces",
+      "type": "int32",
+      "description": "Available parking spaces"
+    },
+    {
+      "name": "totalSpaces",
+      "type": "int32",
+      "description": "Total parking spaces"
+    },
+    {
+      "name": "occupancyPercent",
+      "type": "float64",
+      "description": "Occupancy percentage"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "Data timestamp"
+    },
+    {
+      "name": "evCharging",
+      "type": "boolean",
+      "description": "EV charging available"
+    }
+  ]
+}
