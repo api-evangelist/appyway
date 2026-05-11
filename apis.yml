@@ -137,6 +137,8 @@ common:
   name: Rate Limiting | Appyway Platform
   type: RateLimits
   description: 'null'
+- type: Integrations
+  url: https://appyway.com/integrations
 created: '2025-02-08'
 modified: '2026-04-19'
 position: Consumer
@@ -147,6 +149,14 @@ description: >-
   to parking. Through their smart parking solutions, AppyWay simplifies the parking
   experience for drivers while also helping to create more sustainable and efficient
   urban environments.
+integrations:
+  - name: AppyWay
+  - name: dorset county council
+  - name: southwark council
+  - name: client
+  - name: cornwall council
+  - name: haringey london council
+  - name: harrogate borough council
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
