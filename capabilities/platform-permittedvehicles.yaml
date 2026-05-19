@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — PermittedVehicles
+  description: 'AppyWay Platform API — PermittedVehicles. 1 operations. Lead operation: AppyWay Fetch All Permitted Vehicles.
+    Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - PermittedVehicles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-permittedvehicles
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — PermittedVehicles business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllPermittedVehicles
+      path: /fetchAllPermittedVehicles
+      operations:
+      - name: postfetchallpermittedvehicles
+        method: POST
+        description: AppyWay Fetch All Permitted Vehicles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-permittedvehicles-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — PermittedVehicles. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fetchallpermittedvehicles
+      name: fetchallpermittedvehicles
+      description: REST surface for fetchAllPermittedVehicles.
+      operations:
+      - method: POST
+        name: postfetchallpermittedvehicles
+        description: AppyWay Fetch All Permitted Vehicles
+        call: platform-permittedvehicles.postfetchallpermittedvehicles
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-permittedvehicles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — PermittedVehicles. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-permitted-vehicles
+      description: AppyWay Fetch All Permitted Vehicles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-permittedvehicles.postfetchallpermittedvehicles
+      outputParameters:
+      - type: object
+        mapping: $.

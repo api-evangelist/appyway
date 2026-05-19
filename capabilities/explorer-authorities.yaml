@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Explorer API — Authorities
+  description: 'AppyWay Explorer API — Authorities. 2 operations. Lead operation: AppyWay Fetch an authority by ID. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Authorities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: explorer-authorities
+    baseUri: https://api.appyway.com/v1/explorer
+    description: AppyWay Explorer API — Authorities business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAuthorityById
+      path: /fetchAuthorityById
+      operations:
+      - name: postfetchauthoritybyid
+        method: POST
+        description: AppyWay Fetch an authority by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: findAuthorityIdsByViewport
+      path: /findAuthorityIdsByViewport
+      operations:
+      - name: postfindauthorityidsbyviewport
+        method: POST
+        description: AppyWay Find authority ids by viewport
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: explorer-authorities-rest
+    port: 8080
+    description: REST adapter for AppyWay Explorer API — Authorities. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fetchauthoritybyid
+      name: fetchauthoritybyid
+      description: REST surface for fetchAuthorityById.
+      operations:
+      - method: POST
+        name: postfetchauthoritybyid
+        description: AppyWay Fetch an authority by ID
+        call: explorer-authorities.postfetchauthoritybyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/findauthorityidsbyviewport
+      name: findauthorityidsbyviewport
+      description: REST surface for findAuthorityIdsByViewport.
+      operations:
+      - method: POST
+        name: postfindauthorityidsbyviewport
+        description: AppyWay Find authority ids by viewport
+        call: explorer-authorities.postfindauthorityidsbyviewport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: explorer-authorities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Explorer API — Authorities. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-fetch-authority-id
+      description: AppyWay Fetch an authority by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-authorities.postfetchauthoritybyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-find-authority-ids-viewport
+      description: AppyWay Find authority ids by viewport
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-authorities.postfindauthorityidsbyviewport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

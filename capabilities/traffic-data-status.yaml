@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Traffic Data API — Status
+  description: 'AppyWay Traffic Data API — Status. 1 operations. Lead operation: AppyWay Ping. Self-contained Naftiko capability
+    covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Status
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: traffic-data-status
+    baseUri: https://api.appyway.com/v1/traffic-data
+    description: AppyWay Traffic Data API — Status business capability. Self-contained, no shared references.
+    resources:
+    - name: ping
+      path: /ping
+      operations:
+      - name: getping
+        method: GET
+        description: AppyWay Ping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: traffic-data-status-rest
+    port: 8080
+    description: REST adapter for AppyWay Traffic Data API — Status. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/ping
+      name: ping
+      description: REST surface for ping.
+      operations:
+      - method: GET
+        name: getping
+        description: AppyWay Ping
+        call: traffic-data-status.getping
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: traffic-data-status-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Traffic Data API — Status. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-ping
+      description: AppyWay Ping
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: traffic-data-status.getping
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Explorer API — Bulk
+  description: 'AppyWay Explorer API — Bulk. 1 operations. Lead operation: AppyWay Fetches entities by their IDs. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Bulk
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: explorer-bulk
+    baseUri: https://api.appyway.com/v1/explorer
+    description: AppyWay Explorer API — Bulk business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchEntitiesByIds
+      path: /fetchEntitiesByIds
+      operations:
+      - name: postfetchentitiesbyids
+        method: POST
+        description: AppyWay Fetches entities by their IDs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: explorer-bulk-rest
+    port: 8080
+    description: REST adapter for AppyWay Explorer API — Bulk. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/fetchentitiesbyids
+      name: fetchentitiesbyids
+      description: REST surface for fetchEntitiesByIds.
+      operations:
+      - method: POST
+        name: postfetchentitiesbyids
+        description: AppyWay Fetches entities by their IDs
+        call: explorer-bulk.postfetchentitiesbyids
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: explorer-bulk-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Explorer API — Bulk. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: appyway-fetches-entities-their-ids
+      description: AppyWay Fetches entities by their IDs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-bulk.postfetchentitiesbyids
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

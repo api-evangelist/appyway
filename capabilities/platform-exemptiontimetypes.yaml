@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — ExemptionTimeTypes
+  description: 'AppyWay Platform API — ExemptionTimeTypes. 1 operations. Lead operation: AppyWay Fetch All Exemption Time
+    Types. Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - ExemptionTimeTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-exemptiontimetypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — ExemptionTimeTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllExemptionTimeTypes
+      path: /fetchAllExemptionTimeTypes
+      operations:
+      - name: postfetchallexemptiontimetypes
+        method: POST
+        description: AppyWay Fetch All Exemption Time Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-exemptiontimetypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — ExemptionTimeTypes. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/fetchallexemptiontimetypes
+      name: fetchallexemptiontimetypes
+      description: REST surface for fetchAllExemptionTimeTypes.
+      operations:
+      - method: POST
+        name: postfetchallexemptiontimetypes
+        description: AppyWay Fetch All Exemption Time Types
+        call: platform-exemptiontimetypes.postfetchallexemptiontimetypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-exemptiontimetypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — ExemptionTimeTypes. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-exemption-time
+      description: AppyWay Fetch All Exemption Time Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-exemptiontimetypes.postfetchallexemptiontimetypes
+      outputParameters:
+      - type: object
+        mapping: $.

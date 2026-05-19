@@ -1,0 +1,154 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — Countries
+  description: 'AppyWay Platform API — Countries. 3 operations. Lead operation: AppyWay Change Country Special Days. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Countries
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-countries
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — Countries business capability. Self-contained, no shared references.
+    resources:
+    - name: changeCountrySpecialDays
+      path: /changeCountrySpecialDays
+      operations:
+      - name: postchangecountryspecialdays
+        method: POST
+        description: AppyWay Change Country Special Days
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: fetchAllCountries
+      path: /fetchAllCountries
+      operations:
+      - name: postfetchallcountries
+        method: POST
+        description: AppyWay Fetch All Countries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fetchCountryById
+      path: /fetchCountryById
+      operations:
+      - name: postfetchcountrybyid
+        method: POST
+        description: AppyWay Fetch Country By Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-countries-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — Countries. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/changecountryspecialdays
+      name: changecountryspecialdays
+      description: REST surface for changeCountrySpecialDays.
+      operations:
+      - method: POST
+        name: postchangecountryspecialdays
+        description: AppyWay Change Country Special Days
+        call: platform-countries.postchangecountryspecialdays
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fetchallcountries
+      name: fetchallcountries
+      description: REST surface for fetchAllCountries.
+      operations:
+      - method: POST
+        name: postfetchallcountries
+        description: AppyWay Fetch All Countries
+        call: platform-countries.postfetchallcountries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fetchcountrybyid
+      name: fetchcountrybyid
+      description: REST surface for fetchCountryById.
+      operations:
+      - method: POST
+        name: postfetchcountrybyid
+        description: AppyWay Fetch Country By Id
+        call: platform-countries.postfetchcountrybyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-countries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — Countries. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-change-country-special-days
+      description: AppyWay Change Country Special Days
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-countries.postchangecountryspecialdays
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-fetch-all-countries
+      description: AppyWay Fetch All Countries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-countries.postfetchallcountries
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-fetch-country-id
+      description: AppyWay Fetch Country By Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-countries.postfetchcountrybyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

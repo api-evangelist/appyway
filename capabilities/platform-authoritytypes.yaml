@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — AuthorityTypes
+  description: 'AppyWay Platform API — AuthorityTypes. 1 operations. Lead operation: AppyWay Fetch All Authority Types. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - AuthorityTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-authoritytypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — AuthorityTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllAuthorityTypes
+      path: /fetchAllAuthorityTypes
+      operations:
+      - name: postfetchallauthoritytypes
+        method: POST
+        description: AppyWay Fetch All Authority Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-authoritytypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — AuthorityTypes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fetchallauthoritytypes
+      name: fetchallauthoritytypes
+      description: REST surface for fetchAllAuthorityTypes.
+      operations:
+      - method: POST
+        name: postfetchallauthoritytypes
+        description: AppyWay Fetch All Authority Types
+        call: platform-authoritytypes.postfetchallauthoritytypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-authoritytypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — AuthorityTypes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-authority-types
+      description: AppyWay Fetch All Authority Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-authoritytypes.postfetchallauthoritytypes
+      outputParameters:
+      - type: object
+        mapping: $.

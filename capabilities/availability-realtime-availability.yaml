@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Availability RealTime API — Availability
+  description: 'AppyWay Availability RealTime API — Availability. 1 operations. Lead operation: AppyWay Fetch realtime availability
+    by entity Ids. Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Availability
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: availability-realtime-availability
+    baseUri: https://api.appyway.com/v1/availability-realtime
+    description: AppyWay Availability RealTime API — Availability business capability. Self-contained, no shared references.
+    resources:
+    - name: queries-fetchAvailabilityByEntityIds
+      path: /queries/fetchAvailabilityByEntityIds
+      operations:
+      - name: postqueriesfetchavailabilitybyentityids
+        method: POST
+        description: AppyWay Fetch realtime availability by entity Ids
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: availability-realtime-availability-rest
+    port: 8080
+    description: REST adapter for AppyWay Availability RealTime API — Availability. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/queries/fetchavailabilitybyentityids
+      name: queries-fetchavailabilitybyentityids
+      description: REST surface for queries-fetchAvailabilityByEntityIds.
+      operations:
+      - method: POST
+        name: postqueriesfetchavailabilitybyentityids
+        description: AppyWay Fetch realtime availability by entity Ids
+        call: availability-realtime-availability.postqueriesfetchavailabilitybyentityids
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: availability-realtime-availability-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Availability RealTime API — Availability. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: appyway-fetch-realtime-availability-entity
+      description: AppyWay Fetch realtime availability by entity Ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: availability-realtime-availability.postqueriesfetchavailabilitybyentityids
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

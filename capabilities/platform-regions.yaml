@@ -1,0 +1,154 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — Regions
+  description: 'AppyWay Platform API — Regions. 3 operations. Lead operation: AppyWay Change Region Venues. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Regions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-regions
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — Regions business capability. Self-contained, no shared references.
+    resources:
+    - name: changeRegionVenues
+      path: /changeRegionVenues
+      operations:
+      - name: postchangeregionvenues
+        method: POST
+        description: AppyWay Change Region Venues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: fetchAllRegions
+      path: /fetchAllRegions
+      operations:
+      - name: postfetchallregions
+        method: POST
+        description: AppyWay Fetch All Regions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fetchRegionById
+      path: /fetchRegionById
+      operations:
+      - name: postfetchregionbyid
+        method: POST
+        description: AppyWay Fetches a Region By Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-regions-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — Regions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/changeregionvenues
+      name: changeregionvenues
+      description: REST surface for changeRegionVenues.
+      operations:
+      - method: POST
+        name: postchangeregionvenues
+        description: AppyWay Change Region Venues
+        call: platform-regions.postchangeregionvenues
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fetchallregions
+      name: fetchallregions
+      description: REST surface for fetchAllRegions.
+      operations:
+      - method: POST
+        name: postfetchallregions
+        description: AppyWay Fetch All Regions
+        call: platform-regions.postfetchallregions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fetchregionbyid
+      name: fetchregionbyid
+      description: REST surface for fetchRegionById.
+      operations:
+      - method: POST
+        name: postfetchregionbyid
+        description: AppyWay Fetches a Region By Id
+        call: platform-regions.postfetchregionbyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-regions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — Regions. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: appyway-change-region-venues
+      description: AppyWay Change Region Venues
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-regions.postchangeregionvenues
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-fetch-all-regions
+      description: AppyWay Fetch All Regions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-regions.postfetchallregions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-fetches-region-id
+      description: AppyWay Fetches a Region By Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-regions.postfetchregionbyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

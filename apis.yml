@@ -105,6 +105,8 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/appyway
 - url: https://appyway.com/blog/
   name: AppyWay | Blog - Latest Mobility, Parking & Appy News
   type: Blog

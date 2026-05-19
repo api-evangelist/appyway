@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — FuelTypes
+  description: 'AppyWay Platform API — FuelTypes. 1 operations. Lead operation: AppyWay Fetch All Fuel Types. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - FuelTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-fueltypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — FuelTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllFuelTypes
+      path: /fetchAllFuelTypes
+      operations:
+      - name: postfetchallfueltypes
+        method: POST
+        description: AppyWay Fetch All Fuel Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-fueltypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — FuelTypes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fetchallfueltypes
+      name: fetchallfueltypes
+      description: REST surface for fetchAllFuelTypes.
+      operations:
+      - method: POST
+        name: postfetchallfueltypes
+        description: AppyWay Fetch All Fuel Types
+        call: platform-fueltypes.postfetchallfueltypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-fueltypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — FuelTypes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-fuel-types
+      description: AppyWay Fetch All Fuel Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-fueltypes.postfetchallfueltypes
+      outputParameters:
+      - type: object
+        mapping: $.

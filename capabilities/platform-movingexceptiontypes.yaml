@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — MovingExceptionTypes
+  description: 'AppyWay Platform API — MovingExceptionTypes. 1 operations. Lead operation: AppyWay Fetch All Moving Exception
+    Types. Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - MovingExceptionTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-movingexceptiontypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — MovingExceptionTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllMovingExceptionTypes
+      path: /fetchAllMovingExceptionTypes
+      operations:
+      - name: postfetchallmovingexceptiontypes
+        method: POST
+        description: AppyWay Fetch All Moving Exception Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-movingexceptiontypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — MovingExceptionTypes. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/fetchallmovingexceptiontypes
+      name: fetchallmovingexceptiontypes
+      description: REST surface for fetchAllMovingExceptionTypes.
+      operations:
+      - method: POST
+        name: postfetchallmovingexceptiontypes
+        description: AppyWay Fetch All Moving Exception Types
+        call: platform-movingexceptiontypes.postfetchallmovingexceptiontypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-movingexceptiontypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — MovingExceptionTypes. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-moving-exception
+      description: AppyWay Fetch All Moving Exception Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-movingexceptiontypes.postfetchallmovingexceptiontypes
+      outputParameters:
+      - type: object
+        mapping: $.

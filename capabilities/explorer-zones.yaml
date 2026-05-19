@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Explorer API — Zones
+  description: 'AppyWay Explorer API — Zones. 3 operations. Lead operation: AppyWay Fetch a zone by ID. Self-contained Naftiko
+    capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - Zones
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: explorer-zones
+    baseUri: https://api.appyway.com/v1/explorer
+    description: AppyWay Explorer API — Zones business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchZoneById
+      path: /fetchZoneById
+      operations:
+      - name: postfetchzonebyid
+        method: POST
+        description: AppyWay Fetch a zone by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: fetchZoneDefaultRulesById
+      path: /fetchZoneDefaultRulesById
+      operations:
+      - name: postfetchzonedefaultrulesbyid
+        method: POST
+        description: AppyWay Fetch zone default rules by id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: findZoneDefaultRulesByViewport
+      path: /findZoneDefaultRulesByViewport
+      operations:
+      - name: postfindzonedefaultrulesbyviewport
+        method: POST
+        description: AppyWay Find zone default rules by viewport
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: explorer-zones-rest
+    port: 8080
+    description: REST adapter for AppyWay Explorer API — Zones. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/fetchzonebyid
+      name: fetchzonebyid
+      description: REST surface for fetchZoneById.
+      operations:
+      - method: POST
+        name: postfetchzonebyid
+        description: AppyWay Fetch a zone by ID
+        call: explorer-zones.postfetchzonebyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fetchzonedefaultrulesbyid
+      name: fetchzonedefaultrulesbyid
+      description: REST surface for fetchZoneDefaultRulesById.
+      operations:
+      - method: POST
+        name: postfetchzonedefaultrulesbyid
+        description: AppyWay Fetch zone default rules by id
+        call: explorer-zones.postfetchzonedefaultrulesbyid
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/findzonedefaultrulesbyviewport
+      name: findzonedefaultrulesbyviewport
+      description: REST surface for findZoneDefaultRulesByViewport.
+      operations:
+      - method: POST
+        name: postfindzonedefaultrulesbyviewport
+        description: AppyWay Find zone default rules by viewport
+        call: explorer-zones.postfindzonedefaultrulesbyviewport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: explorer-zones-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Explorer API — Zones. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: appyway-fetch-zone-id
+      description: AppyWay Fetch a zone by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-zones.postfetchzonebyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-fetch-zone-default-rules
+      description: AppyWay Fetch zone default rules by id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-zones.postfetchzonedefaultrulesbyid
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-find-zone-default-rules
+      description: AppyWay Find zone default rules by viewport
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: explorer-zones.postfindzonedefaultrulesbyviewport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

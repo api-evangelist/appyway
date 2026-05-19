@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — ExemptionTypes
+  description: 'AppyWay Platform API — ExemptionTypes. 1 operations. Lead operation: AppyWay Fetch All Exemption Types. Self-contained
+    Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - ExemptionTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-exemptiontypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — ExemptionTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllExemptionTypes
+      path: /fetchAllExemptionTypes
+      operations:
+      - name: postfetchallexemptiontypes
+        method: POST
+        description: AppyWay Fetch All Exemption Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-exemptiontypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — ExemptionTypes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fetchallexemptiontypes
+      name: fetchallexemptiontypes
+      description: REST surface for fetchAllExemptionTypes.
+      operations:
+      - method: POST
+        name: postfetchallexemptiontypes
+        description: AppyWay Fetch All Exemption Types
+        call: platform-exemptiontypes.postfetchallexemptiontypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-exemptiontypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — ExemptionTypes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-exemption-types
+      description: AppyWay Fetch All Exemption Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-exemptiontypes.postfetchallexemptiontypes
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Platform API — OnStreetParkingTypes
+  description: 'AppyWay Platform API — OnStreetParkingTypes. 1 operations. Lead operation: AppyWay Fetch All On-Street Parking
+    Types. Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - OnStreetParkingTypes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-onstreetparkingtypes
+    baseUri: https://api.appyway.com/v1/reference
+    description: AppyWay Platform API — OnStreetParkingTypes business capability. Self-contained, no shared references.
+    resources:
+    - name: fetchAllOnStreetParkingTypes
+      path: /fetchAllOnStreetParkingTypes
+      operations:
+      - name: postfetchallonstreetparkingtypes
+        method: POST
+        description: AppyWay Fetch All On-Street Parking Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-onstreetparkingtypes-rest
+    port: 8080
+    description: REST adapter for AppyWay Platform API — OnStreetParkingTypes. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/fetchallonstreetparkingtypes
+      name: fetchallonstreetparkingtypes
+      description: REST surface for fetchAllOnStreetParkingTypes.
+      operations:
+      - method: POST
+        name: postfetchallonstreetparkingtypes
+        description: AppyWay Fetch All On-Street Parking Types
+        call: platform-onstreetparkingtypes.postfetchallonstreetparkingtypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-onstreetparkingtypes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Platform API — OnStreetParkingTypes. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: appyway-fetch-all-street-parking
+      description: AppyWay Fetch All On-Street Parking Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: platform-onstreetparkingtypes.postfetchallonstreetparkingtypes
+      outputParameters:
+      - type: object
+        mapping: $.

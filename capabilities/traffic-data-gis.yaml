@@ -1,0 +1,214 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AppyWay Traffic Data API — GIS
+  description: 'AppyWay Traffic Data API — GIS. 4 operations. Lead operation: AppyWay Export Authority moving Restrictions
+    as GeoJSON by ID. Self-contained Naftiko capability covering one Appyway business surface.'
+  tags:
+  - Appyway
+  - GIS
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPYWAY_API_KEY: APPYWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: traffic-data-gis
+    baseUri: https://api.appyway.com/v1/traffic-data
+    description: AppyWay Traffic Data API — GIS business capability. Self-contained, no shared references.
+    resources:
+    - name: exportAuthorityMovingRestrictionsById-authorityId}.geojson
+      path: /exportAuthorityMovingRestrictionsById/{authorityId}.geojson
+      operations:
+      - name: getexportauthoritymovingrestrictionsbyidauthorityidgeojson
+        method: GET
+        description: AppyWay Export Authority moving Restrictions as GeoJSON by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: authorityId
+          in: path
+          type: string
+          description: Format - uuid. The ID of the authority.
+          required: true
+        - name: restrictions
+          in: query
+          type: array
+          description: The set of moving restriction IDs. If left empty will export all allowed restrictions
+    - name: exportAuthorityRestrictionsById-authorityId}.geojson
+      path: /exportAuthorityRestrictionsById/{authorityId}.geojson
+      operations:
+      - name: getexportauthorityrestrictionsbyidauthorityidgeojson
+        method: GET
+        description: AppyWay Export Authority static Restrictions as GeoJSON by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: authorityId
+          in: path
+          type: string
+          description: Format - uuid. The ID of the authority.
+          required: true
+        - name: restrictions
+          in: query
+          type: array
+          description: The set of static restriction IDs. If left empty will export all allowed restrictions
+    - name: exportAuthorityRestrictionsBySlug-slug}.geojson
+      path: /exportAuthorityRestrictionsBySlug/{slug}.geojson
+      operations:
+      - name: getexportauthorityrestrictionsbyslugsluggeojson
+        method: GET
+        description: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: slug
+          in: path
+          type: string
+          description: The slug used to identify the authority eg. hackney
+          required: true
+        - name: restrictions
+          in: query
+          type: array
+          description: The set of static restriction IDs. If left empty will export all allowed restrictions
+    - name: wfs
+      path: /wfs
+      operations:
+      - name: getwfs
+        method: GET
+        description: AppyWay Executes a Web Feature Service (WFS) query.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.APPYWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: traffic-data-gis-rest
+    port: 8080
+    description: REST adapter for AppyWay Traffic Data API — GIS. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/exportauthoritymovingrestrictionsbyid/authorityid-geojson
+      name: exportauthoritymovingrestrictionsbyid-authorityid-geojson
+      description: REST surface for exportAuthorityMovingRestrictionsById-authorityId}.geojson.
+      operations:
+      - method: GET
+        name: getexportauthoritymovingrestrictionsbyidauthorityidgeojson
+        description: AppyWay Export Authority moving Restrictions as GeoJSON by ID
+        call: traffic-data-gis.getexportauthoritymovingrestrictionsbyidauthorityidgeojson
+        with:
+          authorityId: rest.authorityId
+          restrictions: rest.restrictions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/exportauthorityrestrictionsbyid/authorityid-geojson
+      name: exportauthorityrestrictionsbyid-authorityid-geojson
+      description: REST surface for exportAuthorityRestrictionsById-authorityId}.geojson.
+      operations:
+      - method: GET
+        name: getexportauthorityrestrictionsbyidauthorityidgeojson
+        description: AppyWay Export Authority static Restrictions as GeoJSON by ID
+        call: traffic-data-gis.getexportauthorityrestrictionsbyidauthorityidgeojson
+        with:
+          authorityId: rest.authorityId
+          restrictions: rest.restrictions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/exportauthorityrestrictionsbyslug/slug-geojson
+      name: exportauthorityrestrictionsbyslug-slug-geojson
+      description: REST surface for exportAuthorityRestrictionsBySlug-slug}.geojson.
+      operations:
+      - method: GET
+        name: getexportauthorityrestrictionsbyslugsluggeojson
+        description: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
+        call: traffic-data-gis.getexportauthorityrestrictionsbyslugsluggeojson
+        with:
+          slug: rest.slug
+          restrictions: rest.restrictions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wfs
+      name: wfs
+      description: REST surface for wfs.
+      operations:
+      - method: GET
+        name: getwfs
+        description: AppyWay Executes a Web Feature Service (WFS) query.
+        call: traffic-data-gis.getwfs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: traffic-data-gis-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AppyWay Traffic Data API — GIS. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: appyway-export-authority-moving-restrictions
+      description: AppyWay Export Authority moving Restrictions as GeoJSON by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: traffic-data-gis.getexportauthoritymovingrestrictionsbyidauthorityidgeojson
+      with:
+        authorityId: tools.authorityId
+        restrictions: tools.restrictions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-export-authority-static-restrictions
+      description: AppyWay Export Authority static Restrictions as GeoJSON by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: traffic-data-gis.getexportauthorityrestrictionsbyidauthorityidgeojson
+      with:
+        authorityId: tools.authorityId
+        restrictions: tools.restrictions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-export-authority-static-restrictions-2
+      description: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: traffic-data-gis.getexportauthorityrestrictionsbyslugsluggeojson
+      with:
+        slug: tools.slug
+        restrictions: tools.restrictions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appyway-executes-web-feature-service
+      description: AppyWay Executes a Web Feature Service (WFS) query.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: traffic-data-gis.getwfs
+      outputParameters:
+      - type: object
+        mapping: $.
