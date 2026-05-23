@@ -113,6 +113,9 @@ common:
     name: AppyWay | Blog - Latest Mobility, Parking & Appy News
     type: Blog
     description: 'null'
+  - url: https://appyway.com/blog/feed/
+    type: BlogRSS
+    description: Discovered RSS/Atom feed for https://appyway.com/blog/
   - url: https://appyway.com/london-council-workshop-oct-22/
     name: '[IN-PERSON WORKSHOP] Empowering stakeholders of Londons TMOsAppyWay'
     type: Events
