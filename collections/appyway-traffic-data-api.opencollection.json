@@ -1,0 +1,216 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Traffic Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Gets the basic authority information for all authorities that you are entitled to access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/authorities/getAll"
+          },
+          "docs": "Gets the basic authority information for all authorities that you are entitled to access"
+        },
+        {
+          "info": {
+            "name": "AppyWay Get Full Authority By Slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/authorities/getFullBySlug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "The name of the authority. You can find this by making a request to the getAll endpoint"
+              },
+              {
+                "name": "maxDate",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339). The date at which you wish to view the restrictions"
+              }
+            ]
+          },
+          "docs": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch basic authority information for all authorities that you are entitled to access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/traffic-data/fetchAllAuthorities"
+          },
+          "docs": "Fetch basic authority information for all authorities that you are entitled to access"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch the basic authority information by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/traffic-data/fetchFullAuthorityBySlug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the the basic authority information by slug (authority name)"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch Full Authority By Slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/traffic-data/fetchFullAuthorityInfoBySlug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "GIS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Export Authority moving Restrictions as GeoJSON by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/exportAuthorityMovingRestrictionsById/:authorityId.geojson",
+            "params": [
+              {
+                "name": "authorityId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid. The ID of the authority."
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of moving restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the moving restrictions of an authority."
+        },
+        {
+          "info": {
+            "name": "AppyWay Export Authority static Restrictions as GeoJSON by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/exportAuthorityRestrictionsById/:authorityId.geojson",
+            "params": [
+              {
+                "name": "authorityId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid. The ID of the authority."
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of static restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the restrictions of an authority. <br />"
+        },
+        {
+          "info": {
+            "name": "AppyWay Export Authority static Restrictions as GeoJSON by a given slug.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/exportAuthorityRestrictionsBySlug/:slug.geojson",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug used to identify the authority eg. hackney"
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of static restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the moving restrictions of an authority."
+        },
+        {
+          "info": {
+            "name": "AppyWay Executes a Web Feature Service (WFS) query.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/wfs"
+          },
+          "docs": "Executes a Web Feature Service (WFS) query."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/traffic-data/ping"
+          },
+          "docs": "Returns Status (pong) of the API service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

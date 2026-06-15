@@ -1,0 +1,534 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Countries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Change Country Special Days",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/changeCountrySpecialDays",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change Country Special Days"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch All Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllCountries"
+          },
+          "docs": "Returns a list with all the supported countries."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch Country By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchCountryById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a country object if a valid identifier is provided."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Change Region Venues",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/changeRegionVenues",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change Region Venues"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch All Regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllRegions"
+          },
+          "docs": "Returns a list with all the supported country regions."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetches a Region By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchRegionById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a country region object if a valid identifier is provided."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ActivityTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Activity Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllActivityTypes"
+          },
+          "docs": "Returns a list with all the activity types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AuthorityTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Authority Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllAuthorityTypes"
+          },
+          "docs": "Returns a list with all the authority types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "BaseMaps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Base Maps",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllBaseMaps"
+          },
+          "docs": "Return a list with all supported base maps and availability for supported countries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "EntitlementTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Entitlement Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllEntitlementTypes"
+          },
+          "docs": "Returns a list with all the entitlement types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExceptionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Exception Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllExceptionTypes"
+          },
+          "docs": "Returns a list with all the exception types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExemptionTimeTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Exemption Time Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllExemptionTimeTypes"
+          },
+          "docs": "Returns a list with all the exemption time types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExemptionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Exemption Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllExemptionTypes"
+          },
+          "docs": "Returns a list with all the exemption types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "FacilityTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Facility Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllFacilityTypes"
+          },
+          "docs": "Returns a list with all the facility types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "FuelTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Fuel Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllFuelTypes"
+          },
+          "docs": "Returns a list with all the fuel types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MovingExceptionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Moving Exception Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllMovingExceptionTypes"
+          },
+          "docs": "Returns a list with all the moving exception types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MovingRestrictionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Moving Restriction Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllMovingRestrictionTypes"
+          },
+          "docs": "Returns a list with all the moving restriction types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "NoteVisibilityTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Note Visibility Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllNoteVisibilityTypes"
+          },
+          "docs": "Returns a list with all the note visibility types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OffStreetRestrictionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All OffStreet Restriction Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllOffStreetRestrictionTypes"
+          },
+          "docs": "Returns a list with all the off street restriction types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OnStreetParkingTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All On-Street Parking Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllOnStreetParkingTypes"
+          },
+          "docs": "Returns a list with all the on-street parking types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PaymentMethods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Payment Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllPaymentMethods"
+          },
+          "docs": "Returns a list with all the supported payment methods."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PaymentProviders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Payment Providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllPaymentProviders"
+          },
+          "docs": "Returns a list with all the supported payment providers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PermittedVehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Permitted Vehicles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllPermittedVehicles"
+          },
+          "docs": "Returns a list with all the permitted vehicles and associated moving restriction types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PermitTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Permit Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllPermitTypes"
+          },
+          "docs": "Returns a list with all the permit types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "RestrictionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Restriction Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllRestrictionTypes"
+          },
+          "docs": "Returns a list with all the restriction types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "VehicleTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Vehicle Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllVehicleTypes"
+          },
+          "docs": "Returns a list with all the vehicle types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ZoneTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Zone Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/reference/fetchAllZoneTypes"
+          },
+          "docs": "Returns a list with all the zone types."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Ping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/reference/ping"
+          },
+          "docs": "Returns Status (pong) of the Reference service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
