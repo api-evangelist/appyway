@@ -1,0 +1,53 @@
+generated: '2026-07-11'
+method: derived
+docs: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+note: AppyWay does not publish OAuth scopes; its authentication docs state API requests
+  are authenticated using API keys, with invalid keys returning 401 Unauthorized
+  (https://docs.appyway.com/docs/public-docs/50055c042f423-authentication).
+source: openapi/appyway-availability-realtime-api-openapi.yml, openapi/appyway-explorer-api-openapi.yml,
+  openapi/appyway-platform-api-openapi.yml, openapi/appyway-traffic-data-api-openapi.yml, openapi/availability-realtime-api-openapi.yml,
+  openapi/explorer-api-openapi.yml, openapi/traffic-data-api-openapi.yml
+schemes:
+- name: oAuth2
+  source: openapi/appyway-availability-realtime-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-explorer-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-platform-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-traffic-data-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/availability-realtime-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/explorer-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/traffic-data-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+scopes: []
