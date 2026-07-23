@@ -1,0 +1,117 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes PaymentProviders API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: PaymentProviders
+paths:
+  /fetchAllPaymentProviders:
+    post:
+      tags:
+      - PaymentProviders
+      summary: AppyWay Fetch All Payment Providers
+      description: Returns a list with all the supported payment providers.
+      operationId: post-fetchallpaymentproviders
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentProviderIReadOnlyCollectionOkResponse'
+              example:
+                success: true
+                result:
+                - id: string
+                  name: string
+                  paymentsUrl: string
+                  paymentsTelephone: string
+                  paymentsAppDeepLinks: {}
+        '304':
+          description: Not Modified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  schemas:
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+          nullable: true
+        packageName:
+          type: string
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
+          nullable: true
+      additionalProperties: false
+    PaymentProvider:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+          format: uuid
+        name:
+          type: string
+          description: Provider name
+          nullable: true
+        paymentsUrl:
+          type: string
+          description: URL for taking payments (if online payments are supported)
+          nullable: true
+        paymentsTelephone:
+          type: string
+          description: Phone number for taking payments (if pay-by-phone is supported)
+          nullable: true
+        paymentsAppDeepLinks:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentDeepLinks'
+          description: Payment Mobile apps deep links by platform
+          nullable: true
+      additionalProperties: false
+      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
+    PaymentProviderIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2

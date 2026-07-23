@@ -1,0 +1,91 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes ExemptionTypes API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: ExemptionTypes
+paths:
+  /fetchAllExemptionTypes:
+    post:
+      tags:
+      - ExemptionTypes
+      summary: AppyWay Fetch All Exemption Types
+      description: Returns a list with all the exemption types.
+      operationId: post-fetchallexemptiontypes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExemptionTypeIReadOnlyCollectionOkResponse'
+              example:
+                success: true
+                result:
+                - id: 0
+                  name: string
+                  description: string
+        '304':
+          description: Not Modified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    ExemptionType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int32
+        name:
+          type: string
+          description: Name
+          nullable: true
+        description:
+          type: string
+          description: Description
+          nullable: true
+      additionalProperties: false
+      description: Indicates what exemption there could be for a specific activity, vehicle or person
+    ExemptionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExemptionType'
+          nullable: true
+      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2

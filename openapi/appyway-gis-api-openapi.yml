@@ -1,0 +1,350 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes GIS API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: GIS
+paths:
+  /exportAuthorityMovingRestrictionsById/{authorityId}.geojson:
+    get:
+      tags:
+      - GIS
+      summary: AppyWay Export Authority moving Restrictions as GeoJSON by ID
+      description: Returns a GeoJSON containing the moving restrictions of an authority.
+      operationId: get-exportauthoritymovingrestrictionsbyid-authorityid-geojson
+      parameters:
+      - name: authorityId
+        in: path
+        description: Format - uuid. The ID of the authority.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: restrictions
+        in: query
+        description: The set of moving restriction IDs. If left empty will export all allowed restrictions
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /exportAuthorityRestrictionsById/{authorityId}.geojson:
+    get:
+      tags:
+      - GIS
+      summary: AppyWay Export Authority static Restrictions as GeoJSON by ID
+      description: Returns a GeoJSON containing the restrictions of an authority. <br />
+      operationId: get-exportauthorityrestrictionsbyid-authorityid-geojson
+      parameters:
+      - name: authorityId
+        in: path
+        description: Format - uuid. The ID of the authority.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: restrictions
+        in: query
+        description: The set of static restriction IDs. If left empty will export all allowed restrictions
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GeoJsonExportStreamResultOkResponse'
+              examples:
+                default:
+                  value: null
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoJsonExportStreamResultOkResponse'
+              example:
+                success: true
+                result:
+                  content:
+                    canRead: true
+                    canWrite: true
+                    canSeek: true
+                    canTimeout: true
+                    length: 0
+                    position: 0
+                    readTimeout: 0
+                    writeTimeout: 0
+                  gZipped: true
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GeoJsonExportStreamResultOkResponse'
+              example:
+                success: true
+                result:
+                  content:
+                    canRead: true
+                    canWrite: true
+                    canSeek: true
+                    canTimeout: true
+                    length: 0
+                    position: 0
+                    readTimeout: 0
+                    writeTimeout: 0
+                  gZipped: true
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              examples:
+                default:
+                  value: null
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /exportAuthorityRestrictionsBySlug/{slug}.geojson:
+    get:
+      tags:
+      - GIS
+      summary: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
+      description: Returns a GeoJSON containing the moving restrictions of an authority.
+      operationId: get-exportauthorityrestrictionsbyslug-slug-geojson
+      parameters:
+      - name: slug
+        in: path
+        description: The slug used to identify the authority eg. hackney
+        required: true
+        schema:
+          type: string
+      - name: restrictions
+        in: query
+        description: The set of static restriction IDs. If left empty will export all allowed restrictions
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /wfs:
+    get:
+      tags:
+      - GIS
+      summary: AppyWay Executes a Web Feature Service (WFS) query.
+      description: Executes a Web Feature Service (WFS) query.
+      operationId: get-wfs
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/WfsStreamActionResultOkResponse'
+              examples:
+                default:
+                  value: null
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfsStreamActionResultOkResponse'
+              example:
+                success: true
+                result: {}
+            text/json:
+              schema:
+                $ref: '#/components/schemas/WfsStreamActionResultOkResponse'
+              example:
+                success: true
+                result: {}
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              examples:
+                default:
+                  value: null
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    WfsStreamActionResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/WfsStreamActionResult'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    GeoJsonExportStreamResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+      additionalProperties: false
+    WfsStreamActionResult:
+      type: object
+      additionalProperties: false
+    GeoJsonExportStreamResult:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/Stream'
+        gZipped:
+          type: boolean
+      additionalProperties: false
+    Stream:
+      type: object
+      properties:
+        canRead:
+          type: boolean
+          readOnly: true
+        canWrite:
+          type: boolean
+          readOnly: true
+        canSeek:
+          type: boolean
+          readOnly: true
+        canTimeout:
+          type: boolean
+          readOnly: true
+        length:
+          type: integer
+          format: int64
+          readOnly: true
+        position:
+          type: integer
+          format: int64
+        readTimeout:
+          type: integer
+          format: int32
+        writeTimeout:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2

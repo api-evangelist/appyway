@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes EntitlementTypes API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: EntitlementTypes
+paths:
+  /fetchAllEntitlementTypes:
+    post:
+      tags:
+      - EntitlementTypes
+      summary: AppyWay Fetch All Entitlement Types
+      description: Returns a list with all the entitlement types.
+      operationId: post-fetchallentitlementtypes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementTypeIReadOnlyCollectionOkResponse'
+              example:
+                success: true
+                result:
+                - id: 0
+                  name: string
+                  description: string
+                  code: string
+                  restrictionTypeIds:
+                  - 0
+                  applicableExemptionTypeIds:
+                  - 0
+                  hasTariff: true
+                  restrictionTypeLegalNames:
+                  - restrictionTypeId: 0
+                    legalName: string
+        '304':
+          description: Not Modified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  schemas:
+    EntitlementType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int32
+        name:
+          type: string
+          description: Name
+          nullable: true
+        description:
+          type: string
+          description: Description
+          nullable: true
+        code:
+          type: string
+          description: Shorthand code that represents this entitlement.
+          nullable: true
+        restrictionTypeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Indicates the restriction types that this entitlement can apply to
+          nullable: true
+        applicableExemptionTypeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Indicates the exemption types that can apply to this entitlement
+          nullable: true
+        hasTariff:
+          type: boolean
+          description: Indicates whether this entitlement needs a tariff
+        restrictionTypeLegalNames:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestrictionTypeLegalName'
+          description: Indicates the legal names of the restriction type that this entitlement can apply to
+          nullable: true
+      additionalProperties: false
+      description: Indicates the condition on which availability of an OSP depends
+    RestrictionTypeLegalName:
+      type: object
+      properties:
+        restrictionTypeId:
+          type: integer
+          format: int32
+        legalName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EntitlementTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntitlementType'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2

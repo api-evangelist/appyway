@@ -1,0 +1,115 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes MovingExceptionTypes API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: MovingExceptionTypes
+paths:
+  /fetchAllMovingExceptionTypes:
+    post:
+      tags:
+      - MovingExceptionTypes
+      summary: AppyWay Fetch All Moving Exception Types
+      description: Returns a list with all the moving exception types.
+      operationId: post-fetchallmovingexceptiontypes
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovingExceptionTypeIReadOnlyCollectionOkResponse'
+              example:
+                success: true
+                result:
+                - id: 0
+                  name: string
+                  description: string
+                  applicableRestrictionTypes:
+                  - movingRestrictionTypeId: 0
+                    movingRestrictionTypeOptionIds:
+                    - 0
+        '304':
+          description: Not Modified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  schemas:
+    ApplicableRestrictionType:
+      type: object
+      properties:
+        movingRestrictionTypeId:
+          type: integer
+          description: Id of the moving restriction type this exception type is applicable to
+          format: int32
+        movingRestrictionTypeOptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Moving restriction option ids
+          nullable: true
+      additionalProperties: false
+    MovingExceptionType:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier
+          format: int32
+        name:
+          type: string
+          description: Name
+          nullable: true
+        description:
+          type: string
+          description: Description
+          nullable: true
+        applicableRestrictionTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicableRestrictionType'
+          description: Applicable restriction types
+          nullable: true
+      additionalProperties: false
+    MovingExceptionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/MovingExceptionType'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2

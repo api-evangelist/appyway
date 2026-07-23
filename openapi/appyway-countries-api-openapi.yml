@@ -1,0 +1,402 @@
+openapi: 3.0.1
+info:
+  title: AppyWay Availability RealTime ActivityTypes Countries API
+  version: '1.0'
+  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+servers:
+- url: https://api.appyway.com/v1/availability-realtime
+security:
+- apiKey: []
+- oAuth2: []
+tags:
+- name: Countries
+paths:
+  /changeCountrySpecialDays:
+    post:
+      tags:
+      - Countries
+      summary: AppyWay Change Country Special Days
+      description: Change Country Special Days
+      operationId: post-changecountryspecialdays
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCountrySpecialDaysCommand'
+            example:
+              specialDays:
+              - id: string
+                name: string
+                isHoliday: true
+                dates:
+                - '2020-01-20'
+              id: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCountrySpecialDaysCommand'
+            example:
+              specialDays:
+              - id: string
+                name: string
+                isHoliday: true
+                dates:
+                - '2020-01-20'
+              id: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ChangeCountrySpecialDaysCommand'
+            example:
+              specialDays:
+              - id: string
+                name: string
+                isHoliday: true
+                dates:
+                - '2020-01-20'
+              id: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringOkResponse'
+              example:
+                success: true
+                result: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /fetchAllCountries:
+    post:
+      tags:
+      - Countries
+      summary: AppyWay Fetch All Countries
+      description: Returns a list with all the supported countries.
+      operationId: post-fetchallcountries
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryIReadOnlyCollectionOkResponse'
+              example:
+                success: true
+                result:
+                - id: string
+                  name: string
+                  specialDays:
+                  - id: string
+                    name: string
+                    isHoliday: true
+                    dates:
+                    - '2020-01-20'
+                  bounds:
+                  - - 0
+                  defaultBaseMapId: 0
+                  entitlementTypes:
+                  - 0
+                  restrictionTypes:
+                  - 0
+                  assetTypes:
+                  - 0
+                  countryCode: string
+                  currencyCode: string
+                  languageCode: string
+                  hasMetricSpeedLimits: true
+        '304':
+          description: Not Modified
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /fetchCountryById:
+    post:
+      tags:
+      - Countries
+      summary: AppyWay Fetch Country By Id
+      description: Returns a country object if a valid identifier is provided.
+      operationId: post-fetchcountrybyid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FetchCountryByIdQuery'
+            example:
+              id: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FetchCountryByIdQuery'
+            example:
+              id: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FetchCountryByIdQuery'
+            example:
+              id: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryOkResponse'
+              example:
+                success: true
+                result:
+                  id: string
+                  name: string
+                  specialDays:
+                  - id: string
+                    name: string
+                    isHoliday: true
+                    dates:
+                    - '2020-01-20'
+                  bounds:
+                  - - 0
+                  defaultBaseMapId: 0
+                  entitlementTypes:
+                  - 0
+                  restrictionTypes:
+                  - 0
+                  assetTypes:
+                  - 0
+                  countryCode: string
+                  currencyCode: string
+                  languageCode: string
+                  hasMetricSpeedLimits: true
+        '304':
+          description: Not Modified
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+              example:
+                success: true
+                message: string
+                errors:
+                - property: string
+                  code: string
+                  message: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the country
+          nullable: true
+        name:
+          type: string
+          description: Name of the country
+          nullable: true
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+          description: List of holidays and named days that apply to this country.
+          nullable: true
+        bounds:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+              format: double
+          description: A rectangular area indicating roughly where the country is situated
+          nullable: true
+        defaultBaseMapId:
+          type: integer
+          description: The default basemap to use for this country
+          format: int32
+        entitlementTypes:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Entitlement types available in this country
+          nullable: true
+        restrictionTypes:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Restriction types available in this country
+          nullable: true
+        assetTypes:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Asset types available in this country
+          nullable: true
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-3 country code for this country
+          nullable: true
+        currencyCode:
+          type: string
+          description: ISO 4217 currency code for this country
+          nullable: true
+        languageCode:
+          type: string
+          description: BCP 47 language tag for this country
+          nullable: true
+        hasMetricSpeedLimits:
+          type: boolean
+          description: Whether this country uses the metric system for speed limits
+      additionalProperties: false
+    StringOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FetchCountryByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
+    CountryIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+          nullable: true
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          nullable: true
+      additionalProperties: false
+    CountryOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/Country'
+      additionalProperties: false
+    ChangeCountrySpecialDaysCommand:
+      required:
+      - id
+      - specialDays
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the country
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+      additionalProperties: false
+    SpecialDay:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+          nullable: true
+        name:
+          type: string
+          description: Name
+          nullable: true
+        isHoliday:
+          type: boolean
+          description: Indicates whether this day is considered a holiday
+        dates:
+          type: array
+          items:
+            type: string
+            description: ISO-8601 date pattern
+            example: '2020-01-20'
+          description: Dates on which this day is in effect
+          nullable: true
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type: string
+          nullable: true
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
+  securitySchemes:
+    apiKey:
+      name: API-KEY
+      in: header
+      type: apiKey
+    oAuth2:
+      flows:
+        authorizationCode:
+          scopes: {}
+          authorizationUrl: https://auth.appyway.com/authorize
+          tokenUrl: https://auth.appyway.com/oauth/token
+      type: oauth2
