@@ -1,85 +1,877 @@
 aid: appyway
 url: https://raw.githubusercontent.com/api-evangelist/appyway/refs/heads/main/apis.yml
 apis:
-  - aid: appyway:appyway-availability-realtime-api
-    name: AppyWay Availability RealTime API
-    tags:
-      - Congestion
-      - Parking
-      - Road Closure
-      - Traffic
-    humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
-    properties:
-      - url: openapi/appyway-availability-realtime-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
-        type: Documentation
-      - url: json-schema/parking-availability-schema.json
-        type: JSONSchema
-      - url: json-structure/parking-availability-structure.json
-        type: JSONStructure
-      - url: examples/parking-availability-example.json
-        type: Examples
-      - url: json-ld/appyway-context.jsonld
-        type: JSONLD
-      - url: rules/appyway-spectral-rules.yml
-        type: SpectralRules
-      - url: vocabulary/appyway-vocabulary.yaml
-        type: Vocabulary
-    description: >-
-      AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic
-      congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping
-      users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses
-      can improve customer satisfaction and reduce the frustration of searching for parking.
-  - aid: appyway:appyway-traffic-data-api
-    name: AppyWay Traffic Data API
-    tags:
-      - Historical
-      - Real-Time
-      - Traffic
-    humanURL: https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data
-    properties:
-      - url: openapi/appyway-traffic-data-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.appyway.com/docs/public-docs
-        type: Documentation
-    description: >-
-      The AppyWay Traffic Data API provides real-time and historical traffic data for developers to integrate into their
-      applications. This data includes information on traffic congestion, accidents, road closures, and other key events
-      that can impact a driver's journey. By utilizing this API, developers can provide their users with up-to-date
-      traffic information, optimize routes for more efficient travel, and enhance overall road safety.
-  - aid: appyway:appyway-explorer-api
-    name: AppyWay Explorer API
-    tags:
-      - Electrical Vehicle Charging
-      - Parking
-    humanURL: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer
-    properties:
-      - url: openapi/appyway-explorer-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
-        type: Documentation
-    description: >-
-      The AppyWay Explorer API allows developers to access a wealth of data related to parking and electric vehicle
-      charging infrastructure. With this API, developers can seamlessly integrate real-time information such as parking
-      availability, pricing, and location details into their own applications. This allows for improved user experience
-      and convenience for drivers seeking parking spaces or charging stations.
-  - aid: appyway:appyway-platform-api
-    name: AppyWay Platform API
-    tags:
-      - Parking
-      - Traffic
-    humanURL: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
-    properties:
-      - url: openapi/appyway-platform-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
-        type: Documentation
-    description: >-
-      AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
-      With this API, developers can integrate real-time parking availability, traffic flow information, and electric
-      vehicle charging locations into their own applications. This enables users to quickly find parking spaces, plan
-      their routes to avoid congestion, and locate nearby charging stations for their electric vehicles.
+- aid: appyway:appyway-activitytypes-api
+  name: AppyWay ActivityTypes API
+  description: The ActivityTypes API from AppyWay — 1 operation(s) for activitytypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - ActivityTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-activitytypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-authorities-api
+  name: AppyWay Authorities API
+  description: The Authorities API from AppyWay — 7 operation(s) for authorities.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Authorities
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-authorities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-authoritytypes-api
+  name: AppyWay AuthorityTypes API
+  description: The AuthorityTypes API from AppyWay — 1 operation(s) for authoritytypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - AuthorityTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-authoritytypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-availability-api
+  name: AppyWay Availability API
+  description: The Availability API from AppyWay — 1 operation(s) for availability.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Availability
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-availability-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-basemaps-api
+  name: AppyWay BaseMaps API
+  description: The BaseMaps API from AppyWay — 1 operation(s) for basemaps.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - BaseMaps
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-basemaps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-bulk-api
+  name: AppyWay Bulk API
+  description: The Bulk API from AppyWay — 1 operation(s) for bulk.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-countries-api
+  name: AppyWay Countries API
+  description: The Countries API from AppyWay — 3 operation(s) for countries.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Countries
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-countries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-entitlementtypes-api
+  name: AppyWay EntitlementTypes API
+  description: The EntitlementTypes API from AppyWay — 1 operation(s) for entitlementtypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - EntitlementTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-entitlementtypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-exceptiontypes-api
+  name: AppyWay ExceptionTypes API
+  description: The ExceptionTypes API from AppyWay — 1 operation(s) for exceptiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - ExceptionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-exceptiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-exemptiontimetypes-api
+  name: AppyWay ExemptionTimeTypes API
+  description: The ExemptionTimeTypes API from AppyWay — 1 operation(s) for exemptiontimetypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - ExemptionTimeTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-exemptiontimetypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-exemptiontypes-api
+  name: AppyWay ExemptionTypes API
+  description: The ExemptionTypes API from AppyWay — 1 operation(s) for exemptiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - ExemptionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-exemptiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-facilitytypes-api
+  name: AppyWay FacilityTypes API
+  description: The FacilityTypes API from AppyWay — 1 operation(s) for facilitytypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - FacilityTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-facilitytypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-fueltypes-api
+  name: AppyWay FuelTypes API
+  description: The FuelTypes API from AppyWay — 1 operation(s) for fueltypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - FuelTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-fueltypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-gis-api
+  name: AppyWay GIS API
+  description: The GIS API from AppyWay — 4 operation(s) for gis.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - GIS
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-gis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-movingexceptiontypes-api
+  name: AppyWay MovingExceptionTypes API
+  description: The MovingExceptionTypes API from AppyWay — 1 operation(s) for movingexceptiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - MovingExceptionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-movingexceptiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-movingrestrictiontypes-api
+  name: AppyWay MovingRestrictionTypes API
+  description: The MovingRestrictionTypes API from AppyWay — 1 operation(s) for movingrestrictiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - MovingRestrictionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-movingrestrictiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-notevisibilitytypes-api
+  name: AppyWay NoteVisibilityTypes API
+  description: The NoteVisibilityTypes API from AppyWay — 1 operation(s) for notevisibilitytypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - NoteVisibilityTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-notevisibilitytypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-offstreetrestrictiontypes-api
+  name: AppyWay OffStreetRestrictionTypes API
+  description: >-
+    The OffStreetRestrictionTypes API from AppyWay — 1 operation(s) for offstreetrestrictiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - OffStreetRestrictionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-offstreetrestrictiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-onstreetparkingtypes-api
+  name: AppyWay OnStreetParkingTypes API
+  description: The OnStreetParkingTypes API from AppyWay — 1 operation(s) for onstreetparkingtypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - OnStreetParkingTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-onstreetparkingtypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-parking-api
+  name: AppyWay Parking API
+  description: The Parking API from AppyWay — 11 operation(s) for parking.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Parking
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-parking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-paymentmethods-api
+  name: AppyWay PaymentMethods API
+  description: The PaymentMethods API from AppyWay — 1 operation(s) for paymentmethods.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - PaymentMethods
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-paymentmethods-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-paymentproviders-api
+  name: AppyWay PaymentProviders API
+  description: The PaymentProviders API from AppyWay — 1 operation(s) for paymentproviders.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - PaymentProviders
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-paymentproviders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-permittedvehicles-api
+  name: AppyWay PermittedVehicles API
+  description: The PermittedVehicles API from AppyWay — 1 operation(s) for permittedvehicles.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - PermittedVehicles
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-permittedvehicles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-permittypes-api
+  name: AppyWay PermitTypes API
+  description: The PermitTypes API from AppyWay — 1 operation(s) for permittypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - PermitTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-permittypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-regions-api
+  name: AppyWay Regions API
+  description: The Regions API from AppyWay — 3 operation(s) for regions.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Regions
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-regions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-restrictiontypes-api
+  name: AppyWay RestrictionTypes API
+  description: The RestrictionTypes API from AppyWay — 1 operation(s) for restrictiontypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - RestrictionTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-restrictiontypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-status-api
+  name: AppyWay Status API
+  description: The Status API from AppyWay — 1 operation(s) for status.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-vehicletypes-api
+  name: AppyWay VehicleTypes API
+  description: The VehicleTypes API from AppyWay — 1 operation(s) for vehicletypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - VehicleTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-vehicletypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-zones-api
+  name: AppyWay Zones API
+  description: The Zones API from AppyWay — 3 operation(s) for zones.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - Zones
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-zones-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
+- aid: appyway:appyway-zonetypes-api
+  name: AppyWay ZoneTypes API
+  description: The ZoneTypes API from AppyWay — 1 operation(s) for zonetypes.
+  humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  tags:
+  - ZoneTypes
+  properties:
+  - type: OpenAPI
+    url: openapi/appyway-zonetypes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
+  - type: JSONSchema
+    url: json-schema/parking-availability-schema.json
+  - type: JSONStructure
+    url: json-structure/parking-availability-structure.json
+  - type: Examples
+    url: examples/parking-availability-example.json
+  - type: JSONLD
+    url: json-ld/appyway-context.jsonld
+  - type: SpectralRules
+    url: rules/appyway-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/appyway-vocabulary.yaml
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api
+  - type: Documentation
+    url: https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference
 name: AppyWay
 tags:
   - Parking
@@ -88,7 +880,20 @@ tags:
   - Smart Cities
   - EV Charging
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/appyway.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
