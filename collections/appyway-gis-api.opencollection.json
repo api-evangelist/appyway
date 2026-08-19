@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes GIS API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GIS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Export Authority moving Restrictions as GeoJSON by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/exportAuthorityMovingRestrictionsById/:authorityId.geojson",
+            "params": [
+              {
+                "name": "authorityId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid. The ID of the authority."
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of moving restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the moving restrictions of an authority."
+        },
+        {
+          "info": {
+            "name": "AppyWay Export Authority static Restrictions as GeoJSON by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/exportAuthorityRestrictionsById/:authorityId.geojson",
+            "params": [
+              {
+                "name": "authorityId",
+                "value": "",
+                "type": "path",
+                "description": "Format - uuid. The ID of the authority."
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of static restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the restrictions of an authority. <br />"
+        },
+        {
+          "info": {
+            "name": "AppyWay Export Authority static Restrictions as GeoJSON by a given slug.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/exportAuthorityRestrictionsBySlug/:slug.geojson",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The slug used to identify the authority eg. hackney"
+              },
+              {
+                "name": "restrictions",
+                "value": "",
+                "type": "query",
+                "description": "The set of static restriction IDs. If left empty will export all allowed restrictions"
+              }
+            ]
+          },
+          "docs": "Returns a GeoJSON containing the moving restrictions of an authority."
+        },
+        {
+          "info": {
+            "name": "AppyWay Executes a Web Feature Service (WFS) query.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/wfs"
+          },
+          "docs": "Executes a Web Feature Service (WFS) query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

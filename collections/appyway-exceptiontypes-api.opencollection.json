@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes ExceptionTypes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ExceptionTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Exception Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchAllExceptionTypes"
+          },
+          "docs": "Returns a list with all the exception types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

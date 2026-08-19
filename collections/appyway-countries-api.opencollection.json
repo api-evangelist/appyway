@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes Countries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Countries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Change Country Special Days",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/changeCountrySpecialDays",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change Country Special Days"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch All Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchAllCountries"
+          },
+          "docs": "Returns a list with all the supported countries."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch Country By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchCountryById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a country object if a valid identifier is provided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

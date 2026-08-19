@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes Parking API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Parking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch event dates by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchEventDatesById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for event dates with the supplied entity ID."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch operating hours by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchOperatingHoursById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for operating hours with the supplied entity ID."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch operating hours by ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchOperatingHoursByIds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for operating hours with the supplied entities IDs."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch a parking Entity by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchParkingEntityById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a parking entity by its ID"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch a parking quote by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchParkingQuoteById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for a parking result with the supplied ID. Result indicates whether parking is allowed at the location.\nIf parking is allowed for all or part of the requested window,\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch parking quotes by ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchParkingQuotesByIds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for a parking result with the supplied IDs. Result indicates whether parking is allowed at the location.\nIf parking is allowed for all or part of the requested window,\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch payment providers by parking entity ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchPaymentProvidersByParkingEntityId",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns payment providers for the given parking entity ID"
+        },
+        {
+          "info": {
+            "name": "AppyWay Find parking entities by centre and viewport size",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/findParkingEntitiesByCentreAndViewportSize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This query creates a square viewport with the centre at ViewportCentre and side length of ViewportSize.\nIt then returns a list of all the parking entities within the bounds of that polygon, along with their distance from the DistanceCalculationLocation if supplied,\nor the viewport centre if not. Entities are ordered by this distance."
+        },
+        {
+          "info": {
+            "name": "AppyWay Find parking entities by viewport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/findParkingEntitiesByViewport",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This query creates a custom viewport from the supplied GeoJson polygon.\nIt then returns a list of all the parking entities within the bounds of that polygon, along with their distance from the DistanceCalculationLocation if supplied,\nor the viewport centre if not. Entities are ordered by this distance."
+        },
+        {
+          "info": {
+            "name": "AppyWay Find parking quotes by centre and viewport size",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/findParkingQuotesByCentreAndViewportSize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This query creates a square viewport with the centre at ViewportCentre and side length of ViewportSize.\r\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\r\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\r\n            \r\nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\r\nthe result contains a list of quote"
+        },
+        {
+          "info": {
+            "name": "AppyWay Find parking quotes by viewport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/findParkingQuotesByViewport",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This query creates a custom viewport from the supplied GeoJson polygon.\r\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\r\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\r\n            \r\nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\r\nthe result contains a list of quotes containing information such as"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

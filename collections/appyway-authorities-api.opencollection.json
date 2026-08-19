@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes Authorities API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch an authority by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchAuthorityById",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a specific authority by its ID"
+        },
+        {
+          "info": {
+            "name": "AppyWay Find authority ids by viewport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/findAuthorityIdsByViewport",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the Ids of authorities that are at least partially within the specified GeoJson viewport."
+        },
+        {
+          "info": {
+            "name": "AppyWay Gets the basic authority information for all authorities that you are entitled to access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/authorities/getAll"
+          },
+          "docs": "Gets the basic authority information for all authorities that you are entitled to access"
+        },
+        {
+          "info": {
+            "name": "AppyWay Get Full Authority By Slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.appyway.com/v1/availability-realtime/authorities/getFullBySlug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "The name of the authority. You can find this by making a request to the getAll endpoint"
+              },
+              {
+                "name": "maxDate",
+                "value": "",
+                "type": "query",
+                "description": "Format - date-time (as date-time in RFC3339). The date at which you wish to view the restrictions"
+              }
+            ]
+          },
+          "docs": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch basic authority information for all authorities that you are entitled to access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchAllAuthorities"
+          },
+          "docs": "Fetch basic authority information for all authorities that you are entitled to access"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch the basic authority information by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchFullAuthorityBySlug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the the basic authority information by slug (authority name)"
+        },
+        {
+          "info": {
+            "name": "AppyWay Fetch Full Authority By Slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchFullAuthorityInfoBySlug",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,922 @@
+{
+  "item": [
+    {
+      "id": "140b908d-2236-4198-bfd7-d818e1668727",
+      "name": "Zones",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f29de820-6904-4253-9773-0c8bb569d63b",
+          "name": "AppyWay Fetch a zone by ID",
+          "request": {
+            "name": "AppyWay Fetch a zone by ID",
+            "description": {
+              "content": "Returns a specific zone by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchZoneById"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "90304e05-18ae-47ba-8b2a-994721d5ab9a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"entityId\": \"string\",\n    \"name\": \"string\",\n    \"eTag\": \"string\",\n    \"geometry\": {\n      \"type\": \"string\",\n      \"crs\": {\n        \"type\": \"string\",\n        \"properties\": {\n          \"name\": \"string\"\n        }\n      },\n      \"geometries\": [\n        {\n          \"type\": \"string\",\n          \"crs\": {\n            \"type\": \"string\",\n            \"properties\": {\n              \"name\": \"string\"\n            }\n          }\n        }\n      ]\n    },\n    \"notes\": [\n      {\n        \"message\": \"string\"\n      }\n    ],\n    \"authorityId\": \"string\",\n    \"zoneType\": 1,\n    \"venueId\": \"string\",\n    \"entityType\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ef3e5c4-e3c9-4a4e-b8e9-69292d34dc1b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23f47211-5d3f-4f0c-bb03-1d62d7cd8cf8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a84bf8c1-341f-49cb-944c-fc8b86bea5f3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "109b11df-6d36-4a49-9b7c-5f1bd73db579",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99d19346-877f-4cb3-a5c9-daa5d21f5cf0",
+          "name": "AppyWay Fetch zone default rules by id",
+          "request": {
+            "name": "AppyWay Fetch zone default rules by id",
+            "description": {
+              "content": "Returns default rules for parking entities by zone ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchZoneDefaultRulesById"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"endTime\": \"<dateTime>\",\n  \"onStreetParkingTypeIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"includeNotApplicableTimes\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cec48637-5fd6-4c54-974a-0f6c0dd23965",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneDefaultRulesById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"id\": \"string\",\n  \"includeNotApplicableTimes\": true,\n  \"onStreetParkingTypeIds\": [\n    1\n  ],\n  \"endTime\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"entityId\": \"string\",\n    \"entityETag\": \"string\",\n    \"zoneType\": 1,\n    \"defaults\": [\n      {\n        \"onStreetParkingTypeId\": 1,\n        \"applicableTimes\": [\n          {\n            \"startTime\": \"string\",\n            \"endTime\": \"string\",\n            \"maxStay\": 0\n          }\n        ],\n        \"notApplicableTimes\": [\n          {\n            \"startTime\": \"string\",\n            \"endTime\": \"string\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "533f4971-c653-41fa-b4fa-8f8ce4d50501",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneDefaultRulesById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"id\": \"string\",\n  \"includeNotApplicableTimes\": true,\n  \"onStreetParkingTypeIds\": [\n    1\n  ],\n  \"endTime\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "561e2d44-722e-4ac3-967c-78251c729868",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneDefaultRulesById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"id\": \"string\",\n  \"includeNotApplicableTimes\": true,\n  \"onStreetParkingTypeIds\": [\n    1\n  ],\n  \"endTime\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd76d8ef-3b93-44c5-aeb3-e684861cdda1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneDefaultRulesById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"id\": \"string\",\n  \"includeNotApplicableTimes\": true,\n  \"onStreetParkingTypeIds\": [\n    1\n  ],\n  \"endTime\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2bc258c-6dbf-4415-8470-642acee4d2e1",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchZoneDefaultRulesById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"id\": \"string\",\n  \"includeNotApplicableTimes\": true,\n  \"onStreetParkingTypeIds\": [\n    1\n  ],\n  \"endTime\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aac42741-7b89-4720-bfb2-f8332227e31b",
+          "name": "AppyWay Find zone default rules by viewport",
+          "request": {
+            "name": "AppyWay Find zone default rules by viewport",
+            "description": {
+              "content": "Returns default rules for parking entities for zones that are at least partially within the specified GeoJson viewport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "findZoneDefaultRulesByViewport"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startTime\": \"<dateTime>\",\n  \"viewport\": {\n    \"type\": \"<string>\",\n    \"crs\": {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"name\": \"<string>\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          \"<double>\",\n          \"<double>\"\n        ],\n        [\n          \"<double>\",\n          \"<double>\"\n        ]\n      ],\n      [\n        [\n          \"<double>\",\n          \"<double>\"\n        ],\n        [\n          \"<double>\",\n          \"<double>\"\n        ]\n      ]\n    ]\n  },\n  \"endTime\": \"<dateTime>\",\n  \"onStreetParkingTypeIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"distanceCalculationLocation\": {\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\"\n  },\n  \"includeNotApplicableTimes\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c075eb58-c54d-4d40-a065-eff47ccc745a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findZoneDefaultRulesByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  },\n  \"distanceCalculationLocation\": {\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"includeNotApplicableTimes\": true,\n  \"endTime\": \"string\",\n  \"onStreetParkingTypeIds\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"zones\": [\n      {\n        \"entityId\": \"string\",\n        \"entityETag\": \"string\",\n        \"zoneType\": 1,\n        \"defaults\": [\n          {\n            \"onStreetParkingTypeId\": 1,\n            \"applicableTimes\": [\n              {\n                \"startTime\": \"string\",\n                \"endTime\": \"string\",\n                \"maxStay\": 0\n              }\n            ],\n            \"notApplicableTimes\": [\n              {\n                \"startTime\": \"string\",\n                \"endTime\": \"string\"\n              }\n            ]\n          }\n        ],\n        \"distance\": 0\n      }\n    ],\n    \"zoneContainingLocation\": {\n      \"entityId\": \"string\",\n      \"entityETag\": \"string\",\n      \"zoneType\": 1,\n      \"defaults\": [\n        {\n          \"onStreetParkingTypeId\": 1,\n          \"applicableTimes\": [\n            {\n              \"startTime\": \"string\",\n              \"endTime\": \"string\",\n              \"maxStay\": 0\n            }\n          ],\n          \"notApplicableTimes\": [\n            {\n              \"startTime\": \"string\",\n              \"endTime\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"distance\": 0\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7226462b-9fd3-4189-b2f6-f72bcefc10c6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findZoneDefaultRulesByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  },\n  \"distanceCalculationLocation\": {\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"includeNotApplicableTimes\": true,\n  \"endTime\": \"string\",\n  \"onStreetParkingTypeIds\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "addfb865-ca8f-46f8-9a42-8186cdc16e5c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findZoneDefaultRulesByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  },\n  \"distanceCalculationLocation\": {\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"includeNotApplicableTimes\": true,\n  \"endTime\": \"string\",\n  \"onStreetParkingTypeIds\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2178b0ce-98ec-45b1-a434-e3dba7783228",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findZoneDefaultRulesByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  },\n  \"distanceCalculationLocation\": {\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"includeNotApplicableTimes\": true,\n  \"endTime\": \"string\",\n  \"onStreetParkingTypeIds\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e905c35b-66cc-4973-9940-d0f24206a6f7",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findZoneDefaultRulesByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startTime\": \"string\",\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  },\n  \"distanceCalculationLocation\": {\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"includeNotApplicableTimes\": true,\n  \"endTime\": \"string\",\n  \"onStreetParkingTypeIds\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.appyway.com/v1/availability-realtime",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1be5ce4c-07e9-4472-9369-d4c64fd98195",
+    "name": "AppyWay Availability RealTime ActivityTypes Zones API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.",
+      "type": "text/plain"
+    }
+  }
+}

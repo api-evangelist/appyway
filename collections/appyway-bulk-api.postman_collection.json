@@ -1,0 +1,340 @@
+{
+  "item": [
+    {
+      "id": "a20aebb2-e1ca-4c74-bb24-d146ca289a93",
+      "name": "Bulk",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "842ed68c-6c7c-4239-a67b-c2b0460ffea0",
+          "name": "AppyWay Fetches entities by their IDs",
+          "request": {
+            "name": "AppyWay Fetches entities by their IDs",
+            "description": {
+              "content": "Retrieve a bulk list of entities of different types by their IDs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchEntitiesByIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": \"<integer>\",\n    \"geometryTypes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fbad0d7-56e5-42f1-b5e8-dd4ed0a462cc",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchEntitiesByIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"string\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": 1,\n    \"geometryTypes\": [\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"parkingEntities\": [\n      {\n        \"entityId\": \"string\",\n        \"entityType\": 1,\n        \"name\": \"string\",\n        \"eTag\": \"string\",\n        \"address\": {\n          \"street\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"postcode\": \"string\"\n        },\n        \"locationCode\": \"string\",\n        \"totalCapacity\": 0,\n        \"zoneId\": \"string\",\n        \"authorityId\": \"string\",\n        \"features\": {\n          \"type\": \"string\",\n          \"features\": [\n            {\n              \"type\": \"string\",\n              \"id\": \"string\",\n              \"geometry\": {\n                \"type\": \"string\",\n                \"crs\": {\n                  \"type\": \"string\",\n                  \"properties\": {\n                    \"name\": \"string\"\n                  }\n                },\n                \"geometries\": [\n                  {\n                    \"type\": \"string\",\n                    \"crs\": {\n                      \"type\": \"string\",\n                      \"properties\": {\n                        \"name\": \"string\"\n                      }\n                    }\n                  }\n                ]\n              },\n              \"properties\": {\n                \"basemap\": 1\n              }\n            }\n          ],\n          \"properties\": {}\n        },\n        \"paymentMethodIds\": [\n          0\n        ],\n        \"operator\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"cardPaymentsExternalUrl\": \"string\",\n          \"paymentsTelephone\": \"string\",\n          \"paymentsAppDeepLinks\": {},\n          \"telephone\": \"string\",\n          \"website\": \"string\"\n        },\n        \"onStreetParkingTypeIds\": [\n          1\n        ],\n        \"facilityTypeIds\": [\n          0\n        ],\n        \"venueId\": \"string\"\n      }\n    ],\n    \"zones\": [\n      {\n        \"entityId\": \"string\",\n        \"name\": \"string\",\n        \"eTag\": \"string\",\n        \"geometry\": {\n          \"type\": \"string\",\n          \"crs\": {\n            \"type\": \"string\",\n            \"properties\": {\n              \"name\": \"string\"\n            }\n          },\n          \"geometries\": [\n            {\n              \"type\": \"string\",\n              \"crs\": {\n                \"type\": \"string\",\n                \"properties\": {\n                  \"name\": \"string\"\n                }\n              }\n            }\n          ]\n        },\n        \"notes\": [\n          {\n            \"message\": \"string\"\n          }\n        ],\n        \"authorityId\": \"string\",\n        \"zoneType\": 1,\n        \"venueId\": \"string\",\n        \"entityType\": 1\n      }\n    ],\n    \"authorities\": [\n      {\n        \"entityId\": \"string\",\n        \"name\": \"string\",\n        \"eTag\": \"string\",\n        \"notes\": [\n          {\n            \"message\": \"string\"\n          }\n        ],\n        \"paymentProviders\": [\n          {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"cardPaymentsExternalUrl\": \"string\",\n            \"paymentsTelephone\": \"string\",\n            \"paymentsAppDeepLinks\": {}\n          }\n        ],\n        \"entityType\": 1,\n        \"countryId\": \"string\",\n        \"geometry\": {\n          \"type\": \"string\",\n          \"crs\": {\n            \"type\": \"string\",\n            \"properties\": {\n              \"name\": \"string\"\n            }\n          },\n          \"geometries\": [\n            {\n              \"type\": \"string\",\n              \"crs\": {\n                \"type\": \"string\",\n                \"properties\": {\n                  \"name\": \"string\"\n                }\n              }\n            }\n          ]\n        },\n        \"hasFreeParkingOutsideZone\": true\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f8a8434-1c29-40e1-83a6-5a1056afd969",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchEntitiesByIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"string\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": 1,\n    \"geometryTypes\": [\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67345bfe-8caa-43c1-868b-a0a35a3028c7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchEntitiesByIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"string\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": 1,\n    \"geometryTypes\": [\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "002766c1-f264-4048-8b73-a88b113602b9",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchEntitiesByIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"string\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": 1,\n    \"geometryTypes\": [\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b5867e6-fa64-4346-bff6-c4d5b8f8a371",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchEntitiesByIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"string\"\n  ],\n  \"geometryPreference\": {\n    \"basemap\": 1,\n    \"geometryTypes\": [\n      1\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.appyway.com/v1/availability-realtime",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e8d7a6af-9f1d-4d0d-9e68-88f8a72fd266",
+    "name": "AppyWay Availability RealTime ActivityTypes Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.",
+      "type": "text/plain"
+    }
+  }
+}

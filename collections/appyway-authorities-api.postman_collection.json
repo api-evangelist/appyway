@@ -1,0 +1,1857 @@
+{
+  "item": [
+    {
+      "id": "c609c2d9-4cbd-4704-af25-7651e91bb0bf",
+      "name": "Authorities",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea6d9af7-4f37-4cf5-b388-f220bb1b601b",
+          "name": "AppyWay Fetch an authority by ID",
+          "request": {
+            "name": "AppyWay Fetch an authority by ID",
+            "description": {
+              "content": "Returns a specific authority by its ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchAuthorityById"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e08b1a9c-d206-4bb3-9746-ba54f4944657",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAuthorityById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"entityId\": \"string\",\n    \"name\": \"string\",\n    \"eTag\": \"string\",\n    \"notes\": [\n      {\n        \"message\": \"string\"\n      }\n    ],\n    \"paymentProviders\": [\n      {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"cardPaymentsExternalUrl\": \"string\",\n        \"paymentsTelephone\": \"string\",\n        \"paymentsAppDeepLinks\": {}\n      }\n    ],\n    \"entityType\": 1,\n    \"countryId\": \"string\",\n    \"geometry\": {\n      \"type\": \"string\",\n      \"crs\": {\n        \"type\": \"string\",\n        \"properties\": {\n          \"name\": \"string\"\n        }\n      },\n      \"geometries\": [\n        {\n          \"type\": \"string\",\n          \"crs\": {\n            \"type\": \"string\",\n            \"properties\": {\n              \"name\": \"string\"\n            }\n          }\n        }\n      ]\n    },\n    \"hasFreeParkingOutsideZone\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efbd316a-4a39-4bf1-a612-4019febfdeb4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAuthorityById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ac03183-3fd9-4bab-abef-8c710d9d6ab7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAuthorityById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd28bea4-55fc-47d4-933d-1ba50843e8f8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAuthorityById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49a1bfad-8227-45b8-bf4f-eb37a780448c",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAuthorityById"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2a540a1-9fae-4d8d-a08a-21436cd59730",
+          "name": "AppyWay Find authority ids by viewport",
+          "request": {
+            "name": "AppyWay Find authority ids by viewport",
+            "description": {
+              "content": "Returns the Ids of authorities that are at least partially within the specified GeoJson viewport.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "findAuthorityIdsByViewport"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"viewport\": {\n    \"type\": \"<string>\",\n    \"crs\": {\n      \"type\": \"<string>\",\n      \"properties\": {\n        \"name\": \"<string>\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          \"<double>\",\n          \"<double>\"\n        ],\n        [\n          \"<double>\",\n          \"<double>\"\n        ]\n      ],\n      [\n        [\n          \"<double>\",\n          \"<double>\"\n        ],\n        [\n          \"<double>\",\n          \"<double>\"\n        ]\n      ]\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a5a41781-faab-4c76-8e3e-f949a4aae1be",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findAuthorityIdsByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"authorities\": [\n      {\n        \"entityId\": \"string\",\n        \"countryId\": \"string\",\n        \"entityETag\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192c8f7a-1137-4acf-ae20-879126b22ffe",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findAuthorityIdsByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d04d784-49d2-4e46-9677-3685760bec6f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findAuthorityIdsByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8654247-e658-4afa-8f6f-274bbdde82dc",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findAuthorityIdsByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "edeea6b5-305a-4dba-b2c0-0d0a9a8567ed",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "findAuthorityIdsByViewport"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"viewport\": {\n    \"type\": \"string\",\n    \"crs\": {\n      \"type\": \"string\",\n      \"properties\": {\n        \"name\": \"string\"\n      }\n    },\n    \"coordinates\": [\n      [\n        [\n          0\n        ]\n      ]\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6aa70315-8e65-4349-8031-ce89c5515671",
+          "name": "AppyWay Gets the basic authority information for all authorities that you are entitled to access",
+          "request": {
+            "name": "AppyWay Gets the basic authority information for all authorities that you are entitled to access",
+            "description": {
+              "content": "Gets the basic authority information for all authorities that you are entitled to access",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorities",
+                "getAll"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ac7647f-aadf-4117-afd9-6221b7d3be8a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getAll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"regionId\": \"string\",\n      \"countryId\": \"string\",\n      \"authoritySlugs\": [\n        \"string\"\n      ],\n      \"ordnanceSurvey\": {\n        \"apiKey\": \"string\",\n        \"license\": \"string\"\n      },\n      \"hasFreeParkingOutsideZone\": true,\n      \"timeZoneId\": \"string\",\n      \"privacyPolicyUrl\": \"string\",\n      \"paymentProviderId\": \"string\",\n      \"centroid\": {\n        \"latitude\": 0,\n        \"longitude\": 0\n      },\n      \"boundingBox\": {\n        \"topLeft\": {\n          \"latitude\": 0,\n          \"longitude\": 0\n        },\n        \"bottomRight\": {\n          \"latitude\": 0,\n          \"longitude\": 0\n        }\n      },\n      \"fallbackZoneId\": \"string\",\n      \"notes\": [\n        {\n          \"noteVisibilityTypeId\": 0,\n          \"appliesToRestrictionTypeIds\": [\n            0\n          ],\n          \"priority\": 0,\n          \"title\": \"string\",\n          \"message\": \"string\",\n          \"url\": \"string\",\n          \"telephone\": \"string\"\n        }\n      ],\n      \"tags\": [\n        \"string\"\n      ],\n      \"authorityType\": 0,\n      \"legalName\": \"string\",\n      \"capabilities\": {\n        \"allowIsPubliclyViewable\": true,\n        \"allowChargePointRequests\": true,\n        \"isVisibleOnPublicConsultation\": true,\n        \"enableSessionRecordingInternal\": true,\n        \"enableSessionRecordingPublic\": true,\n        \"inMaintenanceMode\": true,\n        \"enableAssets\": true\n      },\n      \"capabilitiesState\": {\n        \"isStaticPubliclyViewable\": true,\n        \"isMovingPubliclyViewable\": true,\n        \"isOffStreetPubliclyViewable\": true,\n        \"acceptChargePointRequests\": true,\n        \"hideTariffsOnMapSchedules\": true,\n        \"hideTariffsOnStreets\": true,\n        \"hideRestrictedSpeedLimitsOnStreets\": true\n      },\n      \"highwayAuthority\": \"string\",\n      \"dataQuality\": 1,\n      \"lastTmoUpdate\": \"string\",\n      \"reviewTerminalIds\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06b3a7a2-d3da-4845-9cb6-a74b3fd730b6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getAll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a05308ee-c5e7-48db-baa6-75bdd915b451",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getAll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d893219-7790-41f3-8224-ba32cbbebd60",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getAll"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4eb2d02-46a0-4bb3-8631-c89f7fc95308",
+          "name": "AppyWay Get Full Authority By Slug",
+          "request": {
+            "name": "AppyWay Get Full Authority By Slug",
+            "description": {
+              "content": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorities",
+                "getFullBySlug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "The name of the authority. You can find this by making a request to the getAll endpoint"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxDate",
+                  "value": "<dateTime>",
+                  "description": "Format - date-time (as date-time in RFC3339). The date at which you wish to view the restrictions"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "addc29d9-1ded-4930-add5-2ccaf0d12ef6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getFullBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"ospsUrl\": [\n      {\n        \"type\": \"string\",\n        \"features\": [\n          {\n            \"type\": \"string\",\n            \"id\": \"string\",\n            \"geometry\": {\n              \"type\": \"string\",\n              \"crs\": {\n                \"type\": \"string\",\n                \"properties\": {\n                  \"name\": \"string\"\n                }\n              }\n            },\n            \"properties\": {\n              \"onStreetParkingId\": \"string\",\n              \"zoneId\": \"string\",\n              \"authorityId\": \"string\",\n              \"address\": {\n                \"street\": \"string\",\n                \"postcode\": \"string\",\n                \"city\": \"string\",\n                \"country\": \"string\"\n              },\n              \"length\": 0,\n              \"bays\": 0,\n              \"restrictionTypeDetails\": [\n                {\n                  \"restrictionTypeId\": 0,\n                  \"operatingHoursSets\": [\n                    {\n                      \"setGuid\": \"string\",\n                      \"setId\": \"string\",\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ]\n                    }\n                  ],\n                  \"exceptionsSet\": {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\"\n                  },\n                  \"locationNumber\": \"string\",\n                  \"terminalIds\": [\n                    \"string\"\n                  ],\n                  \"exemptionsSet\": {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\"\n                  },\n                  \"tariffsSet\": [\n                    {\n                      \"setGuid\": \"string\",\n                      \"setId\": \"string\",\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ]\n                    }\n                  ]\n                }\n              ],\n              \"notes\": [\n                {\n                  \"noteVisibilityTypeId\": 0,\n                  \"appliesToRestrictionTypeIds\": [\n                    0\n                  ],\n                  \"priority\": 0,\n                  \"title\": \"string\",\n                  \"message\": \"string\",\n                  \"url\": \"string\",\n                  \"telephone\": \"string\"\n                }\n              ],\n              \"electricPoint\": {\n                \"manufacturer\": \"string\",\n                \"manufacturerContactNumber\": \"string\",\n                \"chargeFee\": \"string\",\n                \"website\": \"string\",\n                \"electricConnections\": [\n                  {\n                    \"type\": 0,\n                    \"name\": \"string\",\n                    \"description\": \"string\",\n                    \"quantity\": 0\n                  }\n                ]\n              },\n              \"venueId\": \"string\",\n              \"sourceTag\": \"string\",\n              \"sensorIds\": [\n                \"string\"\n              ],\n              \"centroid\": {\n                \"latitude\": 0,\n                \"longitude\": 0\n              },\n              \"tags\": [\n                \"string\"\n              ],\n              \"linkedOspIds\": [\n                \"string\"\n              ]\n            }\n          }\n        ],\n        \"properties\": {}\n      }\n    ],\n    \"zonesUrl\": {\n      \"type\": \"string\",\n      \"features\": [\n        {\n          \"type\": \"string\",\n          \"id\": \"string\",\n          \"geometry\": {\n            \"type\": \"string\",\n            \"crs\": {\n              \"type\": \"string\",\n              \"properties\": {\n                \"name\": \"string\"\n              }\n            },\n            \"coordinates\": [\n              [\n                [\n                  0\n                ]\n              ]\n            ]\n          },\n          \"properties\": {\n            \"zoneId\": \"string\",\n            \"authorityId\": \"string\",\n            \"parentZoneId\": \"string\",\n            \"type\": 1,\n            \"name\": \"string\",\n            \"restrictionTypeDetails\": [\n              {\n                \"restrictionTypeId\": 0,\n                \"operatingHoursSets\": [\n                  {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\",\n                    \"parkingEntitlementTypeIds\": [\n                      0\n                    ]\n                  }\n                ],\n                \"exceptionsSet\": {\n                  \"setGuid\": \"string\",\n                  \"setId\": \"string\"\n                }\n              }\n            ],\n            \"notes\": [\n              {\n                \"noteVisibilityTypeId\": 0,\n                \"appliesToRestrictionTypeIds\": [\n                  0\n                ],\n                \"priority\": 0,\n                \"title\": \"string\",\n                \"message\": \"string\",\n                \"url\": \"string\",\n                \"telephone\": \"string\"\n              }\n            ],\n            \"venueId\": \"string\",\n            \"sourceTag\": \"string\",\n            \"tags\": [\n              \"string\"\n            ]\n          }\n        }\n      ],\n      \"properties\": {}\n    },\n    \"setsUrl\": {\n      \"operatingHoursSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"operatingHours\": {\n            \"standardDays\": [\n              {\n                \"ruleTime\": {\n                  \"months\": [\n                    0\n                  ],\n                  \"days\": [\n                    0\n                  ],\n                  \"weekNumbers\": [\n                    0\n                  ],\n                  \"hours\": [\n                    {\n                      \"start\": \"2024-10-11\",\n                      \"end\": \"2024-10-11\"\n                    }\n                  ],\n                  \"firstDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  },\n                  \"lastDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  }\n                },\n                \"parkingEntitlementTypeIds\": [\n                  0\n                ],\n                \"maxStay\": 0,\n                \"minStay\": 0,\n                \"noReturn\": 0,\n                \"noReturnUntil\": \"2024-10-11\"\n              }\n            ],\n            \"eventDays\": [\n              {\n                \"ruleTime\": {\n                  \"months\": [\n                    0\n                  ],\n                  \"days\": [\n                    0\n                  ],\n                  \"weekNumbers\": [\n                    0\n                  ],\n                  \"hours\": [\n                    {\n                      \"start\": \"2024-10-11\",\n                      \"end\": \"2024-10-11\"\n                    }\n                  ],\n                  \"firstDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  },\n                  \"lastDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  }\n                },\n                \"parkingEntitlementTypeIds\": [\n                  0\n                ],\n                \"maxStay\": 0,\n                \"minStay\": 0,\n                \"noReturn\": 0,\n                \"noReturnUntil\": \"2024-10-11\"\n              }\n            ]\n          }\n        }\n      ],\n      \"exemptionsSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"exemptions\": [\n            {\n              \"exemptionTypeId\": 0,\n              \"parkingEntitlementTypeId\": 0,\n              \"exemptionTimeTypeId\": 0,\n              \"exemptionApplies\": true,\n              \"maxStay\": 0,\n              \"noReturn\": 0\n            }\n          ]\n        }\n      ],\n      \"exceptionsSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"exceptions\": {\n            \"allHolidaysRestrictionExceptionTypeId\": 0,\n            \"allHolidaysOperatingHours\": {\n              \"standardDays\": [\n                {\n                  \"ruleTime\": {\n                    \"months\": [\n                      0\n                    ],\n                    \"days\": [\n                      0\n                    ],\n                    \"weekNumbers\": [\n                      0\n                    ],\n                    \"hours\": [\n                      {\n                        \"start\": \"2024-10-11\",\n                        \"end\": \"2024-10-11\"\n                      }\n                    ],\n                    \"firstDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    },\n                    \"lastDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    }\n                  },\n                  \"parkingEntitlementTypeIds\": [\n                    0\n                  ],\n                  \"maxStay\": 0,\n                  \"minStay\": 0,\n                  \"noReturn\": 0,\n                  \"noReturnUntil\": \"2024-10-11\"\n                }\n              ],\n              \"eventDays\": [\n                {\n                  \"ruleTime\": {\n                    \"months\": [\n                      0\n                    ],\n                    \"days\": [\n                      0\n                    ],\n                    \"weekNumbers\": [\n                      0\n                    ],\n                    \"hours\": [\n                      {\n                        \"start\": \"2024-10-11\",\n                        \"end\": \"2024-10-11\"\n                      }\n                    ],\n                    \"firstDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    },\n                    \"lastDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    }\n                  },\n                  \"parkingEntitlementTypeIds\": [\n                    0\n                  ],\n                  \"maxStay\": 0,\n                  \"minStay\": 0,\n                  \"noReturn\": 0,\n                  \"noReturnUntil\": \"2024-10-11\"\n                }\n              ]\n            },\n            \"daySpecificRestrictionExceptions\": [\n              {\n                \"publicHolidayOrNamedDayId\": \"string\",\n                \"restrictionExceptionTypeId\": 0,\n                \"operatingHours\": {\n                  \"standardDays\": [\n                    {\n                      \"ruleTime\": {\n                        \"months\": [\n                          0\n                        ],\n                        \"days\": [\n                          0\n                        ],\n                        \"weekNumbers\": [\n                          0\n                        ],\n                        \"hours\": [\n                          {\n                            \"start\": \"2024-10-11\",\n                            \"end\": \"2024-10-11\"\n                          }\n                        ],\n                        \"firstDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        },\n                        \"lastDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        }\n                      },\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ],\n                      \"maxStay\": 0,\n                      \"minStay\": 0,\n                      \"noReturn\": 0,\n                      \"noReturnUntil\": \"2024-10-11\"\n                    }\n                  ],\n                  \"eventDays\": [\n                    {\n                      \"ruleTime\": {\n                        \"months\": [\n                          0\n                        ],\n                        \"days\": [\n                          0\n                        ],\n                        \"weekNumbers\": [\n                          0\n                        ],\n                        \"hours\": [\n                          {\n                            \"start\": \"2024-10-11\",\n                            \"end\": \"2024-10-11\"\n                          }\n                        ],\n                        \"firstDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        },\n                        \"lastDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        }\n                      },\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ],\n                      \"maxStay\": 0,\n                      \"minStay\": 0,\n                      \"noReturn\": 0,\n                      \"noReturnUntil\": \"2024-10-11\"\n                    }\n                  ]\n                }\n              }\n            ]\n          }\n        }\n      ],\n      \"tariffSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"tariffs\": [\n            {\n              \"setName\": \"string\",\n              \"parkingEntitlementTypeIds\": [\n                0\n              ],\n              \"details\": [\n                {\n                  \"price\": 0,\n                  \"surchargeDetail\": {\n                    \"surchargeType\": 0,\n                    \"surchargeTypeEnum\": 0,\n                    \"value\": 0,\n                    \"notes\": \"string\",\n                    \"ruleType\": 0\n                  },\n                  \"emissionsAdjustments\": {\n                    \"emissionsBandSetId\": \"string\",\n                    \"adjustments\": [\n                      {\n                        \"emissionsBandId\": \"string\",\n                        \"amount\": 0,\n                        \"surchargeDetail\": {\n                          \"surchargeType\": 0,\n                          \"surchargeTypeEnum\": 0,\n                          \"value\": 0,\n                          \"notes\": \"string\",\n                          \"ruleType\": 0\n                        }\n                      }\n                    ]\n                  },\n                  \"duration\": 0,\n                  \"minimumPriceIncrement\": 0,\n                  \"singlePaymentCanCrossMidnight\": true,\n                  \"from\": 0,\n                  \"upTo\": 0\n                }\n              ],\n              \"timeFrom\": \"2024-10-11\",\n              \"timeTo\": \"2024-10-11\",\n              \"firstDate\": {\n                \"month\": 0,\n                \"day\": 0\n              },\n              \"lastDate\": {\n                \"month\": 0,\n                \"day\": 0\n              },\n              \"months\": [\n                0\n              ],\n              \"days\": [\n                0\n              ],\n              \"timeType\": 0\n            }\n          ]\n        }\n      ],\n      \"emissionsBandSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"emissionsBands\": [\n            {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"emissions\": {\n                \"min\": 0,\n                \"max\": 0\n              },\n              \"fuelTypes\": [\n                1\n              ],\n              \"registrationYears\": {\n                \"min\": 0,\n                \"max\": 0\n              }\n            }\n          ]\n        }\n      ],\n      \"isEmpty\": true\n    },\n    \"mtfsUrl\": {\n      \"type\": \"string\",\n      \"features\": [\n        {\n          \"geoType\": \"string\",\n          \"featureId\": \"string\",\n          \"featureType\": 0,\n          \"authorityId\": \"string\",\n          \"note\": \"string\",\n          \"streetName\": \"string\",\n          \"guid\": \"string\"\n        }\n      ],\n      \"properties\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "342a1ec5-0f0f-419b-96ea-011f0d1dbfe6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getFullBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85d3e516-45af-4680-8cc5-e92d8c15fec3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getFullBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5305d4e8-f610-42f8-a9c6-c2b00621d0fa",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorities",
+                    "getFullBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "maxDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5eea26b3-68e8-4d24-98be-7e5dac759180",
+          "name": "AppyWay Fetch basic authority information for all authorities that you are entitled to access",
+          "request": {
+            "name": "AppyWay Fetch basic authority information for all authorities that you are entitled to access",
+            "description": {
+              "content": "Fetch basic authority information for all authorities that you are entitled to access",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchAllAuthorities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6121fa64-03b4-41fb-94b1-7cb1d6048254",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAllAuthorities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"regionId\": \"string\",\n      \"countryId\": \"string\",\n      \"authoritySlugs\": [\n        \"string\"\n      ],\n      \"ordnanceSurvey\": {\n        \"apiKey\": \"string\",\n        \"license\": \"string\"\n      },\n      \"hasFreeParkingOutsideZone\": true,\n      \"timeZoneId\": \"string\",\n      \"privacyPolicyUrl\": \"string\",\n      \"paymentProviderId\": \"string\",\n      \"centroid\": {\n        \"latitude\": 0,\n        \"longitude\": 0\n      },\n      \"boundingBox\": {\n        \"topLeft\": {\n          \"latitude\": 0,\n          \"longitude\": 0\n        },\n        \"bottomRight\": {\n          \"latitude\": 0,\n          \"longitude\": 0\n        }\n      },\n      \"fallbackZoneId\": \"string\",\n      \"notes\": [\n        {\n          \"noteVisibilityTypeId\": 0,\n          \"appliesToRestrictionTypeIds\": [\n            0\n          ],\n          \"priority\": 0,\n          \"title\": \"string\",\n          \"message\": \"string\",\n          \"url\": \"string\",\n          \"telephone\": \"string\"\n        }\n      ],\n      \"tags\": [\n        \"string\"\n      ],\n      \"authorityType\": 0,\n      \"legalName\": \"string\",\n      \"capabilities\": {\n        \"allowIsPubliclyViewable\": true,\n        \"allowChargePointRequests\": true,\n        \"isVisibleOnPublicConsultation\": true,\n        \"enableSessionRecordingInternal\": true,\n        \"enableSessionRecordingPublic\": true,\n        \"inMaintenanceMode\": true,\n        \"enableAssets\": true\n      },\n      \"capabilitiesState\": {\n        \"isStaticPubliclyViewable\": true,\n        \"isMovingPubliclyViewable\": true,\n        \"isOffStreetPubliclyViewable\": true,\n        \"acceptChargePointRequests\": true,\n        \"hideTariffsOnMapSchedules\": true,\n        \"hideTariffsOnStreets\": true,\n        \"hideRestrictedSpeedLimitsOnStreets\": true\n      },\n      \"highwayAuthority\": \"string\",\n      \"dataQuality\": 1,\n      \"lastTmoUpdate\": \"string\",\n      \"reviewTerminalIds\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c38c40-c2f4-47cf-a550-ee69ff67f3e0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAllAuthorities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe851675-7812-4454-88e3-230bbf0f8fab",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAllAuthorities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af40043f-87fa-403a-b56c-0ba07d945040",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchAllAuthorities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a4a12b2-9f1d-40bd-9d04-398fdf9970eb",
+          "name": "AppyWay Fetch the basic authority information by slug",
+          "request": {
+            "name": "AppyWay Fetch the basic authority information by slug",
+            "description": {
+              "content": "Returns the the basic authority information by slug (authority name)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchFullAuthorityBySlug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d275330-0a2e-4343-8457-dfcb4a67e98e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"regionId\": \"string\",\n    \"countryId\": \"string\",\n    \"authoritySlugs\": [\n      \"string\"\n    ],\n    \"ordnanceSurvey\": {\n      \"apiKey\": \"string\",\n      \"license\": \"string\"\n    },\n    \"hasFreeParkingOutsideZone\": true,\n    \"timeZoneId\": \"string\",\n    \"privacyPolicyUrl\": \"string\",\n    \"paymentProviderId\": \"string\",\n    \"centroid\": {\n      \"latitude\": 0,\n      \"longitude\": 0\n    },\n    \"boundingBox\": {\n      \"topLeft\": {\n        \"latitude\": 0,\n        \"longitude\": 0\n      },\n      \"bottomRight\": {\n        \"latitude\": 0,\n        \"longitude\": 0\n      }\n    },\n    \"fallbackZoneId\": \"string\",\n    \"notes\": [\n      {\n        \"noteVisibilityTypeId\": 0,\n        \"appliesToRestrictionTypeIds\": [\n          0\n        ],\n        \"priority\": 0,\n        \"title\": \"string\",\n        \"message\": \"string\",\n        \"url\": \"string\",\n        \"telephone\": \"string\"\n      }\n    ],\n    \"tags\": [\n      \"string\"\n    ],\n    \"authorityType\": 0,\n    \"legalName\": \"string\",\n    \"capabilities\": {\n      \"allowIsPubliclyViewable\": true,\n      \"allowChargePointRequests\": true,\n      \"isVisibleOnPublicConsultation\": true,\n      \"enableSessionRecordingInternal\": true,\n      \"enableSessionRecordingPublic\": true,\n      \"inMaintenanceMode\": true,\n      \"enableAssets\": true\n    },\n    \"capabilitiesState\": {\n      \"isStaticPubliclyViewable\": true,\n      \"isMovingPubliclyViewable\": true,\n      \"isOffStreetPubliclyViewable\": true,\n      \"acceptChargePointRequests\": true,\n      \"hideTariffsOnMapSchedules\": true,\n      \"hideTariffsOnStreets\": true,\n      \"hideRestrictedSpeedLimitsOnStreets\": true\n    },\n    \"highwayAuthority\": \"string\",\n    \"dataQuality\": 1,\n    \"lastTmoUpdate\": \"string\",\n    \"reviewTerminalIds\": true,\n    \"shape\": {\n      \"type\": \"string\",\n      \"crs\": {\n        \"type\": \"string\",\n        \"properties\": {\n          \"name\": \"string\"\n        }\n      },\n      \"coordinates\": [\n        [\n          [\n            0\n          ]\n        ]\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "817dcd21-4b4e-4429-a751-f5c396e179e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03a50c86-7019-41ee-afa8-bc15c42a7246",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb0fecc7-3864-4ed7-9a6a-cbf37369678d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49907836-e7aa-46fe-b990-f76c63955da1",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66e9dde3-847e-4c41-af90-16a6c95d2829",
+          "name": "AppyWay Fetch Full Authority By Slug",
+          "request": {
+            "name": "AppyWay Fetch Full Authority By Slug",
+            "description": {
+              "content": "Returns an object which has the location of the documents containing the full restrictions of an authority <br /> \n            The documentation provided here shows the model you will find at these locations. The initial object contains only the URL's. <br />\n            You will have to fetch the documents from the returned authority URL's",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fetchFullAuthorityInfoBySlug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"<string>\",\n  \"maxDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8dfa43a6-4ea8-409e-9147-05603650463d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityInfoBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\",\n  \"maxDate\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"result\": {\n    \"ospsUrl\": [\n      {\n        \"type\": \"string\",\n        \"features\": [\n          {\n            \"type\": \"string\",\n            \"id\": \"string\",\n            \"geometry\": {\n              \"type\": \"string\",\n              \"crs\": {\n                \"type\": \"string\",\n                \"properties\": {\n                  \"name\": \"string\"\n                }\n              }\n            },\n            \"properties\": {\n              \"onStreetParkingId\": \"string\",\n              \"zoneId\": \"string\",\n              \"authorityId\": \"string\",\n              \"address\": {\n                \"street\": \"string\",\n                \"postcode\": \"string\",\n                \"city\": \"string\",\n                \"country\": \"string\"\n              },\n              \"length\": 0,\n              \"bays\": 0,\n              \"restrictionTypeDetails\": [\n                {\n                  \"restrictionTypeId\": 0,\n                  \"operatingHoursSets\": [\n                    {\n                      \"setGuid\": \"string\",\n                      \"setId\": \"string\",\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ]\n                    }\n                  ],\n                  \"exceptionsSet\": {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\"\n                  },\n                  \"locationNumber\": \"string\",\n                  \"terminalIds\": [\n                    \"string\"\n                  ],\n                  \"exemptionsSet\": {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\"\n                  },\n                  \"tariffsSet\": [\n                    {\n                      \"setGuid\": \"string\",\n                      \"setId\": \"string\",\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ]\n                    }\n                  ]\n                }\n              ],\n              \"notes\": [\n                {\n                  \"noteVisibilityTypeId\": 0,\n                  \"appliesToRestrictionTypeIds\": [\n                    0\n                  ],\n                  \"priority\": 0,\n                  \"title\": \"string\",\n                  \"message\": \"string\",\n                  \"url\": \"string\",\n                  \"telephone\": \"string\"\n                }\n              ],\n              \"electricPoint\": {\n                \"manufacturer\": \"string\",\n                \"manufacturerContactNumber\": \"string\",\n                \"chargeFee\": \"string\",\n                \"website\": \"string\",\n                \"electricConnections\": [\n                  {\n                    \"type\": 0,\n                    \"name\": \"string\",\n                    \"description\": \"string\",\n                    \"quantity\": 0\n                  }\n                ]\n              },\n              \"venueId\": \"string\",\n              \"sourceTag\": \"string\",\n              \"sensorIds\": [\n                \"string\"\n              ],\n              \"centroid\": {\n                \"latitude\": 0,\n                \"longitude\": 0\n              },\n              \"tags\": [\n                \"string\"\n              ],\n              \"linkedOspIds\": [\n                \"string\"\n              ]\n            }\n          }\n        ],\n        \"properties\": {}\n      }\n    ],\n    \"zonesUrl\": {\n      \"type\": \"string\",\n      \"features\": [\n        {\n          \"type\": \"string\",\n          \"id\": \"string\",\n          \"geometry\": {\n            \"type\": \"string\",\n            \"crs\": {\n              \"type\": \"string\",\n              \"properties\": {\n                \"name\": \"string\"\n              }\n            },\n            \"coordinates\": [\n              [\n                [\n                  0\n                ]\n              ]\n            ]\n          },\n          \"properties\": {\n            \"zoneId\": \"string\",\n            \"authorityId\": \"string\",\n            \"parentZoneId\": \"string\",\n            \"type\": 1,\n            \"name\": \"string\",\n            \"restrictionTypeDetails\": [\n              {\n                \"restrictionTypeId\": 0,\n                \"operatingHoursSets\": [\n                  {\n                    \"setGuid\": \"string\",\n                    \"setId\": \"string\",\n                    \"parkingEntitlementTypeIds\": [\n                      0\n                    ]\n                  }\n                ],\n                \"exceptionsSet\": {\n                  \"setGuid\": \"string\",\n                  \"setId\": \"string\"\n                }\n              }\n            ],\n            \"notes\": [\n              {\n                \"noteVisibilityTypeId\": 0,\n                \"appliesToRestrictionTypeIds\": [\n                  0\n                ],\n                \"priority\": 0,\n                \"title\": \"string\",\n                \"message\": \"string\",\n                \"url\": \"string\",\n                \"telephone\": \"string\"\n              }\n            ],\n            \"venueId\": \"string\",\n            \"sourceTag\": \"string\",\n            \"tags\": [\n              \"string\"\n            ]\n          }\n        }\n      ],\n      \"properties\": {}\n    },\n    \"setsUrl\": {\n      \"operatingHoursSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"operatingHours\": {\n            \"standardDays\": [\n              {\n                \"ruleTime\": {\n                  \"months\": [\n                    0\n                  ],\n                  \"days\": [\n                    0\n                  ],\n                  \"weekNumbers\": [\n                    0\n                  ],\n                  \"hours\": [\n                    {\n                      \"start\": \"2024-10-11\",\n                      \"end\": \"2024-10-11\"\n                    }\n                  ],\n                  \"firstDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  },\n                  \"lastDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  }\n                },\n                \"parkingEntitlementTypeIds\": [\n                  0\n                ],\n                \"maxStay\": 0,\n                \"minStay\": 0,\n                \"noReturn\": 0,\n                \"noReturnUntil\": \"2024-10-11\"\n              }\n            ],\n            \"eventDays\": [\n              {\n                \"ruleTime\": {\n                  \"months\": [\n                    0\n                  ],\n                  \"days\": [\n                    0\n                  ],\n                  \"weekNumbers\": [\n                    0\n                  ],\n                  \"hours\": [\n                    {\n                      \"start\": \"2024-10-11\",\n                      \"end\": \"2024-10-11\"\n                    }\n                  ],\n                  \"firstDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  },\n                  \"lastDate\": {\n                    \"month\": 0,\n                    \"day\": 0\n                  }\n                },\n                \"parkingEntitlementTypeIds\": [\n                  0\n                ],\n                \"maxStay\": 0,\n                \"minStay\": 0,\n                \"noReturn\": 0,\n                \"noReturnUntil\": \"2024-10-11\"\n              }\n            ]\n          }\n        }\n      ],\n      \"exemptionsSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"exemptions\": [\n            {\n              \"exemptionTypeId\": 0,\n              \"parkingEntitlementTypeId\": 0,\n              \"exemptionTimeTypeId\": 0,\n              \"exemptionApplies\": true,\n              \"maxStay\": 0,\n              \"noReturn\": 0\n            }\n          ]\n        }\n      ],\n      \"exceptionsSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"exceptions\": {\n            \"allHolidaysRestrictionExceptionTypeId\": 0,\n            \"allHolidaysOperatingHours\": {\n              \"standardDays\": [\n                {\n                  \"ruleTime\": {\n                    \"months\": [\n                      0\n                    ],\n                    \"days\": [\n                      0\n                    ],\n                    \"weekNumbers\": [\n                      0\n                    ],\n                    \"hours\": [\n                      {\n                        \"start\": \"2024-10-11\",\n                        \"end\": \"2024-10-11\"\n                      }\n                    ],\n                    \"firstDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    },\n                    \"lastDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    }\n                  },\n                  \"parkingEntitlementTypeIds\": [\n                    0\n                  ],\n                  \"maxStay\": 0,\n                  \"minStay\": 0,\n                  \"noReturn\": 0,\n                  \"noReturnUntil\": \"2024-10-11\"\n                }\n              ],\n              \"eventDays\": [\n                {\n                  \"ruleTime\": {\n                    \"months\": [\n                      0\n                    ],\n                    \"days\": [\n                      0\n                    ],\n                    \"weekNumbers\": [\n                      0\n                    ],\n                    \"hours\": [\n                      {\n                        \"start\": \"2024-10-11\",\n                        \"end\": \"2024-10-11\"\n                      }\n                    ],\n                    \"firstDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    },\n                    \"lastDate\": {\n                      \"month\": 0,\n                      \"day\": 0\n                    }\n                  },\n                  \"parkingEntitlementTypeIds\": [\n                    0\n                  ],\n                  \"maxStay\": 0,\n                  \"minStay\": 0,\n                  \"noReturn\": 0,\n                  \"noReturnUntil\": \"2024-10-11\"\n                }\n              ]\n            },\n            \"daySpecificRestrictionExceptions\": [\n              {\n                \"publicHolidayOrNamedDayId\": \"string\",\n                \"restrictionExceptionTypeId\": 0,\n                \"operatingHours\": {\n                  \"standardDays\": [\n                    {\n                      \"ruleTime\": {\n                        \"months\": [\n                          0\n                        ],\n                        \"days\": [\n                          0\n                        ],\n                        \"weekNumbers\": [\n                          0\n                        ],\n                        \"hours\": [\n                          {\n                            \"start\": \"2024-10-11\",\n                            \"end\": \"2024-10-11\"\n                          }\n                        ],\n                        \"firstDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        },\n                        \"lastDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        }\n                      },\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ],\n                      \"maxStay\": 0,\n                      \"minStay\": 0,\n                      \"noReturn\": 0,\n                      \"noReturnUntil\": \"2024-10-11\"\n                    }\n                  ],\n                  \"eventDays\": [\n                    {\n                      \"ruleTime\": {\n                        \"months\": [\n                          0\n                        ],\n                        \"days\": [\n                          0\n                        ],\n                        \"weekNumbers\": [\n                          0\n                        ],\n                        \"hours\": [\n                          {\n                            \"start\": \"2024-10-11\",\n                            \"end\": \"2024-10-11\"\n                          }\n                        ],\n                        \"firstDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        },\n                        \"lastDate\": {\n                          \"month\": 0,\n                          \"day\": 0\n                        }\n                      },\n                      \"parkingEntitlementTypeIds\": [\n                        0\n                      ],\n                      \"maxStay\": 0,\n                      \"minStay\": 0,\n                      \"noReturn\": 0,\n                      \"noReturnUntil\": \"2024-10-11\"\n                    }\n                  ]\n                }\n              }\n            ]\n          }\n        }\n      ],\n      \"tariffSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"tariffs\": [\n            {\n              \"setName\": \"string\",\n              \"parkingEntitlementTypeIds\": [\n                0\n              ],\n              \"details\": [\n                {\n                  \"price\": 0,\n                  \"surchargeDetail\": {\n                    \"surchargeType\": 0,\n                    \"surchargeTypeEnum\": 0,\n                    \"value\": 0,\n                    \"notes\": \"string\",\n                    \"ruleType\": 0\n                  },\n                  \"emissionsAdjustments\": {\n                    \"emissionsBandSetId\": \"string\",\n                    \"adjustments\": [\n                      {\n                        \"emissionsBandId\": \"string\",\n                        \"amount\": 0,\n                        \"surchargeDetail\": {\n                          \"surchargeType\": 0,\n                          \"surchargeTypeEnum\": 0,\n                          \"value\": 0,\n                          \"notes\": \"string\",\n                          \"ruleType\": 0\n                        }\n                      }\n                    ]\n                  },\n                  \"duration\": 0,\n                  \"minimumPriceIncrement\": 0,\n                  \"singlePaymentCanCrossMidnight\": true,\n                  \"from\": 0,\n                  \"upTo\": 0\n                }\n              ],\n              \"timeFrom\": \"2024-10-11\",\n              \"timeTo\": \"2024-10-11\",\n              \"firstDate\": {\n                \"month\": 0,\n                \"day\": 0\n              },\n              \"lastDate\": {\n                \"month\": 0,\n                \"day\": 0\n              },\n              \"months\": [\n                0\n              ],\n              \"days\": [\n                0\n              ],\n              \"timeType\": 0\n            }\n          ]\n        }\n      ],\n      \"emissionsBandSets\": [\n        {\n          \"guid\": \"string\",\n          \"setId\": \"string\",\n          \"name\": \"string\",\n          \"formattedName\": \"string\",\n          \"emissionsBands\": [\n            {\n              \"id\": \"string\",\n              \"name\": \"string\",\n              \"emissions\": {\n                \"min\": 0,\n                \"max\": 0\n              },\n              \"fuelTypes\": [\n                1\n              ],\n              \"registrationYears\": {\n                \"min\": 0,\n                \"max\": 0\n              }\n            }\n          ]\n        }\n      ],\n      \"isEmpty\": true\n    },\n    \"mtfsUrl\": {\n      \"type\": \"string\",\n      \"features\": [\n        {\n          \"geoType\": \"string\",\n          \"featureId\": \"string\",\n          \"featureType\": 0,\n          \"authorityId\": \"string\",\n          \"note\": \"string\",\n          \"streetName\": \"string\",\n          \"guid\": \"string\"\n        }\n      ],\n      \"properties\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ecd3f5d-ab5c-4fb7-a07d-74ec9e4f37ea",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityInfoBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\",\n  \"maxDate\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"property\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96cce38f-e562-4bc3-a51a-04ef578bfacc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityInfoBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\",\n  \"maxDate\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f603cd8-79b5-4410-bda2-99a1ff822efb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityInfoBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\",\n  \"maxDate\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9173a161-b4f0-4f45-9167-9ddbadb66374",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fetchFullAuthorityInfoBySlug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"string\",\n  \"maxDate\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.appyway.com/v1/availability-realtime",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c04b10fe-ff9d-4361-8562-5dd5795b616f",
+    "name": "AppyWay Availability RealTime ActivityTypes Authorities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.",
+      "type": "text/plain"
+    }
+  }
+}

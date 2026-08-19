@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AppyWay Availability RealTime ActivityTypes FuelTypes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FuelTypes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppyWay Fetch All Fuel Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.appyway.com/v1/availability-realtime/fetchAllFuelTypes"
+          },
+          "docs": "Returns a list with all the fuel types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
