@@ -6,6 +6,8 @@ apis:
   description: The ActivityTypes API from AppyWay — 1 operation(s) for activitytypes.
   humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
   tags:
+  - Activity Types
+  tags_raw:
   - ActivityTypes
   properties:
   - type: OpenAPI
@@ -122,6 +124,8 @@ apis:
   description: The BaseMaps API from AppyWay — 1 operation(s) for basemaps.
   humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
   tags:
+  - Basemaps
+  tags_raw:
   - BaseMaps
   properties:
   - type: OpenAPI
@@ -587,6 +591,8 @@ apis:
   description: The PaymentMethods API from AppyWay — 1 operation(s) for paymentmethods.
   humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
   tags:
+  - Payment Methods
+  tags_raw:
   - PaymentMethods
   properties:
   - type: OpenAPI
@@ -616,6 +622,8 @@ apis:
   description: The PaymentProviders API from AppyWay — 1 operation(s) for paymentproviders.
   humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
   tags:
+  - Payment Providers
+  tags_raw:
   - PaymentProviders
   properties:
   - type: OpenAPI
@@ -790,6 +798,8 @@ apis:
   description: The VehicleTypes API from AppyWay — 1 operation(s) for vehicletypes.
   humanURL: https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time
   tags:
+  - Vehicle Types
+  tags_raw:
   - VehicleTypes
   properties:
   - type: OpenAPI
