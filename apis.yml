@@ -917,6 +917,9 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/appyway.png
 access: 3rd-Party
 common:
+  - type: CapabilityMap
+    url: capabilities/appyway-capability-edges.yml
+    name: AppyWay Business Capability Map
   - type: AgenticAccess
     url: agentic-access/appyway-agentic-access.yml
   - type: DomainSecurity

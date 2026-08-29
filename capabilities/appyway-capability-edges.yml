@@ -1,0 +1,26 @@
+slug: appyway
+provider: AppyWay
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Automotive & Mobility
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Parking
+  spec_file: appyway-parking-api-openapi.yml
+  capability_id: BC-3490.80
+  capability_id_l1: BC-3490
+  capability_name: Mobility Regulatory and City Operations
+  confidence: 0.7
+  evidence: '"AppyWay Fetch a parking Entity by ID", "AppyWay Fetch a parking quote by id", "AppyWay Find
+    parking entities by viewport"'
+  reason: Core operational surface for parking entities, operating hours, tariffs/quotes and payment providers
+    across geographic viewports — curb / parking operations for a city mobility data platform. Not a vehicle-OEM
+    or charging capability.
