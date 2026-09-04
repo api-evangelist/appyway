@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes EntitlementTypes API
+  title: AppyWay Availability RealTime ActivityTypes Entitlement Types API
   version: '1.0'
   description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
 servers:
@@ -65,52 +65,48 @@ components:
           description: Unique identifier
           format: int32
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name
-          nullable: true
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Description
-          nullable: true
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Shorthand code that represents this entitlement.
-          nullable: true
         restrictionTypeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
           description: Indicates the restriction types that this entitlement can apply to
-          nullable: true
         applicableExemptionTypeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
           description: Indicates the exemption types that can apply to this entitlement
-          nullable: true
         hasTariff:
           type: boolean
           description: Indicates whether this entitlement needs a tariff
         restrictionTypeLegalNames:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/RestrictionTypeLegalName'
           description: Indicates the legal names of the restriction type that this entitlement can apply to
-          nullable: true
       additionalProperties: false
       description: Indicates the condition on which availability of an OSP depends
-    RestrictionTypeLegalName:
-      type: object
-      properties:
-        restrictionTypeId:
-          type: integer
-          format: int32
-        legalName:
-          type: string
-          nullable: true
-      additionalProperties: false
     EntitlementTypeIReadOnlyCollectionOkResponse:
       type: object
       properties:
@@ -118,10 +114,22 @@ components:
           type: boolean
           readOnly: true
         result:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/EntitlementType'
-          nullable: true
+      additionalProperties: false
+    RestrictionTypeLegalName:
+      type: object
+      properties:
+        restrictionTypeId:
+          type: integer
+          format: int32
+        legalName:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     apiKey:

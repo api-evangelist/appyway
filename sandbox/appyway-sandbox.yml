@@ -1,0 +1,63 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Stoplight Prism mock servers published alongside AppyWay's own hosted documentation
+  project (stoplight.io workspace "appyway", project "public-docs"), discovered through
+  the project's public node metadata and verified live on 2026-09-04.
+provider: AppyWay
+providerId: appyway
+summary: >-
+  AppyWay documents no sandbox, no test mode and no test key. It does, however, publish
+  its documentation through Stoplight, and Stoplight serves a live Prism mock of each of
+  the four contracts at a stable public URL. Those mocks answer any caller who sends an
+  API-KEY header with any value, which makes a partner-gated API explorable before a key
+  is issued. This is a Stoplight-provided surface AppyWay left enabled, not a sandbox
+  AppyWay designed — recorded honestly as such.
+provider_published_sandbox: false
+test_credentials:
+  published: false
+  detail: >-
+    No test key, test-mode prefix or hosted test token exists. Production keys are issued
+    only by emailing apisupport@appyway.com, and the same key works everywhere; there is
+    no live-versus-test key distinction.
+test_data:
+  published: false
+  detail: No test cards, test bank accounts, fixtures, triggers or time simulation. The API is read-only reference data.
+mock_servers:
+  vendor: Stoplight Prism
+  auth: any non-empty API-KEY header is accepted
+  verified: '2026-09-04'
+  servers:
+  - api: Explorer
+    url: https://stoplight.io/mocks/appyway/public-docs/1268039
+    probe:
+      request: 'GET /ping with header API-KEY: test'
+      status: 200
+  - api: Reference
+    url: https://stoplight.io/mocks/appyway/public-docs/1268055
+    probe:
+      request: 'GET /ping with header API-KEY: test'
+      status: 200
+  - api: Traffic Data
+    url: https://stoplight.io/mocks/appyway/public-docs/3566223
+    probe:
+      request: 'GET /ping with header API-KEY: test'
+      status: 200
+  - api: Availability RealTime
+    url: https://stoplight.io/mocks/appyway/public-docs/4086011
+    probe:
+      request: 'GET /ping with header API-KEY: test'
+      status: 200
+  caveats:
+  - Without an API-KEY header the mock returns 401, mirroring the real security scheme.
+  - Responses are the example values embedded in the contract, not real UK parking data.
+  - >-
+    The mocks are hosted by Stoplight, not by AppyWay, and could be withdrawn by either
+    party without notice. Do not treat them as a supported environment.
+production_probe:
+  url: https://api.appyway.com/v1/explorer/ping
+  status: 401
+  detail: The real API rejects every anonymous request, so there is no unauthenticated production surface to explore.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes PermittedVehicles API
+  title: AppyWay Availability RealTime ActivityTypes Permitted Vehicles API
   version: '1.0'
   description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
 servers:
@@ -49,18 +49,6 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
-    PermittedVehicleIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermittedVehicle'
-          nullable: true
-      additionalProperties: false
     PermittedVehicle:
       type: object
       properties:
@@ -69,18 +57,33 @@ components:
           description: Unique identifier
           format: int32
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name
-          nullable: true
         restrictionTypeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
           description: Identifiers of the Ylp.Reference.Contracts.Model.RestrictionTypes that this vehicle type is applicable to.
-          nullable: true
       additionalProperties: false
       description: Indicates what vehicle types are permitted to use a feature such as a bus or cycle lane.
+    PermittedVehicleIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PermittedVehicle'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

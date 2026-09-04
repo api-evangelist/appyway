@@ -1,53 +1,216 @@
-generated: '2026-07-11'
-method: derived
-docs: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
-note: AppyWay does not publish OAuth scopes; its authentication docs state API requests
-  are authenticated using API keys, with invalid keys returning 401 Unauthorized
-  (https://docs.appyway.com/docs/public-docs/50055c042f423-authentication).
-source: openapi/appyway-availability-realtime-api-openapi.yml, openapi/appyway-explorer-api-openapi.yml,
-  openapi/appyway-platform-api-openapi.yml, openapi/appyway-traffic-data-api-openapi.yml, openapi/availability-realtime-api-openapi.yml,
-  openapi/explorer-api-openapi.yml, openapi/traffic-data-api-openapi.yml
+generated: '2026-09-04'
+method: searched
+source: openapi/appyway-activitytypes-api-openapi.yml, openapi/appyway-authorities-api-openapi.yml, openapi/appyway-authoritytypes-api-openapi.yml,
+  openapi/appyway-availability-api-openapi.yml, openapi/appyway-basemaps-api-openapi.yml, openapi/appyway-bulk-api-openapi.yml,
+  openapi/appyway-countries-api-openapi.yml, openapi/appyway-entitlementtypes-api-openapi.yml, openapi/appyway-exceptiontypes-api-openapi.yml,
+  openapi/appyway-exemptiontimetypes-api-openapi.yml, openapi/appyway-exemptiontypes-api-openapi.yml,
+  openapi/appyway-facilitytypes-api-openapi.yml, openapi/appyway-fueltypes-api-openapi.yml, openapi/appyway-gis-api-openapi.yml,
+  openapi/appyway-movingexceptiontypes-api-openapi.yml, openapi/appyway-movingrestrictiontypes-api-openapi.yml,
+  openapi/appyway-notevisibilitytypes-api-openapi.yml, openapi/appyway-offstreetrestrictiontypes-api-openapi.yml,
+  openapi/appyway-onstreetparkingtypes-api-openapi.yml, openapi/appyway-parking-api-openapi.yml, openapi/appyway-paymentmethods-api-openapi.yml,
+  openapi/appyway-paymentproviders-api-openapi.yml, openapi/appyway-permittedvehicles-api-openapi.yml,
+  openapi/appyway-permittypes-api-openapi.yml, openapi/appyway-regions-api-openapi.yml, openapi/appyway-restrictiontypes-api-openapi.yml,
+  openapi/appyway-status-api-openapi.yml, openapi/appyway-vehicletypes-api-openapi.yml, openapi/appyway-zones-api-openapi.yml,
+  openapi/appyway-zonetypes-api-openapi.yml
 schemes:
 - name: oAuth2
-  source: openapi/appyway-availability-realtime-api-openapi.yml
+  source: openapi/appyway-activitytypes-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/appyway-explorer-api-openapi.yml
+  source: openapi/appyway-authorities-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/appyway-platform-api-openapi.yml
+  source: openapi/appyway-authoritytypes-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/appyway-traffic-data-api-openapi.yml
+  source: openapi/appyway-availability-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/availability-realtime-api-openapi.yml
+  source: openapi/appyway-basemaps-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/explorer-api-openapi.yml
+  source: openapi/appyway-bulk-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 - name: oAuth2
-  source: openapi/traffic-data-api-openapi.yml
+  source: openapi/appyway-countries-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-entitlementtypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-exceptiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-exemptiontimetypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-exemptiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-facilitytypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-fueltypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-gis-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-movingexceptiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-movingrestrictiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-notevisibilitytypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-offstreetrestrictiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-onstreetparkingtypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-parking-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-paymentmethods-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-paymentproviders-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-permittedvehicles-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-permittypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-regions-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-restrictiontypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-status-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-vehicletypes-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-zones-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.appyway.com/authorize
+    tokenUrl: https://auth.appyway.com/oauth/token
+- name: oAuth2
+  source: openapi/appyway-zonetypes-api-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://auth.appyway.com/authorize
     tokenUrl: https://auth.appyway.com/oauth/token
 scopes: []
+docs: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+scope_count: 0
+finding: 'AppyWay publishes no OAuth scopes and no permissions reference page, because the API does not
+  use OAuth. Its authentication page documents a single API-KEY header and nothing else, and the four
+  contracts AppyWay published to its own repository as of 2026-08-24 declare only the apiKey scheme —
+  the oAuth2 blocks listed below came from an earlier harvest and are no longer present upstream. Authorisation
+  is instead granted per UK local authority against the key itself: an entitled key succeeds, an unentitled
+  one gets 403 naming the authority. That entitlement set is not published or introspectable, so an agent
+  cannot discover what its own key may reach without trying.'
+platform_oauth: auth.appyway.com is a live Auth0 tenant whose discovery document advertises the standard
+  OIDC scopes — openid, profile, offline_access, email, phone, address and the associated claims. Those
+  are the web-application login scopes, not API authorisation scopes, and are recorded in well-known/appyway-auth-openid-configuration.json
+  rather than here.
+probes:
+- url: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+  status: 200
+  checked: '2026-09-04'
+- url: https://auth.appyway.com/.well-known/openid-configuration
+  status: 200
+  checked: '2026-09-04'

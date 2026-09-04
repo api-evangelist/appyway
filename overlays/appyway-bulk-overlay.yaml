@@ -1,0 +1,47 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for AppyWay Availability RealTime ActivityTypes Bulk API
+  version: 1.0.0
+x-generated: '2026-09-04'
+x-method: generated
+x-source: openapi/appyway-bulk-api-openapi.yml
+x-extends: openapi/appyway-bulk-api-openapi.yml
+actions:
+- target: $
+  description: The refine pass stamped every split document with https://api.appyway.com/v1/availability-realtime.
+    The operations in this document are served from https://api.appyway.com/v1/explorer — established
+    by matching each path back to the provider's own contracts in github.com/YellowLineParking/Public-Api-Specs
+    on 2026-09-04. This overlay corrects servers[] without mutating the underlying document.
+  update:
+    servers:
+    - url: https://api.appyway.com/v1/explorer
+      description: Explorer API
+- target: $.info
+  description: AppyWay publishes no contact block. The support address below is the one the developer
+    docs give for keys, rate-limit increases and problems.
+  update:
+    contact:
+      name: AppyWay API Support
+      email: apisupport@appyway.com
+      url: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+- target: $
+  description: Point readers at the provider documentation the operations are described in.
+  update:
+    externalDocs:
+      description: AppyWay developer documentation
+      url: https://docs.appyway.com/
+- target: $
+  description: 'Runtime semantics AppyWay documents in prose but does not encode in the contract: the
+    response envelope, the absence of pagination, the unpublished per-endpoint rate limits, and the fact
+    that the entire published surface is read-only.'
+  update:
+    x-api-evangelist:
+      response-envelope: '{"success": bool, "result": {...}} on success; {"success": false, "message":
+        "...", "errors": [{"property","code","message"}]} on failure. Not RFC 9457.'
+      pagination: none published
+      rate-limits: Unpublished, differ per endpoint, surface as 429 with no RateLimit-* or Retry-After
+        headers. https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+      write-surface: none — every published operation is a read, so idempotency, dry-run and reversibility
+        are not applicable
+      auth: API-KEY request header; keys issued by AppyWay on request to apisupport@appyway.com
+      source-contract: https://github.com/YellowLineParking/Public-Api-Specs

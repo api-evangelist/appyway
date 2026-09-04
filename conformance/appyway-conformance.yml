@@ -1,0 +1,140 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  The four provider-published OpenAPI documents in
+  github.com/YellowLineParking/Public-Api-Specs, the AppyWay developer guides at
+  docs.appyway.com, and the OIDC discovery document served at
+  https://auth.appyway.com/.well-known/openid-configuration
+provider: AppyWay
+providerId: appyway
+conformance:
+- id: openapi-3.0
+  name: OpenAPI Specification 3.0.1
+  conforms: true
+  evidence: >-
+    All four published contracts declare openapi: 3.0.1 —
+    AppyWay-YlpExplorerApi-v1.oas.json, AppyWay-YlpReferenceApi-v1.oas.json,
+    AppyWay-YlpCmsDataApi-v1.oas.json and AppyWay-YlpAvailabilityRealTimeApi-v1.oas.json
+    in github.com/YellowLineParking/Public-Api-Specs.
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  scope: platform-login-only
+  evidence: >-
+    https://auth.appyway.com/.well-known/openid-configuration returns 200 with issuer
+    https://auth.appyway.com/, authorization_endpoint, token_endpoint, userinfo_endpoint,
+    jwks_uri, and the full claims/response-types blocks. This is the Auth0 tenant behind
+    the AppyWay web applications; the REST API itself does not accept OIDC tokens.
+- id: oauth2
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: true
+  scope: platform-login-only
+  evidence: >-
+    https://auth.appyway.com/.well-known/oauth-authorization-server returns the same
+    document, advertising authorization_code, client_credentials, refresh_token, device_code
+    and token-exchange grants plus S256 PKCE. Saved verbatim to
+    well-known/appyway-auth-oauth-authorization-server.json.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    No operation declares application/problem+json. Errors use a first-party
+    {success,message,errors[]} envelope — see errors/appyway-problem-types.yml.
+- id: pagination
+  name: Published pagination convention
+  conforms: false
+  evidence: >-
+    No page, cursor, limit or offset parameter and no next/total response field in any of
+    the 55 published operations. Bulk reads are bounded by id list or map viewport instead.
+- id: idempotency
+  name: Idempotency-Key replay protection
+  conforms: na
+  evidence: >-
+    Not applicable. Every published operation is a read; there is no mutating surface to
+    protect. See conventions/appyway-conventions.yml.
+- id: http-conditional-requests
+  name: RFC 7232 conditional requests
+  conforms: partial
+  evidence: >-
+    All 25 read operations in the Reference API declare a 304 Not Modified response.
+    The Explorer, Traffic Data and Availability RealTime contracts declare none.
+- id: iso8601
+  name: ISO 8601 date and time
+  conforms: true
+  evidence: >-
+    "Dates and times are sent and returned in standard ISO 8601 format ... returned values
+    will always be in UTC" — https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started.
+    Reinforced by 17 ISO8601 format annotations in the Explorer contract.
+domain_standards:
+- id: geojson
+  name: GeoJSON (RFC 7946)
+  conforms: true
+  market: geospatial / urban mobility
+  evidence: >-
+    The contract declares GeoJSON as a first-class output, not merely a marketing claim.
+    AppyWay-YlpCmsDataApi-v1.oas.json publishes three GeoJSON export routes —
+    GET /exportAuthorityRestrictionsById/{authorityId}.geojson,
+    GET /exportAuthorityMovingRestrictionsById/{authorityId}.geojson and
+    GET /exportAuthorityRestrictionsBySlug/{slug}.geojson — and
+    AppyWay-YlpExplorerApi-v1.oas.json models the payload with GeoJSON component schemas
+    (Geometry, GeometryCollection, Crs, CrsProperties, FeatureInfoFeatureCollection).
+    AppyWay also publishes an open-source GeoJSON serialisation library,
+    Appy.Spatial.GeoJSON, under its own GitHub organisation.
+  buyer_impact: >-
+    A consumer already speaking GeoJSON loads AppyWay kerbside data into QGIS, ArcGIS,
+    Leaflet or Mapbox with no bespoke connector.
+- id: ogc-wfs
+  name: OGC Web Feature Service
+  conforms: declared
+  market: geospatial / GIS
+  evidence: >-
+    AppyWay-YlpCmsDataApi-v1.oas.json declares GET /wfs, operationId get-wfs, tagged GIS,
+    summary and description both "Executes a Web Feature Service (WFS) query." The route is
+    therefore an OGC OWS surface asserted by the provider's own contract.
+  gated: true
+  probe:
+    url: https://api.appyway.com/v1/traffic-data/wfs?service=WFS&request=GetCapabilities
+    status: 401
+    checked: '2026-09-04'
+  note: >-
+    Recorded as `declared`, not `conforms: true`. An anonymous GetCapabilities request
+    returns 401 because the whole API sits behind the API-KEY header, so no
+    *_Capabilities document could be retrieved and none has been authored. Confirming the
+    WFS version and feature types requires an issued key.
+- id: dxf
+  name: AutoCAD DXF interchange
+  conforms: true
+  market: highways / CAD
+  evidence: >-
+    GET /exportAuthorityRestrictionsBySlug/{slug}.dxf in AppyWay-YlpCmsDataApi-v1.oas.json —
+    added since the previous harvest. Lets a highways engineer pull kerbside restriction
+    geometry straight into a CAD workflow.
+- id: uk-tro
+  name: UK Traffic Regulation Order vocabulary
+  conforms: vocabulary-only
+  market: UK local-authority traffic regulation
+  evidence: >-
+    "Tro"/"TRO" appears throughout the Traffic Data and Reference schemas (28 occurrences
+    across the two contracts), and the Public Consultation application surfaces orders in
+    consultation per authority.
+  note: >-
+    Recorded as vocabulary alignment only. AppyWay uses the domain's language but its
+    contract does not declare conformance to the UK Department for Transport D-TRO data
+    model or to any published TRO schema, and no such claim appears in its docs. Not
+    scored as a domain-standard conformance.
+not_claimed:
+- fhir
+- fapi
+- scim
+- odata
+- psd2
+- json:api
+- oai-pmh
+- activitypub
+detail_not_claimed: >-
+  Listed only to record that they were checked and are absent. None of these standards is
+  relevant to a UK kerbside and parking-regulation data provider; their absence is not a
+  gap.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

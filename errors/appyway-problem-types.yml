@@ -1,0 +1,112 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  Derived from the 4xx/5xx responses of the four provider-published OpenAPI documents in
+  github.com/YellowLineParking/Public-Api-Specs, then enriched from the response-shape
+  section of https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+provider: AppyWay
+providerId: appyway
+format: custom-envelope
+rfc9457: false
+rfc9457_note: >-
+  AppyWay does not serve application/problem+json. Errors use a first-party envelope
+  documented in the Getting Started guide and modelled in every contract as the
+  BadRequestResponse schema.
+envelope:
+  media_type: application/json
+  fields:
+  - name: success
+    type: boolean
+    detail: false on every error response.
+  - name: message
+    type: string
+    detail: Human-readable summary, e.g. "The request is not valid."
+  - name: errors
+    type: array
+    detail: Zero or more per-field failures.
+    items:
+    - name: property
+      type: string
+      detail: The offending request field. Omitted when the failure is not field-scoped.
+    - name: code
+      type: string
+      detail: Machine-readable failure code, e.g. Format, Other, CannotPerformAction.
+    - name: message
+      type: string
+      detail: Human-readable detail for this one failure.
+  example_source: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+problem_types:
+- status: 400
+  title: Bad Request / Validation Error
+  schema: BadRequestResponse
+  detail: >-
+    The request body failed validation. The errors[] array names each offending property
+    with a code; the same property may appear more than once with different codes.
+  observed_codes:
+  - code: Format
+    detail: The value is present but not in the expected format.
+  - code: Other
+    detail: A field-scoped failure that does not fall under a more specific code.
+  - code: CannotPerformAction
+    detail: Emitted without a property when the request as a whole cannot be satisfied.
+  remediation: Correct the named properties and retry. Never retry unchanged.
+  declared_on: 25 of 55 published operations
+- status: 401
+  title: Unauthorized
+  schema: Unauthorized (shared components.responses entry)
+  detail: The API-KEY header is missing or the key is not valid.
+  remediation: >-
+    Send a valid key in the API-KEY request header. Keys are issued by AppyWay on request
+    to apisupport@appyway.com; there is no self-serve issuance, so an agent cannot recover
+    from this without a human.
+  docs: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+  declared_on: all 55 published operations
+- status: 403
+  title: Forbidden
+  schema: Forbidden (shared components.responses entry)
+  detail: >-
+    The key is valid but is not entitled to the requested resource. The documented example
+    is authority-scoped — "No permissions to authority '{C5962ED0-...}'" — so entitlement
+    is granted per local authority, not per endpoint.
+  remediation: >-
+    Restrict the request to authorities the key covers, or contact AppyWay to extend the
+    key's authority entitlements. Not retryable.
+  declared_on: all 55 published operations
+- status: 404
+  title: Not Found
+  detail: >-
+    The identified entity does not exist. Declared only on the Explorer by-id reads —
+    fetchAuthorityById, fetchEventDatesById, fetchOperatingHoursById,
+    fetchParkingEntityById, fetchParkingQuoteById, fetchPaymentProvidersByParkingEntityId,
+    fetchZoneById.
+  remediation: >-
+    Re-resolve the identifier through a find*ByViewport search before retrying. AppyWay's
+    coverage is not uniform, so a 404 may mean the entity was never mapped rather than
+    that it was removed — see the "Interpret gaps in parking data" guide.
+  declared_on: 7 operations
+- status: 429
+  title: Too Many Requests
+  schema: TooManyRequests (shared components.responses entry)
+  detail: >-
+    Rate limit exceeded. Limits differ per endpoint and are not published as numbers, and
+    no RateLimit-* or Retry-After header contract is declared.
+  remediation: Back off exponentially with jitter, as the rate-limiting guide instructs.
+  docs: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+  declared_on: all 55 published operations
+- status: 500
+  title: Unexpected Error
+  detail: >-
+    Documented in the Getting Started guide as {"success": false, "message": "An unexpected
+    error occurred."} but not declared in any OpenAPI responses block.
+  remediation: Retry with backoff; escalate to apisupport@appyway.com if persistent.
+  declared_on: 0 operations (documented in prose only)
+gaps:
+- >-
+  No error-code registry is published. The `code` values above are the only ones AppyWay
+  documents, and they come from a single illustrative example rather than a reference table.
+- >-
+  500 is documented in prose but absent from every contract, so a generated client will
+  not model it.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

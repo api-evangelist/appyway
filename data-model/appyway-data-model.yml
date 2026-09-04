@@ -1,0 +1,163 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  Derived from the components.schemas blocks and id-reference fields of the
+  provider-published contracts AppyWay-YlpExplorerApi-v1.oas.json and
+  AppyWay-YlpReferenceApi-v1.oas.json in github.com/YellowLineParking/Public-Api-Specs,
+  cross-read against the Key Concepts and Terms Glossary guides at docs.appyway.com.
+provider: AppyWay
+providerId: appyway
+summary: >-
+  AppyWay models UK kerbside regulation as a containment hierarchy of map entities —
+  Authority contains Zone contains ParkingEntity — with a large set of controlled
+  reference vocabularies hanging off it, and a query-time VehicleOperatorContext that
+  decides which rules and prices actually apply to a given driver. Relationships are
+  expressed with plain id fields (authorityId, zoneId, *TypeIds), not $ref links between
+  resources, so the graph below is reconstructed from the naming scheme.
+identifiers:
+  style: GUID
+  detail: >-
+    Entities are addressed by a `entityId` GUID. The Forbidden example in the docs shows
+    an authority id in registry form — {C5962ED0-1F6A-4417-871A-74E58D921D21}. There are
+    no typed prefixes (no cus_/acct_ style), so an identifier carries no clue to its own type;
+    `entityType` on the payload is what discriminates.
+  secondary:
+  - name: slug
+    detail: Authorities are additionally addressable by a human-readable slug in the Traffic Data export and fetch-by-slug routes.
+  - name: locationCode
+    detail: Parking entities and car parks carry a locationCode used by payment providers.
+concurrency:
+  field: eTag
+  detail: >-
+    Authority, Zone and ParkingEntity all carry an eTag, which pairs with the 304 Not
+    Modified responses declared across the Reference API.
+entities:
+- name: Authority
+  description: The geographical area belonging to one UK local authority; owner of the rules and regulations within it.
+  key: entityId
+  fields: [entityId, name, eTag, notes, paymentProviders, entityType, countryId, geometry, hasFreeParkingOutsideZone]
+  operations: [post-fetchauthoritybyid, post-findauthorityidsbyviewport, post-fetchallauthorities, post-fetchfullauthoritybyslug, post-fetchfullauthorityinfobyslug]
+- name: Zone
+  description: A larger map entity containing multiple parking entities; carries default operating hours that specific entity rules override.
+  key: entityId
+  fields: [entityId, name, eTag, geometry, notes, authorityId, zoneType, venueId, entityType]
+  operations: [post-fetchzonebyid, post-fetchzonedefaultrulesbyid, post-findzonedefaultrulesbyviewport]
+- name: ParkingEntity
+  description: A location where a vehicle can be parked under the right conditions — a section of kerbside or an off-street facility.
+  key: entityId
+  fields: [entityId, entityType, name, eTag, address, locationCode, totalCapacity, zoneId, authorityId, features, paymentMethodIds, operator, onStreetParkingTypeIds, facilityTypeIds, venueId]
+  operations: [post-fetchparkingentitybyid, post-findparkingentitiesbyviewport, post-findparkingentitiesbycentreandviewportsize, post-fetchentitiesbyids]
+- name: CarPark
+  description: The off-street specialisation of a parking entity, run by a local authority or a national operator.
+  key: entityId
+  fields: [entityId, name, eTag, address, locationCode, totalCapacity, zoneId, authorityId, features, paymentMethodIds, entityType, operator]
+- name: ParkingQuote
+  description: The priced, time-bounded answer to "can this driver park here, for how long, at what cost".
+  key: none (computed per query)
+  fields: [cost, currency, minCost, minStayUntil, canExtendUntil, pricedUntil, noReturnUntil, freeUntil, becomesFreeAt, isFreeParking, paymentMethodIds, permittedContext, rulesApplyUntil]
+  operations: [post-fetchparkingquotebyid, post-fetchparkingquotesbyids, post-findparkingquotesbyviewport, post-findparkingquotesbycentreandviewportsize]
+- name: OperatingHours
+  description: When a parking entity is open and under what permitted context.
+  fields: [paymentMethodIds, permittedContext, openPeriods]
+  operations: [post-fetchoperatinghoursbyid, post-fetchoperatinghoursbyids]
+- name: PaymentProvider
+  description: How a driver actually pays at a given entity — card URL, phone line, app deep links.
+  key: id
+  fields: [id, name, cardPaymentsExternalUrl, paymentsTelephone, paymentsAppDeepLinks]
+  operations: [post-fetchpaymentprovidersbyparkingentityid, post-fetchallpaymentproviders]
+- name: VehicleOperatorContext
+  description: >-
+    Not a stored resource but the query-side input that decides which rules apply — the
+    vehicle, its fuel, the activity and any permits held.
+  fields: [vehicleTypeId, activityTypeId, fuelTypeId, permits, co2Emissions, vehicleYear, engineSize]
+- name: Availability
+  description: Real-time occupancy for known entity ids, served by a separate API section.
+  operations: [post-queries-fetchavailabilitybyentityids]
+relationships:
+- from: Authority
+  to: Zone
+  type: has_many
+  via: Zone.authorityId
+- from: Authority
+  to: ParkingEntity
+  type: has_many
+  via: ParkingEntity.authorityId
+- from: Authority
+  to: PaymentProvider
+  type: has_many
+  via: Authority.paymentProviders
+- from: Authority
+  to: Country
+  type: belongs_to
+  via: Authority.countryId
+- from: Zone
+  to: ParkingEntity
+  type: has_many
+  via: ParkingEntity.zoneId
+- from: Zone
+  to: ZoneType
+  type: belongs_to
+  via: Zone.zoneType
+- from: ParkingEntity
+  to: Zone
+  type: belongs_to
+  via: ParkingEntity.zoneId
+- from: ParkingEntity
+  to: OnStreetParkingType
+  type: has_many
+  via: ParkingEntity.onStreetParkingTypeIds
+- from: ParkingEntity
+  to: FacilityType
+  type: has_many
+  via: ParkingEntity.facilityTypeIds
+- from: ParkingEntity
+  to: PaymentMethod
+  type: has_many
+  via: ParkingEntity.paymentMethodIds
+- from: ParkingEntity
+  to: ParkingQuote
+  type: has_many
+  via: quote computed per entity per VehicleOperatorContext
+- from: CarPark
+  to: CarParkOperator
+  type: belongs_to
+  via: CarPark.operator
+- from: VehicleOperatorContext
+  to: VehicleType
+  type: belongs_to
+  via: vehicleTypeId
+- from: VehicleOperatorContext
+  to: FuelType
+  type: belongs_to
+  via: fuelTypeId
+- from: VehicleOperatorContext
+  to: ActivityType
+  type: belongs_to
+  via: activityTypeId
+- from: VehicleOperatorContext
+  to: PermitType
+  type: has_many
+  via: permits
+- from: Region
+  to: Country
+  type: belongs_to
+  via: Reference API fetchRegionById / fetchAllRegions
+reference_vocabularies:
+  detail: >-
+    The Reference API exists to serve the controlled lists every id field above points
+    into. 23 fetchAll* operations, one per vocabulary, all conditional-request capable.
+  vocabularies: [ActivityTypes, AuthorityTypes, BaseMaps, Countries, EntitlementTypes,
+    ExceptionTypes, ExemptionTimeTypes, ExemptionTypes, FacilityTypes, FuelTypes,
+    MovingExceptionTypes, MovingRestrictionTypes, NoteVisibilityTypes,
+    OffStreetRestrictionTypes, OnStreetParkingTypes, PaymentMethods, PaymentProviders,
+    PermittedVehicleTypes, PermitTypes, Regions, RestrictionTypes, VehicleTypes, ZoneTypes]
+geospatial:
+  detail: >-
+    Authority and Zone both carry a geometry field modelled with GeoJSON component schemas
+    (Geometry, GeometryCollection, Crs, CrsProperties). Whole-authority geometry is also
+    extractable through the Traffic Data .geojson and .dxf export routes and the /wfs
+    OGC surface.
+render: null
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

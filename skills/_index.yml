@@ -1,0 +1,31 @@
+generated: '2026-09-04'
+method: generated
+source: >-
+  Authored by API Evangelist from AppyWay's own published OpenAPI contracts in
+  github.com/YellowLineParking/Public-Api-Specs and the guides at docs.appyway.com. Every
+  operationId referenced in these skills was read out of a provider contract. AppyWay
+  publishes no skills, AGENTS.md or agent guidance of its own.
+provider: AppyWay
+providerId: appyway
+note: >-
+  All three skills are read-only flows, because the entire AppyWay public API is read-only.
+  None of them needs a confirmation step, an idempotency key or a rollback path.
+skills:
+- name: appyway-find-parking-nearby
+  file: appyway-find-parking-nearby.md
+  api: AppyWay Explorer API
+  description: Where can a specific vehicle park at a point in the UK, for how long, at what cost, and how is it paid for.
+  operation_count: 8
+- name: appyway-extract-authority-restrictions
+  file: appyway-extract-authority-restrictions.md
+  api: AppyWay Traffic Data API
+  description: Bulk-extract a UK local authority's kerbside restrictions as GeoJSON, DXF or an OGC WFS query for GIS and CAD.
+  operation_count: 8
+- name: appyway-check-realtime-availability
+  file: appyway-check-realtime-availability.md
+  api: AppyWay Availability RealTime API
+  description: Live bay occupancy for parking entity ids already resolved through Explorer.
+  operation_count: 3
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

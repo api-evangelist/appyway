@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes FuelTypes API
+  title: AppyWay Availability RealTime ActivityTypes Fuel Types API
   version: '1.0'
   description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
 servers:
@@ -56,13 +56,15 @@ components:
           description: Unique identifier
           format: int32
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name
-          nullable: true
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Description
-          nullable: true
       additionalProperties: false
       description: Indicates the type of fuel
     FuelTypeIReadOnlyCollectionOkResponse:
@@ -72,10 +74,11 @@ components:
           type: boolean
           readOnly: true
         result:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/FuelType'
-          nullable: true
       additionalProperties: false
   securitySchemes:
     apiKey:

@@ -4,25 +4,26 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: AppyWay
 providerId: appyway
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+method: searched
+modified: '2026-09-04'
+reconciled: true
 tags:
 - Parking
 - Traffic
 - Urban Mobility
 - Smart Cities
 - EV Charging
-description: AppyWay does not publish a public API plans / pricing page. This artifact records the absence
-  of a self-serve commercial surface; see notes for research findings.
-notes: AppyWay does not publish public pricing for its Availability, Traffic Data, Explorer, or Platform
-  APIs. Commercial access is arranged through direct sales — the docs portal is open but plan tiers, per-call
-  rates, and quotas are not disclosed.
+description: 'AppyWay publishes no plans, no price list and no self-serve signup for its APIs. Re-checked
+  on 2026-09-04: there is no /pricing page on appyway.com (404), no plans or tiers anywhere in the developer
+  documentation, and no machine-readable catalogue endpoint. API keys are issued only by emailing apisupport@appyway.com,
+  so commercial terms and quotas are set per contract. plan_count is an honest zero.'
+notes: Every documented path to access — obtaining a key, raising a rate limit, resolving a problem —
+  routes through apisupport@appyway.com. The docs portal itself is fully public and unauthenticated; it
+  is the commercial surface, not the documentation, that is gated.
 sources:
 - https://www.appyway.com
 - https://docs.appyway.com
+- https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
 plans:
 - id: appyway-contact-sales
   name: Contact Sales
@@ -46,3 +47,16 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+generated: '2026-09-04'
+plan_count: 0
+source: https://appyway.com (site walked 2026-09-04), https://docs.appyway.com
+probes:
+- url: https://appyway.com/pricing/
+  status: 404
+  checked: '2026-09-04'
+- url: https://appyway.com/
+  status: 200
+  checked: '2026-09-04'
+- url: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+  status: 200
+  checked: '2026-09-04'

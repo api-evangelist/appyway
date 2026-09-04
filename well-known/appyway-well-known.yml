@@ -1,0 +1,129 @@
+generated: '2026-09-04'
+method: probed
+source: live HTTPS probes of every host in apis.yml, every OpenAPI servers[] host, the
+  docs/console host, and the embeddable-application hosts named in the AppyWay docs
+note: >-
+  Only auth.appyway.com serves any /.well-known/ document. It is an Auth0 tenant and it
+  answers both /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+  with the same 2,479-byte OIDC discovery document (issuer https://auth.appyway.com/).
+  That tenant is the AppyWay product login, not the API-key surface the REST APIs use.
+  hub.appyway.com, streets.appyway.com and consultation.appyway.com are single-page
+  applications whose catch-all route answers 200 with an HTML shell for /.well-known/api-catalog
+  and /mcp; those are recorded as misses, not documents. No security.txt, no api-catalog,
+  no ai-plugin.json and no agent card is served anywhere on appyway.com.
+hosts:
+- host: auth.appyway.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: appyway-auth-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: appyway-auth-oauth-authorization-server.json
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+- host: api.appyway.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+- host: docs.appyway.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: appyway.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: www.appyway.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    note: redirects to appyway.com, which 404s
+  - path: /.well-known/api-catalog
+    status: 301
+    note: redirects to appyway.com, which 404s
+- host: hub.appyway.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 200
+    note: >-
+      NOT a document. The Explorer single-page application answers its catch-all route
+      with a text/html shell for any unknown path. Treated as a miss.
+- host: streets.appyway.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.
+- host: consultation.appyway.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 200
+    note: SPA catch-all HTML shell, not a document. Treated as a miss.

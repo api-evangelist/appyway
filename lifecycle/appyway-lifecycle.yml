@@ -1,0 +1,99 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.appyway.com/docs/public-docs, the provider's own contract repository
+  github.com/YellowLineParking/Public-Api-Specs (release history read via the GitHub API
+  on 2026-09-04), and the four published OpenAPI documents.
+provider: AppyWay
+providerId: appyway
+versioning:
+  scheme: uri-path-major
+  current: v1
+  info_version: '1.0'
+  detail: >-
+    The major version is the first path segment — api.appyway.com/v1/{section}. Only v1
+    has ever been published. All four contracts carry info.version "1.0" and have not
+    incremented it across 100+ dated republishes, so info.version is not a usable change
+    signal; the repository history is.
+  policy_published: false
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  detail: >-
+    AppyWay publishes no deprecation policy, no advance-notice window, and neither the
+    RFC 8594 Sunset nor the Deprecation header appears in any contract. No operation is
+    marked deprecated:true.
+  observed_removals:
+    detail: >-
+      Operations have nevertheless been removed from the published contracts without any
+      deprecation marker. Comparing the copies harvested into this repo against the
+      provider's contracts as published on 2026-09-04.
+    evidence:
+      previous: openapi/_original/*.yml (earlier API Evangelist harvest)
+      current: https://github.com/YellowLineParking/Public-Api-Specs (pushed 2026-08-24)
+    traffic_data:
+      removed:
+      - /authorities/getAll
+      - /authorities/getFullBySlug
+      added:
+      - /exportAuthorityRestrictionsBySlug/{slug}.dxf
+      note: >-
+        The two removed routes look superseded by the fetchAllAuthorities and
+        fetchFullAuthorityBySlug routes that replaced them, but no notice accompanied
+        the change.
+    reference:
+      removed:
+      - /changeCountrySpecialDays
+      - /changeRegionVenues
+      - /fetchAllPermittedVehicles
+      added:
+      - /fetchAllPermittedVehicleTypes
+      note: >-
+        changeCountrySpecialDays and changeRegionVenues were the only two write
+        operations ever present in a published AppyWay contract. Their removal is what
+        makes the current surface entirely read-only.
+    explorer: {removed: [], added: []}
+    availability_realtime: {removed: [], added: []}
+release_cadence:
+  source: https://github.com/YellowLineParking/Public-Api-Specs
+  detail: >-
+    The provider republishes its OpenAPI, YAML and Postman artefacts to a public GitHub
+    repository on every platform deployment, tagged "Deployment 'Deployments-NNNNN'".
+    Roughly 10-15 contract-affecting deployments a year; the contract files themselves
+    changed on 15 dates between 2025-05 and 2026-08.
+  latest_release: '2026-08-24'
+  see: changelog/appyway-changelog.yml
+sla:
+  published: false
+  detail: No public SLA, uptime target or credit schedule. Terms are per contract.
+status_page:
+  published: false
+  detail: >-
+    No status page. status.appyway.com does not resolve (NXDOMAIN). appyway.statuspage.io
+    and appyway.instatus.com both answer 200 but serve the vendors' own marketing pages,
+    not an AppyWay status page — wildcard soft-200s, recorded as misses. Each API does
+    expose a GET /ping liveness route, but it requires a valid API-KEY, so it is not a
+    public status signal.
+  probes:
+  - url: https://status.appyway.com
+    status: 000
+    note: DNS does not resolve
+  - url: https://appyway.statuspage.io
+    status: 200
+    note: Atlassian Statuspage marketing page, not an AppyWay status page
+  - url: https://appyway.instatus.com
+    status: 200
+    note: Instatus marketing page, not an AppyWay status page
+support:
+  channel: email
+  contact: apisupport@appyway.com
+  detail: >-
+    Every published escalation path in the docs — obtaining a key, requesting a rate-limit
+    increase, reporting a problem — routes to apisupport@appyway.com. There is no ticket
+    portal, forum or public issue tracker for the API.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

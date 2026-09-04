@@ -1,0 +1,95 @@
+generated: '2026-09-04'
+method: derived
+status: candidate
+source: >-
+  No AppyWay MCP server exists. Searched the developer docs at docs.appyway.com, the
+  AppyWay GitHub organisation github.com/YellowLineParking, the npm registry and the
+  NuGet catalogue; probed https://api.appyway.com/mcp (404), https://appyway.com/mcp
+  (404) and https://mcp.appyway.com (DNS does not resolve). The tool list below is
+  DERIVED from AppyWay's own published OpenAPI operations and is a proposal, not a
+  product.
+provider: AppyWay
+providerId: appyway
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: >-
+    mode is none because nobody ships a server — neither a hosted endpoint nor a stdio
+    package. auth records what such a server would need: the AppyWay API-KEY header,
+    obtained by emailing apisupport@appyway.com. No endpoint URL is invented here.
+probes:
+- url: https://api.appyway.com/mcp
+  method: 'POST tools/list'
+  status: 404
+- url: https://appyway.com/mcp
+  method: 'POST tools/list'
+  status: 404
+- url: https://mcp.appyway.com/mcp
+  method: 'POST tools/list'
+  status: 000
+  note: DNS does not resolve
+- url: https://hub.appyway.com/mcp
+  method: GET
+  status: 200
+  note: >-
+    NOT an MCP server. The Explorer single-page application answers its catch-all route
+    with a text/html shell for any unknown path. streets.appyway.com/mcp and
+    consultation.appyway.com/mcp behave identically. Recorded as misses.
+candidate_tools:
+  basis: >-
+    One tool per published operation, grouped by API section. Every operation is a read,
+    so a server built from this list would be side-effect free and safe to expose without
+    a confirmation step. inputSchema for each tool is the backing operation's requestBody
+    or path parameters, verbatim from the provider contract.
+  groups:
+  - api: Explorer
+    base: https://api.appyway.com/v1/explorer
+    spec: openapi/_original/appyway-explorer-api-openapi.yml
+    tools:
+    - {name: find_parking_quotes_by_viewport, rest: post-findparkingquotesbyviewport, description: Price and rules for parking within a map viewport for a given vehicle operator context.}
+    - {name: find_parking_quotes_by_centre_and_viewport_size, rest: post-findparkingquotesbycentreandviewportsize, description: As above, addressed by centre point and viewport size.}
+    - {name: find_parking_entities_by_viewport, rest: post-findparkingentitiesbyviewport, description: Parking entities within a map viewport.}
+    - {name: find_parking_entities_by_centre_and_viewport_size, rest: post-findparkingentitiesbycentreandviewportsize, description: Parking entities by centre point and viewport size.}
+    - {name: fetch_parking_entity_by_id, rest: post-fetchparkingentitybyid, description: One parking entity by id.}
+    - {name: fetch_parking_quote_by_id, rest: post-fetchparkingquotebyid, description: One priced quote by entity id.}
+    - {name: fetch_parking_quotes_by_ids, rest: post-fetchparkingquotesbyids, description: Priced quotes for a list of entity ids.}
+    - {name: fetch_entities_by_ids, rest: post-fetchentitiesbyids, description: Bulk fetch of map entities by id list.}
+    - {name: fetch_operating_hours_by_id, rest: post-fetchoperatinghoursbyid, description: Operating hours for one entity.}
+    - {name: fetch_operating_hours_by_ids, rest: post-fetchoperatinghoursbyids, description: Operating hours for a list of entities.}
+    - {name: fetch_event_dates_by_id, rest: post-fetcheventdatesbyid, description: Event dates affecting one entity.}
+    - {name: fetch_payment_providers_by_parking_entity_id, rest: post-fetchpaymentprovidersbyparkingentityid, description: How to pay at one entity.}
+    - {name: fetch_authority_by_id, rest: post-fetchauthoritybyid, description: One local authority by id.}
+    - {name: find_authority_ids_by_viewport, rest: post-findauthorityidsbyviewport, description: Authority ids covering a viewport.}
+    - {name: fetch_zone_by_id, rest: post-fetchzonebyid, description: One zone by id.}
+    - {name: fetch_zone_default_rules_by_id, rest: post-fetchzonedefaultrulesbyid, description: Default rules for one zone.}
+    - {name: find_zone_default_rules_by_viewport, rest: post-findzonedefaultrulesbyviewport, description: Zone default rules within a viewport.}
+  - api: Traffic Data
+    base: https://api.appyway.com/v1/traffic-data
+    spec: openapi/_original/appyway-traffic-data-api-openapi.yml
+    tools:
+    - {name: fetch_all_authorities, rest: post-fetchallauthorities, description: Every authority AppyWay covers.}
+    - {name: fetch_full_authority_by_slug, rest: post-fetchfullauthoritybyslug, description: Full restriction dataset for one authority.}
+    - {name: fetch_full_authority_info_by_slug, rest: post-fetchfullauthorityinfobyslug, description: Authority metadata by slug.}
+    - {name: export_authority_restrictions_geojson, rest: get-exportauthorityrestrictionsbyslug-slug-geojson, description: Whole-authority restriction geometry as GeoJSON.}
+    - {name: export_authority_moving_restrictions_geojson, rest: get-exportauthoritymovingrestrictionsbyid-authorityid-geojson, description: Moving-traffic restriction geometry as GeoJSON.}
+    - {name: export_authority_restrictions_dxf, rest: get-exportauthorityrestrictionsbyslug-slug-dxf, description: Whole-authority restriction geometry as DXF for CAD.}
+    - {name: wfs_query, rest: get-wfs, description: OGC Web Feature Service query over the same geometry.}
+  - api: Reference
+    base: https://api.appyway.com/v1/reference
+    spec: openapi/_original/appyway-platform-api-openapi.yml
+    tools_note: >-
+      23 fetchAll* vocabulary reads plus fetchCountryById and fetchRegionById. A server
+      would most usefully collapse these into a single list_reference_vocabulary tool
+      taking the vocabulary name as an enum, since they share one shape.
+  - api: Availability RealTime
+    base: https://api.appyway.com/v1/availability-realtime
+    spec: openapi/_original/appyway-availability-realtime-api-openapi.yml
+    tools:
+    - {name: fetch_availability_by_entity_ids, rest: post-queries-fetchavailabilitybyentityids, description: Real-time bay availability for a list of entity ids.}
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -4,11 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: AppyWay
 providerId: appyway
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+modified: '2026-09-04'
+generated: '2026-09-04'
+method: searched
+source: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+reconciled: true
 tags:
 - Parking
 - Traffic
@@ -18,29 +18,59 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: AppyWay does not publish concrete rate-limit numbers, throttling thresholds, or response-header
-  conventions. This artifact records the gap; see notes for research findings.
-notes: AppyWay's public docs do not document concrete rate-limit numbers, headers, or throttling response
-  codes. Limits are configured per contract.
-sources:
-- https://www.appyway.com
-- https://docs.appyway.com
+description: >-
+  AppyWay publishes a rate-limiting policy but no numbers. The policy page states that
+  safeguards exist, that limits differ per endpoint, that AppyWay may lower them to
+  prevent abuse or raise them for high-traffic applications, and that exceeding them
+  returns 429 — but it names no request-per-window figure, no burst allowance and no
+  response-header contract. All four published OpenAPI contracts declare a shared 429
+  response with no headers block.
+limit_count: 0
+limit_count_note: >-
+  Zero published numeric limits. This is an honest zero read from the provider's own
+  rate-limiting page, not a gap in our research — AppyWay documents the behaviour and
+  withholds the thresholds.
 responseCodes:
   throttled: 429
+headers:
+  published: false
+  ratelimit_standard: absent
+  x_ratelimit: absent
+  retry_after: >-
+    Not guaranteed. The docs advise clients to honour a Retry-After header "that may be
+    returned", which stops short of committing to one.
+  detail: >-
+    This is the sharpest agent-readiness gap in the AppyWay surface. An agent gets no
+    runtime signal of how close it is to a limit — it only learns by being refused. The
+    numbers exist server-side and differ per endpoint; nothing in the response tells the
+    caller what they are.
 limits:
-- name: Per-contract limits
-  scope: account
-  metric: varies
-  limit: see provider integration agreement
-  notes: No public rate-limit numbers; throughput is governed by individual customer or partner contracts.
+- name: Per-endpoint limits
+  scope: endpoint
+  metric: requests
+  window: unpublished
+  limit: unpublished
+  burst: unpublished
+  notes: >-
+    "Our limits can differ depending on the endpoint being used." Thresholds are not
+    published and are adjusted by AppyWay at its discretion.
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header
-    that may be returned, even though the provider does not publish formal retry semantics.
-- name: Contract-Scoped Limits
-  description: Quotas, burst, and concurrency ceilings are governed by the individual customer or partner
-    contract rather than a public policy. Coordinate with the provider to confirm thresholds before scaling
-    traffic.
+- name: Backoff strategy
+  source: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+  description: >-
+    Verbatim provider guidance: if you are seeing 429s, build a retry mechanism with
+    exponential backoff and an element of jitter so that retries do not all happen at
+    once and cause more 429s.
+- name: Limit adjustment
+  source: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+  description: >-
+    AppyWay may reduce limits to prevent abuse or increase them to enable high-traffic
+    applications. Increases are requested by emailing apisupport@appyway.com — there is
+    no self-serve quota controls page.
+probes:
+- url: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+  status: 200
+  checked: '2026-09-04'
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,107 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.appyway.com/docs/public-docs/71ca7ed6b8558-how-to-embed-maps-using-explorer-application,
+  https://docs.appyway.com/docs/public-docs/1d73ed3548436-how-to-embed-streets-application,
+  https://docs.appyway.com/docs/public-docs/9bae3bee5169a-how-to-embed-public-consultation-application
+provider: AppyWay
+providerId: appyway
+summary: >-
+  AppyWay ships no JavaScript component library, no web components and no npm loader.
+  What it does ship — and documents properly — are three hosted single-page applications
+  built on its own APIs that a customer embeds with a plain iframe. Only one of them,
+  Explorer, is parameterised; the other two are addressed by authority slug alone. This
+  is the company's real client-side integration story, and it is distinct from the SDK
+  gap recorded in packages/appyway-packages.yml.
+distribution: hosted-iframe
+loader_libraries: []
+families:
+- name: Explorer
+  kind: hosted-application
+  purpose: >-
+    A map client built on the Explorer API, showing where a driver can park, for how long
+    and at what price. Embeddable in any web page and configurable through the query string.
+  embed_host: https://hub.appyway.com/explorer
+  embed_snippet: '<iframe src="https://hub.appyway.com/explorer?apiKey=<api-key>">'
+  auth: >-
+    An apiKey query parameter is optional. If it is omitted, the embedded application
+    prompts each end user for their own key.
+  docs: https://docs.appyway.com/docs/public-docs/71ca7ed6b8558-how-to-embed-maps-using-explorer-application
+  parameters:
+  - name: showHeader
+    group: display
+    default: 'true'
+    description: Display the header.
+  - name: showFilters
+    group: display
+    default: 'true'
+    description: Display the filter panel. The iframe must be at least 768px wide for filters to render.
+  - name: showInspectors
+    group: display
+    default: 'true'
+    description: Display the JSON request and response inspectors.
+  - name: showBasemaps
+    group: display
+    default: 'true'
+    description: Allow the user to switch base maps.
+  - name: showScenarios
+    group: display
+    default: 'true'
+    description: Display preselected filters.
+  - name: showMapSearch
+    group: display
+    default: 'true'
+    description: Allow the user to toggle automatic search on map move.
+  - name: showLocationSearch
+    group: display
+    default: 'true'
+    description: Allow free-text location search on the map.
+  - name: searchOnMove
+    group: map
+    default: 'true'
+    description: Search automatically when the user moves the map.
+  - name: center
+    group: map
+    default: 51.4955,-0.1376
+    description: Map centre point in lat,lng form.
+  - name: zoom
+    group: map
+    default: '18'
+    description: Initial zoom level, 0-20; may be constrained by the selected basemap.
+  - name: maxBounds
+    group: map
+    default: empty
+    description: Maximum viewable bounds as topLeftLat,topLeftLng,bottomRightLat,bottomRightLng.
+  - name: basemap
+    group: map
+    default: '1'
+    description: 'Initial basemap. 1 = OS Master Map, 2 = OS Master Map - Road.'
+- name: Streets
+  kind: hosted-application
+  purpose: Web client showing the active traffic restrictions for any UK local authority.
+  embed_host: https://streets.appyway.com/{authority-name}
+  embed_snippet: '<iframe source="https://streets.appyway.com/authority-name">'
+  auth: none documented
+  parameters: []
+  docs: https://docs.appyway.com/docs/public-docs/1d73ed3548436-how-to-embed-streets-application
+- name: Public Consultation
+  kind: hosted-application
+  purpose: >-
+    Web client showing every traffic regulation order currently in public consultation for
+    a UK authority. When embedded it is restricted to a single authority.
+  embed_host: https://consultation.appyway.com/{authority-name}
+  embed_snippet: '<iframe source="https://consultation.appyway.com/authority-name">'
+  auth: none documented
+  parameters: []
+  docs: https://docs.appyway.com/docs/public-docs/9bae3bee5169a-how-to-embed-public-consultation-application
+notes:
+- >-
+  The Streets and Public Consultation snippets in AppyWay's own documentation use
+  `source=` rather than the valid `src=` iframe attribute. Copied verbatim as published;
+  an integrator must substitute src.
+- >-
+  All three hosts answer 200 with an HTML shell for arbitrary paths, which is why their
+  /.well-known/ probes are recorded as misses in well-known/appyway-well-known.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

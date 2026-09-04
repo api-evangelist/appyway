@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay RealTime ActivityTypes Availability API
   version: '1.0'
@@ -75,16 +75,57 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   schemas:
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     FetchAvailabilityByEntityIdsQuery:
       type: object
       properties:
         ids:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: List of Ids of entities to get real time availability for
-          nullable: true
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     ParkingAvailabilityIReadOnlyCollectionOkResponse:
       type: object
@@ -93,11 +134,46 @@ components:
           type: boolean
           readOnly: true
         result:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ParkingAvailability'
-          nullable: true
       additionalProperties: false
+    ParkingAvailability:
+      type: object
+      properties:
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for this entity
+        entityType:
+          $ref: '#/components/schemas/EntityType'
+        dataSourceType:
+          $ref: '#/components/schemas/DataSourceType'
+        groupId:
+          type:
+          - string
+          - 'null'
+          description: Aggregation Group Id
+        totalSpaces:
+          type: integer
+          description: Total Vehicle Spaces for the Entity
+          format: int32
+        availableSpaces:
+          type:
+          - integer
+          - 'null'
+          description: Available Vehicle Spaces for the Entity
+          format: int32
+        parentId:
+          type:
+          - string
+          - 'null'
+          description: OnStreetParking will have a ParentId as the AuthorityId, CarPark will have a ParentId as the CarParkId
+      additionalProperties: false
+      description: Parking Availability model for our Entities
     EntityType:
       enum:
       - 1
@@ -128,21 +204,6 @@ components:
 
         '
       format: int32
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
     DataSourceType:
       enum:
       - 0
@@ -163,56 +224,6 @@ components:
 
         '
       format: int32
-    ParkingAvailability:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Unique identifier for this entity
-          nullable: true
-        entityType:
-          $ref: '#/components/schemas/EntityType'
-        dataSourceType:
-          $ref: '#/components/schemas/DataSourceType'
-        groupId:
-          type: string
-          description: Aggregation Group Id
-          nullable: true
-        totalSpaces:
-          type: integer
-          description: Total Vehicle Spaces for the Entity
-          format: int32
-        availableSpaces:
-          type: integer
-          description: Available Vehicle Spaces for the Entity
-          format: int32
-          nullable: true
-        parentId:
-          type: string
-          description: OnStreetParking will have a ParentId as the AuthorityId, CarPark will have a ParentId as the CarParkId
-          nullable: true
-      additionalProperties: false
-      description: Parking Availability model for our Entities
-    Error:
-      type: object
-      properties:
-        property:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

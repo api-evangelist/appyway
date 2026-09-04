@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay Availability RealTime ActivityTypes Parking API
   version: '1.0'
@@ -1062,7 +1062,7 @@ paths:
       tags:
       - Parking
       summary: AppyWay Find parking quotes by centre and viewport size
-      description: "This query creates a square viewport with the centre at ViewportCentre and side length of ViewportSize.\r\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\r\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\r\n            \r\nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\r\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
+      description: "This query creates a square viewport with the centre at ViewportCentre and side length of ViewportSize.\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\n            \nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
       operationId: post-findparkingquotesbycentreandviewportsize
       requestBody:
         content:
@@ -1224,7 +1224,7 @@ paths:
       tags:
       - Parking
       summary: AppyWay Find parking quotes by viewport
-      description: "This query creates a custom viewport from the supplied GeoJson polygon.\r\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\r\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\r\n            \r\nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\r\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
+      description: "This query creates a custom viewport from the supplied GeoJson polygon.\nIt then returns a list of search results for all parking entities within the bounds of that polygon.\nResults are ordered by proximity to the DistanceCalculationLocation if supplied, or the viewport centre if not.\n            \nEach result indicates whether parking is allowed at that location. If parking is allowed for all or part of the requested window,\nthe result contains a list of quotes containing information such as price, payment methods, maximum stay and no return policy."
       operationId: post-findparkingquotesbyviewport
       requestBody:
         content:
@@ -1394,14 +1394,342 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
-    TooManyRequests:
-      description: Too many requests
   schemas:
+    Geometry:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+      additionalProperties: false
+    OperatingHoursRequirements:
+      type: object
+      properties:
+        paymentMethodIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Payment method(s) for which these operating hours are valid
+        requirements:
+          $ref: '#/components/schemas/VehicleOperatorRequirements'
+        openPeriods:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OpenPeriod'
+          description: Operating hours
+      additionalProperties: false
+      description: Operating hours requirements for an entity
+    VehicleOperatorRequirements:
+      type: object
+      properties:
+        vehicleTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Vehicles types. See the reference API for more information.
+        activityTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Activity the operators perform at the kerbside (parking, loading). See the reference API for more information.
+        fuelTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Fuel types of the vehicles. See the reference API for more information.
+        permits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Permit'
+          description: Any permits held by the operator (e.g. blue disabled badge, car club permit). See the reference API for more information.
+      additionalProperties: false
+    FindParkingQuotesByViewportQuery:
+      required:
+      - startTime
+      - viewport
+      type: object
+      properties:
+        startTime:
+          minLength: 1
+          type: string
+          description: 'Start of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        viewport:
+          type: object
+          properties:
+            type:
+              type:
+              - string
+              - 'null'
+            crs:
+              $ref: '#/components/schemas/Crs'
+            coordinates:
+              type:
+              - array
+              - 'null'
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: double
+          additionalProperties: false
+          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 1.5 km2.
+        duration:
+          type: string
+          description: Requested duration
+          readOnly: true
+          example: 3.17:25:30.5000000
+        endTime:
+          type: string
+          description: 'End of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        distanceCalculationLocation:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: 'Custom location within the viewport from which to calculate distances for returned results. Optional. If omitted, distances will be calculated
+
+            from the centre of the viewport. This field is useful if you want to display or order results by distance from a given point that is not the centre of your requested viewport.'
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        filters:
+          $ref: '#/components/schemas/FindParkingQuotesByViewportFilters'
+      additionalProperties: false
+      description: Request for searching for Parking Quotes for a given viewport. The viewport is supplied as a GeoJson polygon.
+    FindParkingEntitiesByViewportQuery:
+      required:
+      - viewport
+      type: object
+      properties:
+        viewport:
+          type: object
+          properties:
+            type:
+              type:
+              - string
+              - 'null'
+            crs:
+              $ref: '#/components/schemas/Crs'
+            coordinates:
+              type:
+              - array
+              - 'null'
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: double
+          additionalProperties: false
+          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 1.5 km2.
+        distanceCalculationLocation:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: 'Custom location within the viewport from which to calculate distances for returned entities. Optional. If omitted, distances will be calculated
+
+            from the centre of the viewport. This field is useful if you want to display or order entities by distance from a given point that is not the centre of your requested viewport.'
+        geometryPreference:
+          $ref: '#/components/schemas/GeometryPreference'
+        onStreetParkingTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OnStreetParkingType'
+          description: 'If supplied, only on-street parking entities that have the given On-Street Parking types will be included in the response. If null,
+
+            all types will be returned.
+
+
+            *StandardBay (1) - Standard bay (paid or free)
+
+            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
+
+            *MotorcycleBay (3) - Designated motorcycle bay
+
+            *ElectricBay (4) - A bay designated for electric vehicles only
+
+            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
+
+            *CoachBay (6) - A bay with space for a coach
+
+            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
+
+            *TaxiBay (8) - Taxi bay
+
+            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
+
+            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
+
+            *SingleYellowLine (11) - Single yellow line
+
+            *DoubleYellowLine (12) - Double yellow line
+
+            *SingleRedLine (13) - Single red line
+
+            *DoubleRedLine (14) - Double red line
+
+            *SingleYellowKerbMark (15) - Single yellow kerb marks
+
+            *DoubleYellowKerbMark (16) - Double yellow kerb marks
+
+            *KeepClearLine (17) - Keep Clear lines
+
+            *DroppedKerbDriveway (18) - A dropped kerb driveway
+
+            *RedRouteBay (19) - Red route bay
+
+            *BusStop (20) - Bus stop
+
+            *BusinessBay (21) - A business bay
+
+            *DoctorBay (22) - A doctor''s bay
+
+            *HospitalBay (23) - An hospital bay
+
+            *MarketTraderBay (24) - A market trader bay
+
+            *HotelBay (25) - A Hotel bay
+
+            *PoliceBay (26) - A police bay
+
+            *RnliBay (27) - An RNLI bay
+
+            *SupremeCourtBay (28) - Supreme court bay
+
+            *AmbulanceBay (29) - An ambulance bay
+
+            *CycleHireBay (30) - Cycle hire bay
+
+            *CycleHangar (31) - Cycle hangar
+
+            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
+
+            *MobileLibraryBay (33) - A mobile library bay
+
+            *DiplomatBay (34) - A diplomat bay
+
+            *FireBrigade (35) - Fire brigade
+
+            *CycleRack (36) - Cycle rack
+
+            *SchoolKeepClearLine (37) - School keep clear line
+
+            *None (-1) - Standard bay (paid or free)
+
+            '
+        filters:
+          $ref: '#/components/schemas/FindParkingEntitiesByViewportFilters'
+      additionalProperties: false
+      description: Request for searching for Parking Entities for a given viewport. The viewport is supplied as a GeoJson polygon.
+    ParkingEntityEventDatesResult:
+      type: object
+      properties:
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the parking entity.
+        entityType:
+          $ref: '#/components/schemas/MapEntityType'
+        entityETag:
+          type:
+          - string
+          - 'null'
+          description: 'The Etag of the current latest version of the Parking Entity referred to by this result. This allows
+
+            clients to determine if they have the latest version of the parking entity in their local cache and only
+
+            request the entity if it is missing.'
+        timeZoneId:
+          type:
+          - string
+          - 'null'
+          description: 'Entity Timezone Id in IANA (TZDB) format (eg: Europe/London).'
+        eventDates:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            description: ISO-8601 date pattern
+            example: '2020-01-20'
+          description: List of event dates for this parking entity.
+      additionalProperties: false
+    GeometryCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+        geometries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Geometry'
+      additionalProperties: false
+    GeometryCollectionFeatureInfoFeatureCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeature'
+        properties: {}
+      additionalProperties: false
     SurchargeDetails:
       type: object
       properties:
@@ -1417,6 +1745,157 @@ components:
       description: 'Details of a surcharge that may be applied to a parking charge, including the amount of the surcharge
 
         and the criteria under which it is applied.'
+    SurchargeCriteria:
+      type: object
+      properties:
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        maxVehicleManufactureYear:
+          type:
+          - integer
+          - 'null'
+          description: The latest year of manufacture of the vehicle for which the surcharge applies
+          format: int32
+      additionalProperties: false
+      description: The criteria for which a surcharge may be applied
+    ParkingEntityOperatingHoursResultIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ParkingEntityOperatingHoursResult'
+      additionalProperties: false
+    ParkingEntityOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/ParkingEntity'
+      additionalProperties: false
+    FindParkingEntitiesByViewportResponse:
+      type: object
+      properties:
+        entities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FindParkingEntitiesByViewportResult'
+          description: List of results from the entity search.
+      additionalProperties: false
+      description: Response from calls that search for Parking Entities by viewport
+    FetchParkingEntityByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
+          type: string
+          description: Identifier of the Parking Entity to fetch
+      additionalProperties: false
+    FetchPaymentProvidersByParkingEntityIdQuery:
+      required:
+      - entityId
+      type: object
+      properties:
+        entityId:
+          minLength: 1
+          type: string
+          description: Identifier of the Parking Entity to fetch Payment Providers
+      additionalProperties: false
+    FindParkingQuotesByViewportFilters:
+      type: object
+      properties:
+        excludeEntityTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MapEntityType'
+          description: 'If supplied, entities that have the given Map Entity types will be excluded from the response. Passing Zone or Authority
+
+            entity types will result in a Bad Request response.
+
+
+            *OnStreet (1) - An on-street parking area
+
+            *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
+
+            *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
+
+            A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
+
+            define rules parking entities that can be overridden by individual entities.
+
+            *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+
+            '
+        excludePaidParking:
+          type:
+          - boolean
+          - 'null'
+          description: TRUE to exclude paid parking bays from the result. Optional. Defaults to FALSE if omitted.
+        excludeFreeParking:
+          type:
+          - boolean
+          - 'null'
+          description: TRUE to exclude free parking bays from the result. Optional. Defaults to FALSE if omitted.
+        excludeNoParking:
+          type:
+          - boolean
+          - 'null'
+          description: TRUE to exclude from the result any bays where parking is not allowed for the entirety of the requested time window for the given vehicle operator. Optional. Defaults to FALSE if omitted.
+        excludeTruncatedParking:
+          type:
+          - boolean
+          - 'null'
+          description: "TRUE to exclude from the result any bays where parking is not allowed for part of the requested time window for the given vehicle operator. Optional. Defaults to FALSE if omitted.\n            \nNote that this filter does not imply the exclusion of bays where parking is not allowed for the entirety of the requested time window. To exclude such results, use the ExcludeNoParking filter.\nif using ExcludeTruncatedParking."
+        excludeCostGreaterThan:
+          type:
+          - number
+          - 'null'
+          description: "If supplied, bays for which the total cost over the requested duration exceeds the supplied value will not be included in the result.\n            \nIf the ExcludePaidParking filter is set to TRUE, this property will have no effect."
+          format: float
+      additionalProperties: false
+      description: Filters that a caller can apply to limit the results returned when searching for parking by viewport
+    GeneralOnStreetPolicyType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: 'The different policies that may apply to sections of the kerb within a given area where no specific data is present.
+
+
+        *Restricted (1) - Unspecified sections of kerb are restricted (no parking) for everyone.
+
+        *LikelyRestricted (2) - Unspecified sections of kerb are likely to be restricted (no parking) for everyone.
+
+        *LikelyUnrestricted (3) - Unspecified sections of kerb are likely to be unrestricted (free parking)
+
+        *Unknown (4) - We cannot say with confidence whether or not unspecified kerb sections are restricted.
+
+        '
+      format: int32
+    PaymentProvidersResponseOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/PaymentProvidersResponse'
+      additionalProperties: false
     Permit:
       type: object
       properties:
@@ -1426,26 +1905,659 @@ components:
           format: int32
       additionalProperties: false
       description: A permit that can be held by a vehicle operator
-    Geometry:
+    BasemapTranslation:
+      enum:
+      - 1
+      - 2
+      type: integer
+      description: 'Enumeration for the different types of base maps
+
+
+        *OrdnanceSurvey (1) - Ordnance Survey: Realistic mapping
+
+        *OpenStreetMaps (2) - Open street map.
+
+        '
+      format: int32
+    FeatureInfo:
+      type: object
+      properties:
+        basemap:
+          $ref: '#/components/schemas/BasemapTranslation'
+      additionalProperties: false
+      description: Provides information about the geometry contained in the feature
+    ParkingQuotesResponse:
+      type: object
+      properties:
+        requestedStartTime:
+          type: string
+          description: This is the query start time after it has been normalized. This is what was used for the quote calculations.
+          format: date-time
+        requestedDuration:
+          type: string
+          description: This is the query end time after it has been normalized. This is what was used for the quote calculations.
+          example: 3.17:25:30.5000000
+        parking:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ParkingEntitySearchResult'
+          description: List of Parking Entities returned by the response
+      additionalProperties: false
+    MapEntityType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: 'Enumeration for the different types of Map Entity - objects returned by the API that can be drawn on a map.
+
+
+        *OnStreet (1) - An on-street parking area
+
+        *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
+
+        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
+
+        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
+
+        define rules parking entities that can be overridden by individual entities.
+
+        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+
+        '
+      format: int32
+    OperatingHours:
+      type: object
+      properties:
+        paymentMethodIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Payment method(s) for which these operating hours are valid
+        permittedContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        openPeriods:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OpenPeriod'
+          description: Open periods
+      additionalProperties: false
+      description: Contextualized operating hours for an entity
+    FindParkingEntitiesByCentreAndViewportSizeQuery:
+      required:
+      - viewportCenter
+      - viewportSize
+      type: object
+      properties:
+        viewportSize:
+          maximum: 1225
+          type: integer
+          description: Length of one side of the square viewport in meters. Required. Limited to 1.5 km2.
+          format: int32
+          exclusiveMinimum: 0
+        viewportCenter:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: Centre point for the query. Required.
+        distanceCalculationLocation:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: 'Custom location within the viewport from which to calculate distances for returned entities. Optional. If omitted, distances will be calculated
+
+            from the centre of the viewport. This field is useful if you want to display or order entities by distance from a given point that is not the centre of your requested viewport.'
+        geometryPreference:
+          $ref: '#/components/schemas/GeometryPreference'
+        filters:
+          $ref: '#/components/schemas/FindParkingEntitiesByViewportFilters'
+        onStreetParkingTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OnStreetParkingType'
+          description: 'If supplied, only on-street parking entities that have the given On-Street Parking types will be included in the response. If null,
+
+            all types will be returned.
+
+
+            *StandardBay (1) - Standard bay (paid or free)
+
+            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
+
+            *MotorcycleBay (3) - Designated motorcycle bay
+
+            *ElectricBay (4) - A bay designated for electric vehicles only
+
+            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
+
+            *CoachBay (6) - A bay with space for a coach
+
+            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
+
+            *TaxiBay (8) - Taxi bay
+
+            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
+
+            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
+
+            *SingleYellowLine (11) - Single yellow line
+
+            *DoubleYellowLine (12) - Double yellow line
+
+            *SingleRedLine (13) - Single red line
+
+            *DoubleRedLine (14) - Double red line
+
+            *SingleYellowKerbMark (15) - Single yellow kerb marks
+
+            *DoubleYellowKerbMark (16) - Double yellow kerb marks
+
+            *KeepClearLine (17) - Keep Clear lines
+
+            *DroppedKerbDriveway (18) - A dropped kerb driveway
+
+            *RedRouteBay (19) - Red route bay
+
+            *BusStop (20) - Bus stop
+
+            *BusinessBay (21) - A business bay
+
+            *DoctorBay (22) - A doctor''s bay
+
+            *HospitalBay (23) - An hospital bay
+
+            *MarketTraderBay (24) - A market trader bay
+
+            *HotelBay (25) - A Hotel bay
+
+            *PoliceBay (26) - A police bay
+
+            *RnliBay (27) - An RNLI bay
+
+            *SupremeCourtBay (28) - Supreme court bay
+
+            *AmbulanceBay (29) - An ambulance bay
+
+            *CycleHireBay (30) - Cycle hire bay
+
+            *CycleHangar (31) - Cycle hangar
+
+            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
+
+            *MobileLibraryBay (33) - A mobile library bay
+
+            *DiplomatBay (34) - A diplomat bay
+
+            *FireBrigade (35) - Fire brigade
+
+            *CycleRack (36) - Cycle rack
+
+            *SchoolKeepClearLine (37) - School keep clear line
+
+            *None (-1) - Standard bay (paid or free)
+
+            '
+      additionalProperties: false
+      description: 'Request for searching for Parking Entities for a square viewport. The viewport is defined by the latitude and longitude of
+
+        the centre point and the length of one side.'
+    FetchOperatingHoursByIdQuery:
+      required:
+      - entityId
+      type: object
+      properties:
+        entityId:
+          minLength: 1
+          type: string
+          description: Identifier of the Parking Entity to fetch
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        date:
+          type:
+          - string
+          - 'null'
+          description: 'The date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
+          example: '2020-01-20'
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: 'Start date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).
+
+            Date takes precedence if set.'
+          example: '2020-01-20'
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: 'End date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
+
+            Date takes precedence if set.'
+          example: '2020-01-20'
+        dates:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            description: ISO-8601 date pattern
+            example: '2020-01-20'
+          description: 'Dates for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
+
+            Date, StartDate and EndDate takes precedence if set.'
+        includeNotApplicableOperatingHours:
+          type: boolean
+          description: Include all operation hours requirements for contexts that do not apply to the driver making the request.
+        includeApplicableOperatingHoursDetail:
+          type: boolean
+          description: Include a detail version of operation hours requirements that apply for the given context.
+        includeClosedPeriods:
+          type: boolean
+          description: Include closed periods that apply for the given context.
+      additionalProperties: false
+    CarParkOperator:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (if the payment provider is present on Reference API)
+        name:
+          type:
+          - string
+          - 'null'
+          description: Provider name
+        cardPaymentsExternalUrl:
+          type:
+          - string
+          - 'null'
+          description: URL for taking payments (if online payments are supported)
+        paymentsTelephone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for taking payments (if pay-by-phone is supported)
+        paymentsAppDeepLinks:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentDeepLinks'
+          description: Payment Mobile apps deep links by platform
+        telephone:
+          type:
+          - string
+          - 'null'
+          description: Operator phone number
+        website:
+          type:
+          - string
+          - 'null'
+          description: Operator website
+      additionalProperties: false
+      description: Details of the operator for a car park, including telephone numbers and URLs for phone and online payments (if applicable)
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ParkingAllowed:
+      enum:
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: 'Enum to indicate the different scenarios whereby parking may be allowed or denied.
+
+
+        *FullSession (1) - Parking is allowed for the whole of the requested window
+
+        *TruncatedSession (2) - Parking is allowed for part of the requested window only
+
+        *NoParking (3) - Parking is not allowed.
+
+        '
+      format: int32
+    Crs:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
-        crs:
-          $ref: '#/components/schemas/Crs'
+          type:
+          - string
+          - 'null'
+        properties:
+          $ref: '#/components/schemas/CrsProperties'
+      additionalProperties: false
+    CrsProperties:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    OpenPeriodStatus:
+      enum:
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: 'Indicates the status of an open period
+
+
+        *Free (1) - Free period
+
+        *Paid (2) - Paid period
+
+        *Mixed (3) - Mixed (free or paid depending on tariff)
+
+        '
+      format: int32
+    ParkingEntity:
+      type: object
+      properties:
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for this entity
+        entityType:
+          $ref: '#/components/schemas/MapEntityType'
+        name:
+          type:
+          - string
+          - 'null'
+          description: User-readable name for this entity
+        eTag:
+          type:
+          - string
+          - 'null'
+          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
+
+            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
+
+            not match the requested tag - i.e. just those entities that have changed.'
+        address:
+          $ref: '#/components/schemas/Address'
+        locationCode:
+          type:
+          - string
+          - 'null'
+          description: A unique code for each parking entity assigned by a payment provider and is their identifier for payment purposes
+        totalCapacity:
+          type:
+          - integer
+          - 'null'
+          description: How many vehicles can be parked at the parking entity. May be approximate (in the case of unmarked bays)
+          format: int32
+        zoneId:
+          type:
+          - string
+          - 'null'
+          description: ID of the zone in which the parking entity resides
+        authorityId:
+          type:
+          - string
+          - 'null'
+          description: ID of the authority in which the parking entity resides
+        features:
+          $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeatureCollection'
+        paymentMethodIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Payment methods supported at this on-street location.
+        operator:
+          $ref: '#/components/schemas/CarParkOperator'
+        onStreetParkingTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OnStreetParkingType'
+          description: 'The types of road markings represented by this entity. This property is only present for On Street Parking entities.
+
+
+            *StandardBay (1) - Standard bay (paid or free)
+
+            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
+
+            *MotorcycleBay (3) - Designated motorcycle bay
+
+            *ElectricBay (4) - A bay designated for electric vehicles only
+
+            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
+
+            *CoachBay (6) - A bay with space for a coach
+
+            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
+
+            *TaxiBay (8) - Taxi bay
+
+            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
+
+            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
+
+            *SingleYellowLine (11) - Single yellow line
+
+            *DoubleYellowLine (12) - Double yellow line
+
+            *SingleRedLine (13) - Single red line
+
+            *DoubleRedLine (14) - Double red line
+
+            *SingleYellowKerbMark (15) - Single yellow kerb marks
+
+            *DoubleYellowKerbMark (16) - Double yellow kerb marks
+
+            *KeepClearLine (17) - Keep Clear lines
+
+            *DroppedKerbDriveway (18) - A dropped kerb driveway
+
+            *RedRouteBay (19) - Red route bay
+
+            *BusStop (20) - Bus stop
+
+            *BusinessBay (21) - A business bay
+
+            *DoctorBay (22) - A doctor''s bay
+
+            *HospitalBay (23) - An hospital bay
+
+            *MarketTraderBay (24) - A market trader bay
+
+            *HotelBay (25) - A Hotel bay
+
+            *PoliceBay (26) - A police bay
+
+            *RnliBay (27) - An RNLI bay
+
+            *SupremeCourtBay (28) - Supreme court bay
+
+            *AmbulanceBay (29) - An ambulance bay
+
+            *CycleHireBay (30) - Cycle hire bay
+
+            *CycleHangar (31) - Cycle hangar
+
+            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
+
+            *MobileLibraryBay (33) - A mobile library bay
+
+            *DiplomatBay (34) - A diplomat bay
+
+            *FireBrigade (35) - Fire brigade
+
+            *CycleRack (36) - Cycle rack
+
+            *SchoolKeepClearLine (37) - School keep clear line
+
+            *None (-1) - Standard bay (paid or free)
+
+            '
+        facilityTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Any special facilities available at this on-street location, e.g. charging points for EVs. This property is only present for On Street Parking entities.
+        venueId:
+          type:
+          - string
+          - 'null'
+          description: The venue id
+      additionalProperties: false
+      description: Base class for Map Entities that support parking, either on-street or car parks
+    FetchOperatingHoursByIdsQuery:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of Ids of entities to fetch
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        date:
+          type:
+          - string
+          - 'null'
+          description: 'The date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
+          example: '2020-01-20'
+        startDate:
+          type:
+          - string
+          - 'null'
+          description: 'Start date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).
+
+            Date takes precedence if set.'
+          example: '2020-01-20'
+        endDate:
+          type:
+          - string
+          - 'null'
+          description: 'End date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
+
+            Date takes precedence if set.'
+          example: '2020-01-20'
+        dates:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            description: ISO-8601 date pattern
+            example: '2020-01-20'
+          description: 'Dates for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
+
+            Date, StartDate and EndDate takes precedence if set.'
+        includeNotApplicableOperatingHours:
+          type: boolean
+          description: Include all operation hours requirements for contexts that do not apply to the driver making the request.
+        includeApplicableOperatingHoursDetail:
+          type: boolean
+          description: Include a detail version of operation hours requirements that apply for the given context.
+        includeClosedPeriods:
+          type: boolean
+          description: Include closed periods that apply for the given context.
+      additionalProperties: false
+    FindParkingEntitiesByViewportFilters:
+      type: object
+      properties:
+        excludeEntityTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MapEntityType'
+          description: 'If supplied, entities that have the given Map Entity types will be excluded from the response. Passing Zone or Authority
+
+            entity types will result in a Bad Request response.
+
+
+            *OnStreet (1) - An on-street parking area
+
+            *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
+
+            *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
+
+            A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
+
+            define rules parking entities that can be overridden by individual entities.
+
+            *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+
+            '
+      additionalProperties: false
+      description: Filters that a caller can apply to limit the results returned when searching for parking entities by viewport
+    ParkingQuotesResponseOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/ParkingQuotesResponse'
       additionalProperties: false
     ParkingEntitySearchResult:
       type: object
       properties:
         entityId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Identifier of the parking entity
-          nullable: true
         entityType:
           $ref: '#/components/schemas/MapEntityType'
         quotes:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ParkingQuote'
           description: 'List of quotes for parking at this parking entity. If the context of the search means that there are multiple prices returned,
@@ -1453,82 +2565,419 @@ components:
             one quote will be generated for each price and the quotes will be decorated with the payment methods, bay types and vehicle operator
 
             context for which they are valid. If parking is not allowed, no quotes are returned.'
-          nullable: true
         distance:
-          type: number
+          type:
+          - number
+          - 'null'
           description: How far away the parking entity is, in meters. Distances are relative to the DistanceCalculationLocation if supplied in the query, otherwise they are relative to the centre of the viewport.
           format: double
-          nullable: true
         parkingAllowed:
           $ref: '#/components/schemas/ParkingAllowed'
         entityETag:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'The Etag of the current latest version of the Parking Entity referred to by this result. This allows
 
             clients to determine if they have the latest version of the parking entity in their local cache and only
 
             request the entity if it is missing.'
-          nullable: true
       additionalProperties: false
       description: Represents a single result returned from a search for Parking Entities.
-    SurchargeValueType:
-      enum:
-      - 1
-      - 2
-      type: integer
-      description: 'Indicates how clients should interpret the value in a SurchargeDetails object - as a flat rate (absolute cost) or percentage of the original charge
-
-
-        *FlatRate (1) - The value should be interpreted as an absolute amount
-
-        *Percentage (2) - The value should be interpreted as a percentage of the original cost (before surcharge)
-
-        '
-      format: int32
-    GeometryCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        crs:
-          $ref: '#/components/schemas/Crs'
-        geometries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Geometry'
-          nullable: true
-      additionalProperties: false
-    ParkingEntityEventDatesResult:
+    FetchParkingQuoteByIdQuery:
+      required:
+      - entityId
+      - startTime
       type: object
       properties:
         entityId:
+          minLength: 1
           type: string
-          description: Identifier of the parking entity.
-          nullable: true
-        entityType:
-          $ref: '#/components/schemas/MapEntityType'
-        entityETag:
+          description: Identifier of the Parking Entity to fetch
+        startTime:
+          minLength: 1
           type: string
-          description: 'The Etag of the current latest version of the Parking Entity referred to by this result. This allows
+          description: 'Start of the window for which to retrieve state. Required.
 
-            clients to determine if they have the latest version of the parking entity in their local cache and only
-
-            request the entity if it is missing.'
-          nullable: true
-        timeZoneId:
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        endTime:
           type: string
-          description: 'Entity Timezone Id in IANA (TZDB) format (eg: Europe/London).'
-          nullable: true
-        eventDates:
-          type: array
+          description: 'End of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        duration:
+          type: string
+          description: Requested duration
+          readOnly: true
+          example: 3.17:25:30.5000000
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+      additionalProperties: false
+    ParkingEntityOperatingHoursResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/ParkingEntityOperatingHoursResult'
+      additionalProperties: false
+    FetchParkingQuotesByIdsQuery:
+      required:
+      - startTime
+      type: object
+      properties:
+        startTime:
+          minLength: 1
+          type: string
+          description: 'Start of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        ids:
+          type:
+          - array
+          - 'null'
           items:
             type: string
-            description: ISO-8601 date pattern
-            example: '2020-01-20'
-          description: List of event dates for this parking entity.
-          nullable: true
+          description: List of Ids of entities to fetch
+        endTime:
+          type: string
+          description: 'End of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        duration:
+          type: string
+          description: Requested duration
+          readOnly: true
+          example: 3.17:25:30.5000000
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
       additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    FindParkingEntitiesByViewportResponseOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/FindParkingEntitiesByViewportResponse'
+      additionalProperties: false
+    OpenPeriod:
+      type: object
+      properties:
+        start:
+          type: string
+          description: 'The local time of the day that the period starts
+
+            Returned in local time format: hh:mm:ss (eg: 19:20:30)'
+          example: 00:00:00
+        end:
+          type: string
+          description: 'The local time of the day that the period ends
+
+            Returned in local time format: hh:mm:ss (eg: 19:20:30)'
+          example: 00:00:00
+        date:
+          type: string
+          description: 'The local date that the period belongs
+
+            Returned in local format: YYYY-MM-DD (eg: 2021-01-01)'
+          example: '2020-01-20'
+        status:
+          $ref: '#/components/schemas/OpenPeriodStatus'
+      additionalProperties: false
+    FindParkingQuotesByCentreAndViewportSizeQuery:
+      required:
+      - startTime
+      - viewportCenter
+      - viewportSize
+      type: object
+      properties:
+        startTime:
+          minLength: 1
+          type: string
+          description: 'Start of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        viewportCenter:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: Centre point for the query. Required.
+        viewportSize:
+          maximum: 1225
+          type: integer
+          description: Length of one side of the square viewport in meters. Required. Limited to 1.5 km2.
+          format: int32
+        endTime:
+          type: string
+          description: 'End of the window for which to retrieve state. Required.
+
+            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        distanceCalculationLocation:
+          type: object
+          properties:
+            lat:
+              type: number
+              description: Latitude
+              format: double
+            lng:
+              type: number
+              description: Longitude
+              format: double
+          additionalProperties: false
+          description: 'Custom location within the viewport from which to calculate distances for returned results. Optional. If omitted, distances will be calculated
+
+            from the centre of the viewport. This field is useful if you want to display or order results by distance from a given point that is not the centre of your requested viewport.'
+        duration:
+          type: string
+          description: Requested duration
+          readOnly: true
+          example: 3.17:25:30.5000000
+        vehicleOperatorContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        filters:
+          $ref: '#/components/schemas/FindParkingQuotesByViewportFilters'
+      additionalProperties: false
+      description: 'Request for searching for Parking Quotes for a square viewport. The viewport is defined by the latitude and longitude of
+
+        the centre point and the length of one side.'
+    ParkingQuote:
+      type: object
+      properties:
+        cost:
+          type: number
+          description: The total cost of parking given the context of the quote.
+          format: float
+        currency:
+          type:
+          - string
+          - 'null'
+          description: Currency of the value in the Cost field
+        minCost:
+          type:
+          - number
+          - 'null'
+          description: 'Minimum cost for parking. This is the minimum amount the user will pay for parking,
+
+            regardless of when they leave the space.'
+          format: float
+        minStayUntil:
+          type:
+          - string
+          - 'null'
+          description: 'The amount of time that the vehicle operator is entitled to stay in the space if they pay the amount
+
+            specified in the MinCost field, i.e. the minimum duration that must be paid for in order to park.'
+          format: date-time
+        canExtendUntil:
+          type:
+          - string
+          - 'null'
+          description: 'The maximum time until which the user can park. This value ignores the requested window and is the
+
+            latest time the user is able to remain parked in the space if they were to extend their session
+
+            beyond the requested window.
+
+            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        pricedUntil:
+          type:
+          - string
+          - 'null'
+          description: 'The maximum time until which the user can park for the price specified in the ''cost'' field. The
+
+            ''cost'' field is the cost for the requested time window, but that price may entitle the user to
+
+            park longer than requested, in which case this field holds the time that the cost will entitle
+
+            them to park.
+
+            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        noReturnUntil:
+          type:
+          - string
+          - 'null'
+          description: The 'no return until', i.e. the time after parking during which the user is not allowed to return to the bay.
+          format: date-time
+        freeUntil:
+          type:
+          - string
+          - 'null'
+          description: "If it is free to park in the bay at the start of the requested time window, this returns the maximum time up to which\nthe user can park for free. If the bay is paid parking from the start of the window, FreeUntil will be null.\n            \nIf the bay is free 24/7, this value will be 7 days from start time, which is the maximum session length supported by the Appyway API."
+          format: date-time
+        becomesFreeAt:
+          type:
+          - string
+          - 'null'
+          description: 'If the user has to pay to park at the start of the requested time window, this returns the first time at which
+
+            the user can park for free. If the bay is free parking from the start of the window OR free parking is never available in the bay, BecomesFreeAt will be null.'
+          format: date-time
+        isFreeParking:
+          type: boolean
+          description: TRUE if parking is free, false if it is paid.
+          readOnly: true
+        paymentMethodIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Payment method(s) for which this quote is valid
+        permittedContext:
+          $ref: '#/components/schemas/VehicleOperatorContext'
+        rulesApplyUntil:
+          type:
+          - string
+          - 'null'
+          description: 'The date and time until the rules on which this quote is based apply.
+
+            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
+          format: date-time
+        surcharge:
+          $ref: '#/components/schemas/SurchargeDetails'
+      additionalProperties: false
+      description: A contextualized quote for a parking session, including related data such as No Return and Minimum Cost
+    GeometryPreference:
+      type: object
+      properties:
+        basemap:
+          $ref: '#/components/schemas/BasemapTranslation'
+        geometryTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryType'
+          description: 'List of the types of geometries you want to receive for this basemap
+
+
+            *POI (1) - Point of interest: A single point, will be of type "Point"
+
+            *Kerb (2) - Single line along the kerbedge, will be of type "LineString"
+
+            *Outline (3) - A complete representation of the parking area, will be of type "Polygon". Only available for Ordnance Survey base maps
+
+            '
+      additionalProperties: false
+      description: Indicates the type of geometries you want to retrieve
+    PaymentProvidersResponse:
+      type: object
+      properties:
+        paymentProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+          description: Payment providers returned from the query
+      additionalProperties: false
+      description: Response containing a list of payment providers
+    Address:
+      type: object
+      properties:
+        street:
+          type:
+          - string
+          - 'null'
+          description: Street address
+        city:
+          type:
+          - string
+          - 'null'
+          description: Town or city
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country
+        postcode:
+          type:
+          - string
+          - 'null'
+          description: Postal code
+      additionalProperties: false
+      description: A standard address for an Onstreet bay or Car park
+    PaymentProvider:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (if the payment provider is present on Reference API)
+        name:
+          type:
+          - string
+          - 'null'
+          description: Provider name
+        cardPaymentsExternalUrl:
+          type:
+          - string
+          - 'null'
+          description: URL for taking payments (if online payments are supported)
+        paymentsTelephone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for taking payments (if pay-by-phone is supported)
+        paymentsAppDeepLinks:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentDeepLinks'
+          description: Payment Mobile apps deep links by platform
+      additionalProperties: false
+      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
+    FindParkingEntitiesByViewportResult:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/ParkingEntity'
+        distance:
+          type:
+          - number
+          - 'null'
+          description: How far away the parking entity is, in meters. Distances are relative to the DistanceCalculationLocation if supplied in the query, otherwise they are relative to the centre of the viewport.
+          format: double
+      additionalProperties: false
+      description: Models a single result from a Search Parking Entities by Viewport call
     OnStreetParkingType:
       enum:
       - 1
@@ -1651,139 +3100,42 @@ components:
 
         '
       format: int32
-    FindParkingEntitiesByViewportResult:
+    ParkingEntityEventDatesResultOkResponse:
       type: object
       properties:
-        entity:
-          $ref: '#/components/schemas/ParkingEntity'
-        distance:
-          type: number
-          description: How far away the parking entity is, in meters. Distances are relative to the DistanceCalculationLocation if supplied in the query, otherwise they are relative to the centre of the viewport.
-          format: double
-          nullable: true
-      additionalProperties: false
-      description: Models a single result from a Search Parking Entities by Viewport call
-    MapEntityType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: 'Enumeration for the different types of Map Entity - objects returned by the API that can be drawn on a map.
-
-
-        *OnStreet (1) - An on-street parking area
-
-        *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
-
-        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
-
-        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
-
-        define rules parking entities that can be overridden by individual entities.
-
-        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-
-        '
-      format: int32
-    GeometryPreference:
-      type: object
-      properties:
-        basemap:
-          $ref: '#/components/schemas/BasemapTranslation'
-        geometryTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeometryType'
-          description: 'List of the types of geometries you want to receive for this basemap
-
-
-            *POI (1) - Point of interest: A single point, will be of type "Point"
-
-            *Kerb (2) - Single line along the kerbedge, will be of type "LineString"
-
-            *Outline (3) - A complete representation of the parking area, will be of type "Polygon". Only available for Ordnance Survey base maps
-
-            '
-          nullable: true
-      additionalProperties: false
-      description: Indicates the type of geometries you want to retrieve
-    OperatingHours:
-      type: object
-      properties:
-        paymentMethodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Payment method(s) for which these operating hours are valid
-          nullable: true
-        permittedContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        openPeriods:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenPeriod'
-          description: Open periods
-          nullable: true
-      additionalProperties: false
-      description: Contextualized operating hours for an entity
-    SurchargeCriteria:
-      type: object
-      properties:
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        maxVehicleManufactureYear:
-          type: integer
-          description: The latest year of manufacture of the vehicle for which the surcharge applies
-          format: int32
-          nullable: true
-      additionalProperties: false
-      description: The criteria for which a surcharge may be applied
-    Error:
-      type: object
-      properties:
-        property:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    FetchParkingQuoteByIdQuery:
-      required:
-      - entityId
-      - startTime
-      type: object
-      properties:
-        entityId:
-          minLength: 1
-          type: string
-          description: Identifier of the Parking Entity to fetch
-        startTime:
-          minLength: 1
-          type: string
-          description: 'Start of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        endTime:
-          type: string
-          description: 'End of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        duration:
-          type: string
-          description: Requested duration
+        success:
+          type: boolean
           readOnly: true
-          example: 3.17:25:30.5000000
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
+        result:
+          $ref: '#/components/schemas/ParkingEntityEventDatesResult'
+      additionalProperties: false
+    DateTimeRange:
+      type: object
+      properties:
+        start:
+          type: string
+          description: ISO-8601 date/time pattern, extended as required to accommodate nanoseconds.
+          example: '2020-01-20T00:00:00'
+        end:
+          type: string
+          description: ISO-8601 date/time pattern, extended as required to accommodate nanoseconds.
+          example: '2020-01-20T00:00:00'
+      additionalProperties: false
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+        packageName:
+          type:
+          - string
+          - 'null'
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
       additionalProperties: false
     GeometryType:
       enum:
@@ -1802,1107 +3154,20 @@ components:
 
         '
       format: int32
-    BasemapTranslation:
+    SurchargeValueType:
       enum:
       - 1
       - 2
       type: integer
-      description: 'Enumeration for the different types of base maps
+      description: 'Indicates how clients should interpret the value in a SurchargeDetails object - as a flat rate (absolute cost) or percentage of the original charge
 
 
-        *OrdnanceSurvey (1) - Ordnance Survey: Realistic mapping
+        *FlatRate (1) - The value should be interpreted as an absolute amount
 
-        *OpenStreetMaps (2) - Open street map.
-
-        '
-      format: int32
-    ParkingEntityOperatingHoursResult:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Identifier of the parking entity
-          nullable: true
-        entityType:
-          $ref: '#/components/schemas/MapEntityType'
-        entityETag:
-          type: string
-          description: 'The Etag of the current latest version of the Parking Entity referred to by this result. This allows
-
-            clients to determine if they have the latest version of the parking entity in their local cache and only
-
-            request the entity if it is missing.'
-          nullable: true
-        timeZoneId:
-          type: string
-          description: 'Entity Timezone Id in IANA (TZDB) format (eg: Europe/London)'
-          nullable: true
-        operatingHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperatingHours'
-          description: 'List of operating hours for this parking entity. If the context of the search means that there are multiple operating hours returned,
-
-            one list of operating hours will be generated for each payment methods, bay types and vehicle operator
-
-            context for which they are valid.'
-          nullable: true
-        notApplicableOperatingHours:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperatingHoursRequirements'
-          description: Not applicable operation hours requirements
-          nullable: true
-        applicableOperatingHoursDetail:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperatingHoursRequirements'
-          description: Applicable operation hours requirements details
-          nullable: true
-        closedPeriods:
-          type: array
-          items:
-            $ref: '#/components/schemas/DateTimeRange'
-          description: Closed periods
-          nullable: true
-      additionalProperties: false
-    ParkingQuotesResponse:
-      type: object
-      properties:
-        requestedStartTime:
-          type: string
-          description: This is the query start time after it has been normalized. This is what was used for the quote calculations.
-          format: date-time
-        requestedDuration:
-          type: string
-          description: This is the query end time after it has been normalized. This is what was used for the quote calculations.
-          example: 3.17:25:30.5000000
-        parking:
-          type: array
-          items:
-            $ref: '#/components/schemas/ParkingEntitySearchResult'
-          description: List of Parking Entities returned by the response
-          nullable: true
-      additionalProperties: false
-    FindParkingEntitiesByViewportFilters:
-      type: object
-      properties:
-        excludeEntityTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MapEntityType'
-          description: 'If supplied, entities that have the given Map Entity types will be excluded from the response. Passing Zone or Authority
-
-            entity types will result in a Bad Request response.
-
-
-            *OnStreet (1) - An on-street parking area
-
-            *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
-
-            *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
-
-            A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
-
-            define rules parking entities that can be overridden by individual entities.
-
-            *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-
-            '
-          nullable: true
-      additionalProperties: false
-      description: Filters that a caller can apply to limit the results returned when searching for parking entities by viewport
-    ParkingQuote:
-      type: object
-      properties:
-        cost:
-          type: number
-          description: The total cost of parking given the context of the quote.
-          format: float
-        currency:
-          type: string
-          description: Currency of the value in the Cost field
-          nullable: true
-        minCost:
-          type: number
-          description: 'Minimum cost for parking. This is the minimum amount the user will pay for parking,
-
-            regardless of when they leave the space.'
-          format: float
-          nullable: true
-        minStayUntil:
-          type: string
-          description: 'The amount of time that the vehicle operator is entitled to stay in the space if they pay the amount
-
-            specified in the MinCost field, i.e. the minimum duration that must be paid for in order to park.'
-          format: date-time
-          nullable: true
-        canExtendUntil:
-          type: string
-          description: 'The maximum time until which the user can park. This value ignores the requested window and is the
-
-            latest time the user is able to remain parked in the space if they were to extend their session
-
-            beyond the requested window.
-
-            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-          nullable: true
-        pricedUntil:
-          type: string
-          description: 'The maximum time until which the user can park for the price specified in the ''cost'' field. The
-
-            ''cost'' field is the cost for the requested time window, but that price may entitle the user to
-
-            park longer than requested, in which case this field holds the time that the cost will entitle
-
-            them to park.
-
-            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-          nullable: true
-        noReturnUntil:
-          type: string
-          description: The 'no return until', i.e. the time after parking during which the user is not allowed to return to the bay.
-          format: date-time
-          nullable: true
-        freeUntil:
-          type: string
-          description: "If it is free to park in the bay at the start of the requested time window, this returns the maximum time up to which\r\nthe user can park for free. If the bay is paid parking from the start of the window, FreeUntil will be null.\r\n            \r\nIf the bay is free 24/7, this value will be 7 days from start time, which is the maximum session length supported by the Appyway API."
-          format: date-time
-          nullable: true
-        becomesFreeAt:
-          type: string
-          description: 'If the user has to pay to park at the start of the requested time window, this returns the first time at which
-
-            the user can park for free. If the bay is free parking from the start of the window OR free parking is never available in the bay, BecomesFreeAt will be null.'
-          format: date-time
-          nullable: true
-        isFreeParking:
-          type: boolean
-          description: TRUE if parking is free, false if it is paid.
-          readOnly: true
-        paymentMethodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Payment method(s) for which this quote is valid
-          nullable: true
-        permittedContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        rulesApplyUntil:
-          type: string
-          description: 'The date and time until the rules on which this quote is based apply.
-
-            Dates/times are returned in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-          nullable: true
-        surcharge:
-          $ref: '#/components/schemas/SurchargeDetails'
-      additionalProperties: false
-      description: A contextualized quote for a parking session, including related data such as No Return and Minimum Cost
-    ParkingEntitySearchResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/ParkingEntitySearchResult'
-      additionalProperties: false
-    OpenPeriodStatus:
-      enum:
-      - 1
-      - 2
-      - 3
-      type: integer
-      description: 'Indicates the status of an open period
-
-
-        *Free (1) - Free period
-
-        *Paid (2) - Paid period
-
-        *Mixed (3) - Mixed (free or paid depending on tariff)
+        *Percentage (2) - The value should be interpreted as a percentage of the original cost (before surcharge)
 
         '
       format: int32
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    FetchOperatingHoursByIdsQuery:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-          description: List of Ids of entities to fetch
-          nullable: true
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        date:
-          type: string
-          description: 'The date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
-          nullable: true
-          example: '2020-01-20'
-        startDate:
-          type: string
-          description: 'Start date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).
-
-            Date takes precedence if set.'
-          nullable: true
-          example: '2020-01-20'
-        endDate:
-          type: string
-          description: 'End date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
-
-            Date takes precedence if set.'
-          nullable: true
-          example: '2020-01-20'
-        dates:
-          type: array
-          items:
-            type: string
-            description: ISO-8601 date pattern
-            example: '2020-01-20'
-          description: 'Dates for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
-
-            Date, StartDate and EndDate takes precedence if set.'
-          nullable: true
-        includeNotApplicableOperatingHours:
-          type: boolean
-          description: Include all operation hours requirements for contexts that do not apply to the driver making the request.
-        includeApplicableOperatingHoursDetail:
-          type: boolean
-          description: Include a detail version of operation hours requirements that apply for the given context.
-        includeClosedPeriods:
-          type: boolean
-          description: Include closed periods that apply for the given context.
-      additionalProperties: false
-    FindParkingQuotesByViewportFilters:
-      type: object
-      properties:
-        excludeEntityTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MapEntityType'
-          description: 'If supplied, entities that have the given Map Entity types will be excluded from the response. Passing Zone or Authority
-
-            entity types will result in a Bad Request response.
-
-
-            *OnStreet (1) - An on-street parking area
-
-            *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
-
-            *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
-
-            A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
-
-            define rules parking entities that can be overridden by individual entities.
-
-            *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-
-            '
-          nullable: true
-        excludePaidParking:
-          type: boolean
-          description: TRUE to exclude paid parking bays from the result. Optional. Defaults to FALSE if omitted.
-          nullable: true
-        excludeFreeParking:
-          type: boolean
-          description: TRUE to exclude free parking bays from the result. Optional. Defaults to FALSE if omitted.
-          nullable: true
-        excludeNoParking:
-          type: boolean
-          description: TRUE to exclude from the result any bays where parking is not allowed for the entirety of the requested time window for the given vehicle operator. Optional. Defaults to FALSE if omitted.
-          nullable: true
-        excludeTruncatedParking:
-          type: boolean
-          description: "TRUE to exclude from the result any bays where parking is not allowed for part of the requested time window for the given vehicle operator. Optional. Defaults to FALSE if omitted.\r\n            \r\nNote that this filter does not imply the exclusion of bays where parking is not allowed for the entirety of the requested time window. To exclude such results, use the ExcludeNoParking filter.\r\nif using ExcludeTruncatedParking."
-          nullable: true
-        excludeCostGreaterThan:
-          type: number
-          description: "If supplied, bays for which the total cost over the requested duration exceeds the supplied value will not be included in the result.\r\n            \r\nIf the ExcludePaidParking filter is set to TRUE, this property will have no effect."
-          format: float
-          nullable: true
-      additionalProperties: false
-      description: Filters that a caller can apply to limit the results returned when searching for parking by viewport
-    ParkingEntity:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Unique identifier for this entity
-          nullable: true
-        entityType:
-          $ref: '#/components/schemas/MapEntityType'
-        name:
-          type: string
-          description: User-readable name for this entity
-          nullable: true
-        eTag:
-          type: string
-          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
-
-            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
-
-            not match the requested tag - i.e. just those entities that have changed.'
-          nullable: true
-        address:
-          $ref: '#/components/schemas/Address'
-        locationCode:
-          type: string
-          description: A unique code for each parking entity assigned by a payment provider and is their identifier for payment purposes
-          nullable: true
-        totalCapacity:
-          type: integer
-          description: How many vehicles can be parked at the parking entity. May be approximate (in the case of unmarked bays)
-          format: int32
-          nullable: true
-        zoneId:
-          type: string
-          description: ID of the zone in which the parking entity resides
-          nullable: true
-        authorityId:
-          type: string
-          description: ID of the authority in which the parking entity resides
-          nullable: true
-        features:
-          $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeatureCollection'
-        paymentMethodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Payment methods supported at this on-street location.
-          nullable: true
-        operator:
-          $ref: '#/components/schemas/CarParkOperator'
-        onStreetParkingTypeIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnStreetParkingType'
-          description: 'The types of road markings represented by this entity. This property is only present for On Street Parking entities.
-
-
-            *StandardBay (1) - Standard bay (paid or free)
-
-            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
-
-            *MotorcycleBay (3) - Designated motorcycle bay
-
-            *ElectricBay (4) - A bay designated for electric vehicles only
-
-            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
-
-            *CoachBay (6) - A bay with space for a coach
-
-            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
-
-            *TaxiBay (8) - Taxi bay
-
-            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
-
-            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
-
-            *SingleYellowLine (11) - Single yellow line
-
-            *DoubleYellowLine (12) - Double yellow line
-
-            *SingleRedLine (13) - Single red line
-
-            *DoubleRedLine (14) - Double red line
-
-            *SingleYellowKerbMark (15) - Single yellow kerb marks
-
-            *DoubleYellowKerbMark (16) - Double yellow kerb marks
-
-            *KeepClearLine (17) - Keep Clear lines
-
-            *DroppedKerbDriveway (18) - A dropped kerb driveway
-
-            *RedRouteBay (19) - Red route bay
-
-            *BusStop (20) - Bus stop
-
-            *BusinessBay (21) - A business bay
-
-            *DoctorBay (22) - A doctor''s bay
-
-            *HospitalBay (23) - An hospital bay
-
-            *MarketTraderBay (24) - A market trader bay
-
-            *HotelBay (25) - A Hotel bay
-
-            *PoliceBay (26) - A police bay
-
-            *RnliBay (27) - An RNLI bay
-
-            *SupremeCourtBay (28) - Supreme court bay
-
-            *AmbulanceBay (29) - An ambulance bay
-
-            *CycleHireBay (30) - Cycle hire bay
-
-            *CycleHangar (31) - Cycle hangar
-
-            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
-
-            *MobileLibraryBay (33) - A mobile library bay
-
-            *DiplomatBay (34) - A diplomat bay
-
-            *FireBrigade (35) - Fire brigade
-
-            *CycleRack (36) - Cycle rack
-
-            *SchoolKeepClearLine (37) - School keep clear line
-
-            *None (-1) - Standard bay (paid or free)
-
-            '
-          nullable: true
-        facilityTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Any special facilities available at this on-street location, e.g. charging points for EVs. This property is only present for On Street Parking entities.
-          nullable: true
-        venueId:
-          type: string
-          description: The venue id
-          nullable: true
-      additionalProperties: false
-      description: Base class for Map Entities that support parking, either on-street or car parks
-    CrsProperties:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-      additionalProperties: false
-    GeneralOnStreetPolicyType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: 'The different policies that may apply to sections of the kerb within a given area where no specific data is present.
-
-
-        *Restricted (1) - Unspecified sections of kerb are restricted (no parking) for everyone.
-
-        *LikelyRestricted (2) - Unspecified sections of kerb are likely to be restricted (no parking) for everyone.
-
-        *LikelyUnrestricted (3) - Unspecified sections of kerb are likely to be unrestricted (free parking)
-
-        *Unknown (4) - We cannot say with confidence whether or not unspecified kerb sections are restricted.
-
-        '
-      format: int32
-    FindParkingEntitiesByCentreAndViewportSizeQuery:
-      required:
-      - viewportCenter
-      - viewportSize
-      type: object
-      properties:
-        viewportSize:
-          maximum: 1225
-          minimum: 0
-          exclusiveMinimum: true
-          type: integer
-          description: Length of one side of the square viewport in meters. Required. Limited to 1.5 km2.
-          format: int32
-        viewportCenter:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: Centre point for the query. Required.
-        distanceCalculationLocation:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: 'Custom location within the viewport from which to calculate distances for returned entities. Optional. If omitted, distances will be calculated
-
-            from the centre of the viewport. This field is useful if you want to display or order entities by distance from a given point that is not the centre of your requested viewport.'
-        geometryPreference:
-          $ref: '#/components/schemas/GeometryPreference'
-        filters:
-          $ref: '#/components/schemas/FindParkingEntitiesByViewportFilters'
-        onStreetParkingTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnStreetParkingType'
-          description: 'If supplied, only on-street parking entities that have the given On-Street Parking types will be included in the response. If null,
-
-            all types will be returned.
-
-
-            *StandardBay (1) - Standard bay (paid or free)
-
-            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
-
-            *MotorcycleBay (3) - Designated motorcycle bay
-
-            *ElectricBay (4) - A bay designated for electric vehicles only
-
-            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
-
-            *CoachBay (6) - A bay with space for a coach
-
-            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
-
-            *TaxiBay (8) - Taxi bay
-
-            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
-
-            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
-
-            *SingleYellowLine (11) - Single yellow line
-
-            *DoubleYellowLine (12) - Double yellow line
-
-            *SingleRedLine (13) - Single red line
-
-            *DoubleRedLine (14) - Double red line
-
-            *SingleYellowKerbMark (15) - Single yellow kerb marks
-
-            *DoubleYellowKerbMark (16) - Double yellow kerb marks
-
-            *KeepClearLine (17) - Keep Clear lines
-
-            *DroppedKerbDriveway (18) - A dropped kerb driveway
-
-            *RedRouteBay (19) - Red route bay
-
-            *BusStop (20) - Bus stop
-
-            *BusinessBay (21) - A business bay
-
-            *DoctorBay (22) - A doctor''s bay
-
-            *HospitalBay (23) - An hospital bay
-
-            *MarketTraderBay (24) - A market trader bay
-
-            *HotelBay (25) - A Hotel bay
-
-            *PoliceBay (26) - A police bay
-
-            *RnliBay (27) - An RNLI bay
-
-            *SupremeCourtBay (28) - Supreme court bay
-
-            *AmbulanceBay (29) - An ambulance bay
-
-            *CycleHireBay (30) - Cycle hire bay
-
-            *CycleHangar (31) - Cycle hangar
-
-            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
-
-            *MobileLibraryBay (33) - A mobile library bay
-
-            *DiplomatBay (34) - A diplomat bay
-
-            *FireBrigade (35) - Fire brigade
-
-            *CycleRack (36) - Cycle rack
-
-            *SchoolKeepClearLine (37) - School keep clear line
-
-            *None (-1) - Standard bay (paid or free)
-
-            '
-          nullable: true
-      additionalProperties: false
-      description: 'Request for searching for Parking Entities for a square viewport. The viewport is defined by the latitude and longitude of
-
-        the centre point and the length of one side.'
-    ParkingAllowed:
-      enum:
-      - 1
-      - 2
-      - 3
-      type: integer
-      description: 'Enum to indicate the different scenarios whereby parking may be allowed or denied.
-
-
-        *FullSession (1) - Parking is allowed for the whole of the requested window
-
-        *TruncatedSession (2) - Parking is allowed for part of the requested window only
-
-        *NoParking (3) - Parking is not allowed.
-
-        '
-      format: int32
-    ParkingEntityEventDatesResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/ParkingEntityEventDatesResult'
-      additionalProperties: false
-    FetchOperatingHoursByIdQuery:
-      required:
-      - entityId
-      type: object
-      properties:
-        entityId:
-          minLength: 1
-          type: string
-          description: Identifier of the Parking Entity to fetch
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        date:
-          type: string
-          description: 'The date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
-          nullable: true
-          example: '2020-01-20'
-        startDate:
-          type: string
-          description: 'Start date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-01).
-
-            Date takes precedence if set.'
-          nullable: true
-          example: '2020-01-20'
-        endDate:
-          type: string
-          description: 'End date for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
-
-            Date takes precedence if set.'
-          nullable: true
-          example: '2020-01-20'
-        dates:
-          type: array
-          items:
-            type: string
-            description: ISO-8601 date pattern
-            example: '2020-01-20'
-          description: 'Dates for which to retrieve the operating hours provided in local format: YYYY-MM-DD (eg: 2021-01-03).
-
-            Date, StartDate and EndDate takes precedence if set.'
-          nullable: true
-        includeNotApplicableOperatingHours:
-          type: boolean
-          description: Include all operation hours requirements for contexts that do not apply to the driver making the request.
-        includeApplicableOperatingHoursDetail:
-          type: boolean
-          description: Include a detail version of operation hours requirements that apply for the given context.
-        includeClosedPeriods:
-          type: boolean
-          description: Include closed periods that apply for the given context.
-      additionalProperties: false
-    VehicleOperatorRequirements:
-      type: object
-      properties:
-        vehicleTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Vehicles types. See the reference API for more information.
-          nullable: true
-        activityTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Activity the operators perform at the kerbside (parking, loading). See the reference API for more information.
-          nullable: true
-        fuelTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Fuel types of the vehicles. See the reference API for more information.
-          nullable: true
-        permits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permit'
-          description: Any permits held by the operator (e.g. blue disabled badge, car club permit). See the reference API for more information.
-          nullable: true
-      additionalProperties: false
-    OperatingHoursRequirements:
-      type: object
-      properties:
-        paymentMethodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Payment method(s) for which these operating hours are valid
-          nullable: true
-        requirements:
-          $ref: '#/components/schemas/VehicleOperatorRequirements'
-        openPeriods:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenPeriod'
-          description: Operating hours
-          nullable: true
-      additionalProperties: false
-      description: Operating hours requirements for an entity
-    FindParkingQuotesByViewportQuery:
-      required:
-      - startTime
-      - viewport
-      type: object
-      properties:
-        startTime:
-          minLength: 1
-          type: string
-          description: 'Start of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        viewport:
-          type: object
-          properties:
-            type:
-              type: string
-              nullable: true
-            crs:
-              $ref: '#/components/schemas/Crs'
-            coordinates:
-              type: array
-              items:
-                type: array
-                items:
-                  type: array
-                  items:
-                    type: number
-                    format: double
-              nullable: true
-          additionalProperties: false
-          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 1.5 km2.
-        duration:
-          type: string
-          description: Requested duration
-          readOnly: true
-          example: 3.17:25:30.5000000
-        endTime:
-          type: string
-          description: 'End of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        distanceCalculationLocation:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: 'Custom location within the viewport from which to calculate distances for returned results. Optional. If omitted, distances will be calculated
-
-            from the centre of the viewport. This field is useful if you want to display or order results by distance from a given point that is not the centre of your requested viewport.'
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        filters:
-          $ref: '#/components/schemas/FindParkingQuotesByViewportFilters'
-      additionalProperties: false
-      description: Request for searching for Parking Quotes for a given viewport. The viewport is supplied as a GeoJson polygon.
-    PaymentProvidersResponse:
-      type: object
-      properties:
-        paymentProviders:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentProvider'
-          description: Payment providers returned from the query
-          nullable: true
-      additionalProperties: false
-      description: Response containing a list of payment providers
-    FetchParkingEntityByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          minLength: 1
-          type: string
-          description: Identifier of the Parking Entity to fetch
-      additionalProperties: false
-    FetchParkingQuotesByIdsQuery:
-      required:
-      - startTime
-      type: object
-      properties:
-        startTime:
-          minLength: 1
-          type: string
-          description: 'Start of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        ids:
-          type: array
-          items:
-            type: string
-          description: List of Ids of entities to fetch
-          nullable: true
-        endTime:
-          type: string
-          description: 'End of the window for which to retrieve state. Required.
-
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        duration:
-          type: string
-          description: Requested duration
-          readOnly: true
-          example: 3.17:25:30.5000000
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-      additionalProperties: false
-    PaymentDeepLinks:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          description: 'Deep link schemas (eg: ringgo://, etc)'
-          nullable: true
-        packageName:
-          type: string
-          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
-          nullable: true
-      additionalProperties: false
-    Crs:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        properties:
-          $ref: '#/components/schemas/CrsProperties'
-      additionalProperties: false
-    FindParkingEntitiesByViewportQuery:
-      required:
-      - viewport
-      type: object
-      properties:
-        viewport:
-          type: object
-          properties:
-            type:
-              type: string
-              nullable: true
-            crs:
-              $ref: '#/components/schemas/Crs'
-            coordinates:
-              type: array
-              items:
-                type: array
-                items:
-                  type: array
-                  items:
-                    type: number
-                    format: double
-              nullable: true
-          additionalProperties: false
-          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 1.5 km2.
-        distanceCalculationLocation:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: 'Custom location within the viewport from which to calculate distances for returned entities. Optional. If omitted, distances will be calculated
-
-            from the centre of the viewport. This field is useful if you want to display or order entities by distance from a given point that is not the centre of your requested viewport.'
-        geometryPreference:
-          $ref: '#/components/schemas/GeometryPreference'
-        onStreetParkingTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/OnStreetParkingType'
-          description: 'If supplied, only on-street parking entities that have the given On-Street Parking types will be included in the response. If null,
-
-            all types will be returned.
-
-
-            *StandardBay (1) - Standard bay (paid or free)
-
-            *DisabledBay (2) - A bay requiring a disabled badge / permit during restricted hours
-
-            *MotorcycleBay (3) - Designated motorcycle bay
-
-            *ElectricBay (4) - A bay designated for electric vehicles only
-
-            *CarClubBay (5) - A bay designated for Car Club members only during restricted hours
-
-            *CoachBay (6) - A bay with space for a coach
-
-            *LoadingBay (7) - A bay that allows Loading Only during restricted hours
-
-            *TaxiBay (8) - Taxi bay
-
-            *ResidentBay (9) - A bay designated for resident permit holders during restricted hours
-
-            *SpecialBay (10) - A bay with special restrictions, e.g. RNLI, High Court or Ambulance bays
-
-            *SingleYellowLine (11) - Single yellow line
-
-            *DoubleYellowLine (12) - Double yellow line
-
-            *SingleRedLine (13) - Single red line
-
-            *DoubleRedLine (14) - Double red line
-
-            *SingleYellowKerbMark (15) - Single yellow kerb marks
-
-            *DoubleYellowKerbMark (16) - Double yellow kerb marks
-
-            *KeepClearLine (17) - Keep Clear lines
-
-            *DroppedKerbDriveway (18) - A dropped kerb driveway
-
-            *RedRouteBay (19) - Red route bay
-
-            *BusStop (20) - Bus stop
-
-            *BusinessBay (21) - A business bay
-
-            *DoctorBay (22) - A doctor''s bay
-
-            *HospitalBay (23) - An hospital bay
-
-            *MarketTraderBay (24) - A market trader bay
-
-            *HotelBay (25) - A Hotel bay
-
-            *PoliceBay (26) - A police bay
-
-            *RnliBay (27) - An RNLI bay
-
-            *SupremeCourtBay (28) - Supreme court bay
-
-            *AmbulanceBay (29) - An ambulance bay
-
-            *CycleHireBay (30) - Cycle hire bay
-
-            *CycleHangar (31) - Cycle hangar
-
-            *AdvisorySchoolKeepClearLine (32) - Advisory school keep clear line
-
-            *MobileLibraryBay (33) - A mobile library bay
-
-            *DiplomatBay (34) - A diplomat bay
-
-            *FireBrigade (35) - Fire brigade
-
-            *CycleRack (36) - Cycle rack
-
-            *SchoolKeepClearLine (37) - School keep clear line
-
-            *None (-1) - Standard bay (paid or free)
-
-            '
-          nullable: true
-        filters:
-          $ref: '#/components/schemas/FindParkingEntitiesByViewportFilters'
-      additionalProperties: false
-      description: Request for searching for Parking Entities for a given viewport. The viewport is supplied as a GeoJson polygon.
-    FetchEventDatesByIdQuery:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Identifier of the Parking Entity to fetch.
-          nullable: true
-        startDate:
-          type: string
-          description: 'Start date for which to retrieve the event dates provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
-          example: '2020-01-20'
-        endDate:
-          type: string
-          description: 'End date for which to retrieve the event dates provided in local format: YYYY-MM-DD (eg: 2021-01-03).'
-          example: '2020-01-20'
-      additionalProperties: false
-    GeometryCollectionFeatureInfoFeature:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        geometry:
-          $ref: '#/components/schemas/GeometryCollection'
-        properties:
-          $ref: '#/components/schemas/FeatureInfo'
-      additionalProperties: false
-    FeatureInfo:
-      type: object
-      properties:
-        basemap:
-          $ref: '#/components/schemas/BasemapTranslation'
-      additionalProperties: false
-      description: Provides information about the geometry contained in the feature
-    FindParkingEntitiesByViewportResponse:
-      type: object
-      properties:
-        entities:
-          type: array
-          items:
-            $ref: '#/components/schemas/FindParkingEntitiesByViewportResult'
-          description: List of results from the entity search.
-          nullable: true
-      additionalProperties: false
-      description: Response from calls that search for Parking Entities by viewport
     ParkingSearchResponse:
       type: object
       properties:
@@ -2915,24 +3180,100 @@ components:
           description: This is the query end time after it has been normalized. This is what was used for the quote calculations.
           example: 3.17:25:30.5000000
         parking:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ParkingEntitySearchResult'
           description: List of Parking Entities returned by the response
-          nullable: true
         generalOnstreetPolicy:
           $ref: '#/components/schemas/GeneralOnStreetPolicyType'
       additionalProperties: false
       description: Response shape for parking search requests
-    FetchPaymentProvidersByParkingEntityIdQuery:
-      required:
-      - entityId
+    FetchEventDatesByIdQuery:
       type: object
       properties:
         entityId:
-          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Identifier of the Parking Entity to fetch.
+        startDate:
           type: string
-          description: Identifier of the Parking Entity to fetch Payment Providers
+          description: 'Start date for which to retrieve the event dates provided in local format: YYYY-MM-DD (eg: 2021-01-01).'
+          example: '2020-01-20'
+        endDate:
+          type: string
+          description: 'End date for which to retrieve the event dates provided in local format: YYYY-MM-DD (eg: 2021-01-03).'
+          example: '2020-01-20'
+      additionalProperties: false
+    VehicleOperatorContext:
+      type: object
+      properties:
+        vehicleTypeId:
+          type:
+          - integer
+          - 'null'
+          description: Type of vehicle being operated. See the reference API for more information.
+          format: int32
+        activityTypeId:
+          type:
+          - integer
+          - 'null'
+          description: Activity the operator is seeking to perform at the kerbside (parking, loading). See the reference API for more information.
+          format: int32
+        fuelTypeId:
+          type:
+          - integer
+          - 'null'
+          description: Fuel type of the vehicle. See the reference API for more information.
+          format: int32
+        permits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Permit'
+          description: Any permits types held by the operator (e.g. blue disabled badge, car club permit). See the reference API for more information.
+      additionalProperties: false
+      description: 'A set of values that pertain to the driver looking to park (their vehicle, permits, intended activity)
+
+        that affect whether or not they can park and/or the price they pay if they do.'
+    NotFoundResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ParkingEntitySearchResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/ParkingEntitySearchResult'
+      additionalProperties: false
+    GeometryCollectionFeatureInfoFeature:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        geometry:
+          $ref: '#/components/schemas/GeometryCollection'
+        properties:
+          $ref: '#/components/schemas/FeatureInfo'
       additionalProperties: false
     ParkingSearchResponseOkResponse:
       type: object
@@ -2943,300 +3284,70 @@ components:
         result:
           $ref: '#/components/schemas/ParkingSearchResponse'
       additionalProperties: false
-    NotFoundResponse:
+    ParkingEntityOperatingHoursResult:
       type: object
       properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-      additionalProperties: false
-    Address:
-      type: object
-      properties:
-        street:
-          type: string
-          description: Street address
-          nullable: true
-        city:
-          type: string
-          description: Town or city
-          nullable: true
-        country:
-          type: string
-          description: Country
-          nullable: true
-        postcode:
-          type: string
-          description: Postal code
-          nullable: true
-      additionalProperties: false
-      description: A standard address for an Onstreet bay or Car park
-    FindParkingEntitiesByViewportResponseOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/FindParkingEntitiesByViewportResponse'
-      additionalProperties: false
-    FindParkingQuotesByCentreAndViewportSizeQuery:
-      required:
-      - startTime
-      - viewportCenter
-      - viewportSize
-      type: object
-      properties:
-        startTime:
-          minLength: 1
-          type: string
-          description: 'Start of the window for which to retrieve state. Required.
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the parking entity
+        entityType:
+          $ref: '#/components/schemas/MapEntityType'
+        entityETag:
+          type:
+          - string
+          - 'null'
+          description: 'The Etag of the current latest version of the Parking Entity referred to by this result. This allows
 
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        viewportCenter:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: Centre point for the query. Required.
-        viewportSize:
-          maximum: 1225
-          type: integer
-          description: Length of one side of the square viewport in meters. Required. Limited to 1.5 km2.
-          format: int32
-        endTime:
-          type: string
-          description: 'End of the window for which to retrieve state. Required.
+            clients to determine if they have the latest version of the parking entity in their local cache and only
 
-            Dates/times should be provided in ISO8601 format: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)'
-          format: date-time
-        distanceCalculationLocation:
-          type: object
-          properties:
-            lat:
-              type: number
-              description: Latitude
-              format: double
-            lng:
-              type: number
-              description: Longitude
-              format: double
-          additionalProperties: false
-          description: 'Custom location within the viewport from which to calculate distances for returned results. Optional. If omitted, distances will be calculated
-
-            from the centre of the viewport. This field is useful if you want to display or order results by distance from a given point that is not the centre of your requested viewport.'
-        duration:
-          type: string
-          description: Requested duration
-          readOnly: true
-          example: 3.17:25:30.5000000
-        vehicleOperatorContext:
-          $ref: '#/components/schemas/VehicleOperatorContext'
-        filters:
-          $ref: '#/components/schemas/FindParkingQuotesByViewportFilters'
-      additionalProperties: false
-      description: 'Request for searching for Parking Quotes for a square viewport. The viewport is defined by the latitude and longitude of
-
-        the centre point and the length of one side.'
-    VehicleOperatorContext:
-      type: object
-      properties:
-        vehicleTypeId:
-          type: integer
-          description: Type of vehicle being operated. See the reference API for more information.
-          format: int32
-          nullable: true
-        activityTypeId:
-          type: integer
-          description: Activity the operator is seeking to perform at the kerbside (parking, loading). See the reference API for more information.
-          format: int32
-          nullable: true
-        fuelTypeId:
-          type: integer
-          description: Fuel type of the vehicle. See the reference API for more information.
-          format: int32
-          nullable: true
-        permits:
-          type: array
+            request the entity if it is missing.'
+        timeZoneId:
+          type:
+          - string
+          - 'null'
+          description: 'Entity Timezone Id in IANA (TZDB) format (eg: Europe/London)'
+        operatingHours:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/Permit'
-          description: Any permits types held by the operator (e.g. blue disabled badge, car club permit). See the reference API for more information.
-          nullable: true
-      additionalProperties: false
-      description: 'A set of values that pertain to the driver looking to park (their vehicle, permits, intended activity)
+            $ref: '#/components/schemas/OperatingHours'
+          description: 'List of operating hours for this parking entity. If the context of the search means that there are multiple operating hours returned,
 
-        that affect whether or not they can park and/or the price they pay if they do.'
-    DateTimeRange:
-      type: object
-      properties:
-        start:
-          type: string
-          description: ISO-8601 date/time pattern, extended as required to accommodate nanoseconds.
-          example: '2020-01-20T00:00:00'
-        end:
-          type: string
-          description: ISO-8601 date/time pattern, extended as required to accommodate nanoseconds.
-          example: '2020-01-20T00:00:00'
-      additionalProperties: false
-    CarParkOperator:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier (if the payment provider is present on Reference API)
-          nullable: true
-        name:
-          type: string
-          description: Provider name
-          nullable: true
-        cardPaymentsExternalUrl:
-          type: string
-          description: URL for taking payments (if online payments are supported)
-          nullable: true
-        paymentsTelephone:
-          type: string
-          description: Phone number for taking payments (if pay-by-phone is supported)
-          nullable: true
-        paymentsAppDeepLinks:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentDeepLinks'
-          description: Payment Mobile apps deep links by platform
-          nullable: true
-        telephone:
-          type: string
-          description: Operator phone number
-          nullable: true
-        website:
-          type: string
-          description: Operator website
-          nullable: true
-      additionalProperties: false
-      description: Details of the operator for a car park, including telephone numbers and URLs for phone and online payments (if applicable)
-    ParkingEntityOperatingHoursResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/ParkingEntityOperatingHoursResult'
-      additionalProperties: false
-    GeometryCollectionFeatureInfoFeatureCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        features:
-          type: array
+            one list of operating hours will be generated for each payment methods, bay types and vehicle operator
+
+            context for which they are valid.'
+        notApplicableOperatingHours:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeature'
-          nullable: true
-        properties:
-          nullable: true
-      additionalProperties: false
-    OpenPeriod:
-      type: object
-      properties:
-        start:
-          type: string
-          description: 'The local time of the day that the period starts
-
-            Returned in local time format: hh:mm:ss (eg: 19:20:30)'
-          example: 00:00:00
-        end:
-          type: string
-          description: 'The local time of the day that the period ends
-
-            Returned in local time format: hh:mm:ss (eg: 19:20:30)'
-          example: 00:00:00
-        date:
-          type: string
-          description: 'The local date that the period belongs
-
-            Returned in local format: YYYY-MM-DD (eg: 2021-01-01)'
-          example: '2020-01-20'
-        status:
-          $ref: '#/components/schemas/OpenPeriodStatus'
-      additionalProperties: false
-    PaymentProvider:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier (if the payment provider is present on Reference API)
-          nullable: true
-        name:
-          type: string
-          description: Provider name
-          nullable: true
-        cardPaymentsExternalUrl:
-          type: string
-          description: URL for taking payments (if online payments are supported)
-          nullable: true
-        paymentsTelephone:
-          type: string
-          description: Phone number for taking payments (if pay-by-phone is supported)
-          nullable: true
-        paymentsAppDeepLinks:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentDeepLinks'
-          description: Payment Mobile apps deep links by platform
-          nullable: true
-      additionalProperties: false
-      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-    ParkingQuotesResponseOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/ParkingQuotesResponse'
-      additionalProperties: false
-    ParkingEntityOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/ParkingEntity'
-      additionalProperties: false
-    ParkingEntityOperatingHoursResultIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type: array
+            $ref: '#/components/schemas/OperatingHoursRequirements'
+          description: Not applicable operation hours requirements
+        applicableOperatingHoursDetail:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/ParkingEntityOperatingHoursResult'
-          nullable: true
+            $ref: '#/components/schemas/OperatingHoursRequirements'
+          description: Applicable operation hours requirements details
+        closedPeriods:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DateTimeRange'
+          description: Closed periods
       additionalProperties: false
-    PaymentProvidersResponseOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/PaymentProvidersResponse'
-      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

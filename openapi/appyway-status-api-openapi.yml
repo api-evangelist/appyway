@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay Availability RealTime ActivityTypes Status API
   version: '1.0'
@@ -29,12 +29,12 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized
     TooManyRequests:
       description: Too many requests
     Forbidden:
       description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

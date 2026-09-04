@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay Availability RealTime ActivityTypes Authorities API
   version: '1.0'
@@ -2257,114 +2257,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    OrdnanceSurvey:
-      type: object
-      properties:
-        apiKey:
-          type: string
-          nullable: true
-        license:
-          type: string
-          nullable: true
-      additionalProperties: false
-    OperatingHoursCms:
-      type: object
-      properties:
-        standardDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleCms'
-          description: List of Ylp.Cms.Core.Domain.Model.RuleCms applicable on normal days
-          nullable: true
-        eventDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleCms'
-          description: List of Ylp.Cms.Core.Domain.Model.RuleCms applicable on event days in an associated venue
-          nullable: true
-      additionalProperties: false
-    ElectricConnectionCms:
-      type: object
-      properties:
-        type:
-          type: integer
-          format: int32
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        quantity:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DataQuality:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: '
-
-
-        *HdPlus (1)
-
-        *Hd (2)
-
-        *Md (3)
-
-        *Sd (4)
-
-        '
-      format: int32
-    HoursCms:
-      type: object
-      properties:
-        start:
-          type: string
-          description: ISO-8601 time pattern, extended as required to accommodate nanoseconds.
-          example: 00:00:00
-        end:
-          type: string
-          description: ISO-8601 time pattern, extended as required to accommodate nanoseconds.
-          example: 00:00:00
-      additionalProperties: false
-    TariffEmissionsAdjustmentSetCms:
-      type: object
-      properties:
-        emissionsBandSetId:
-          type: string
-          description: Identifier of the corresponding Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
-          format: uuid
-        adjustments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TariffEmissionsAdjustmentCms'
-          description: The adjustments to apply to the tariff. There should be one entry for each band in the corresponding Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
-          nullable: true
-      additionalProperties: false
-      description: A set of adjustments to the price defined in a Ylp.Cms.Core.Domain.Model.TariffDetailCms according to the bands defined in a Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
-    ExceptionsSet:
-      type: object
-      properties:
-        guid:
-          type: string
-          format: uuid
-        setId:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        formattedName:
-          type: string
-          nullable: true
-          readOnly: true
-        exceptions:
-          $ref: '#/components/schemas/ExceptionsCms'
-      additionalProperties: false
     AuthoritySearchResponseOkResponse:
       type: object
       properties:
@@ -2374,184 +2266,88 @@ components:
         result:
           $ref: '#/components/schemas/AuthoritySearchResponse'
       additionalProperties: false
-    Polygon:
+    Authority:
       type: object
       properties:
-        type:
-          type: string
-          nullable: true
-        crs:
-          $ref: '#/components/schemas/Crs'
-        coordinates:
-          type: array
-          items:
-            type: array
-            items:
-              type: array
-              items:
-                type: number
-                format: double
-          nullable: true
-      additionalProperties: false
-    LatLng:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-      additionalProperties: false
-    PaymentProvider:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier (if the payment provider is present on Reference API)
-          nullable: true
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for this entity
         name:
-          type: string
-          description: Provider name
-          nullable: true
-        cardPaymentsExternalUrl:
-          type: string
-          description: URL for taking payments (if online payments are supported)
-          nullable: true
-        paymentsTelephone:
-          type: string
-          description: Phone number for taking payments (if pay-by-phone is supported)
-          nullable: true
-        paymentsAppDeepLinks:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentDeepLinks'
-          description: Payment Mobile apps deep links by platform
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: User-readable name for this entity
+        eTag:
+          type:
+          - string
+          - 'null'
+          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
+
+            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
+
+            not match the requested tag - i.e. just those entities that have changed.'
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Note'
+          description: Any special notes associated with this authority
+        paymentProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+        entityType:
+          $ref: '#/components/schemas/MapEntityType'
+        countryId:
+          type:
+          - string
+          - 'null'
+          description: ID of the country in which the authority resides
+        geometry:
+          $ref: '#/components/schemas/GeometryCollection'
+        hasFreeParkingOutsideZone:
+          type:
+          - boolean
+          - 'null'
+          description: "This flag gives an indication of whether parking is likely to be available outside of designated\ncontrolled parking zones. The flag indicates the availability of parking for sections of the kerb where\nthis API does NOT return a specific OnStreetParking result. If TRUE, parking is likely to be free and\nunrestricted where the Parking Search results do not indicate otherwise. if FALSE, it is likely to be no parking.\n            \nThis is an indication only, and clients should inform their end users that they should always check local\nsignage when parking.\n            \nIf NULL, it is not known whether parking is available for this authority outside of designated zones.\n            \nNOTE that inside controlled parking zones, it is likely that parking is not available in areas where no\nOnStreetParking result is returned."
       additionalProperties: false
-      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-    ExceptionsCms:
+      description: Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+    AuthoritySearchResult:
       type: object
       properties:
-        allHolidaysRestrictionExceptionTypeId:
-          type: integer
-          description: The exception type that applies on every public holiday
-          format: int32
-          nullable: true
-        allHolidaysOperatingHours:
-          $ref: '#/components/schemas/OperatingHoursCms'
-        daySpecificRestrictionExceptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DaySpecificRestrictionExceptionCms'
-          description: A list of Ylp.Cms.Core.Domain.Model.DaySpecificRestrictionExceptionCms for specific days
-          nullable: true
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Entity ID of the authority referred to by this result
+        countryId:
+          type:
+          - string
+          - 'null'
+          description: Country ID of the authority referred to by this result
+        entityETag:
+          type:
+          - string
+          - 'null'
+          description: 'The Etag of the current latest version of the Authority referred to by this result. This allows
+
+            clients to determine if they have the latest version of the authority in their local cache and only
+
+            request the entity if it is missing.'
       additionalProperties: false
-    AuthorityOkResponse:
+    FullAuthorityOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/Authority'
-      additionalProperties: false
-    GeometryOspFeatureCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeometryOspFeature'
-          nullable: true
-        properties:
-          nullable: true
-      additionalProperties: false
-    CapabilitiesState:
-      type: object
-      properties:
-        isStaticPubliclyViewable:
-          type: boolean
-        isMovingPubliclyViewable:
-          type: boolean
-        isOffStreetPubliclyViewable:
-          type: boolean
-        acceptChargePointRequests:
-          type: boolean
-        hideTariffsOnMapSchedules:
-          type: boolean
-        hideTariffsOnStreets:
-          type: boolean
-        hideRestrictedSpeedLimitsOnStreets:
-          type: boolean
-      additionalProperties: false
-    BoundingBox:
-      type: object
-      properties:
-        topLeft:
-          $ref: '#/components/schemas/LatLng'
-        bottomRight:
-          $ref: '#/components/schemas/LatLng'
-      additionalProperties: false
-    Zone:
-      type: object
-      properties:
-        zoneId:
-          type: string
-          description: GUID of the zone
-          nullable: true
-        authorityId:
-          type: string
-          description: GUID of the authority this zone belongs to
-          nullable: true
-        parentZoneId:
-          type: string
-          description: GUID of the zone in which this zone is contained (can be null)
-          nullable: true
-        type:
-          $ref: '#/components/schemas/ZoneType'
-        name:
-          type: string
-          description: Name of the zone
-          nullable: true
-        restrictionTypeDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/ZoneSetRestrictionDetail'
-          description: Default restrictions that apply in this zone
-          nullable: true
-        notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteCms'
-          description: Free text notes applicable to this zone
-          nullable: true
-        venueId:
-          type: string
-          description: VenueID to which this zone is associated. This will influence when event day operating hours are in effect
-          nullable: true
-        sourceTag:
-          type: string
-          description: Internal tracking code
-          nullable: true
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-      additionalProperties: false
-    NotFoundResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
+          $ref: '#/components/schemas/FullAuthority'
       additionalProperties: false
     SurchargeType:
       enum:
@@ -2567,251 +2363,102 @@ components:
 
         '
       format: int32
-    AuthoritySnapshotInfoDoc:
+    Crs:
       type: object
       properties:
-        ospsUrl:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeometryOspFeatureCollection'
-          description: Provides the URL where you can fetch the OSPs as a list of FeatureCollections by Zone ID
-          nullable: true
-        zonesUrl:
-          $ref: '#/components/schemas/PolygonZoneFeatureCollection'
-        setsUrl:
-          $ref: '#/components/schemas/SetCollection'
-        mtfsUrl:
-          $ref: '#/components/schemas/MFeatureCollection'
+        type:
+          type:
+          - string
+          - 'null'
+        properties:
+          $ref: '#/components/schemas/CrsProperties'
       additionalProperties: false
-    FetchAuthorityByIdQuery:
-      required:
-      - id
+    MFeature:
       type: object
       properties:
-        id:
-          minLength: 1
-          type: string
-          description: Identifier of the Authority to fetch
-      additionalProperties: false
-    LinkedSet:
-      type: object
-      properties:
-        setGuid:
+        geoType:
+          type:
+          - string
+          - 'null'
+        featureId:
           type: string
           format: uuid
-        setId:
+        featureType:
+          $ref: '#/components/schemas/MovingTrafficFeatureType'
+        authorityId:
           type: string
-          description: GUID of the applicable set.
-          nullable: true
-      additionalProperties: false
-      description: A SetId linked to a particular restriction type on an OSP or Zone entity. The set cannot support Entitlements.
-    ExemptionsSet:
-      type: object
-      properties:
+          format: uuid
+        note:
+          type:
+          - string
+          - 'null'
+        streetName:
+          type:
+          - string
+          - 'null'
         guid:
           type: string
           format: uuid
-        setId:
-          type: string
-          nullable: true
-        name:
-          type: string
-          nullable: true
-        formattedName:
-          type: string
-          nullable: true
           readOnly: true
-        exemptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExemptionCms'
-          nullable: true
       additionalProperties: false
-    FullAuthority:
+    CrsProperties:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
         name:
-          type: string
-          nullable: true
-        regionId:
-          type: string
-          nullable: true
-        countryId:
-          type: string
-          nullable: true
-        authoritySlugs:
-          type: array
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ZoneSetRestrictionDetail:
+      type: object
+      properties:
+        restrictionTypeId:
+          type: integer
+          description: Type of the bay this restriction applies to. See the reference API for more information
+          format: int32
+        operatingHoursSets:
+          type:
+          - array
+          - 'null'
           items:
-            type: string
-          nullable: true
-        ordnanceSurvey:
-          $ref: '#/components/schemas/OrdnanceSurvey'
-        hasFreeParkingOutsideZone:
-          type: boolean
-          nullable: true
-        timeZoneId:
-          type: string
-          description: IANA time zone ID.
-          nullable: true
-        privacyPolicyUrl:
-          type: string
-          nullable: true
-        paymentProviderId:
-          type: string
-          description: The default Payment ProviderId for the authority. See the Reference API for more information.
-          format: uuid
-          nullable: true
-        centroid:
-          $ref: '#/components/schemas/LatLng'
-        boundingBox:
-          $ref: '#/components/schemas/BoundingBox'
-        fallbackZoneId:
-          type: string
-          format: uuid
-        notes:
-          type: array
+            $ref: '#/components/schemas/LinkedEntitlementSet'
+          description: Indicates the hours of operation when the restriction is in effect.
+        exceptionsSet:
+          $ref: '#/components/schemas/LinkedSet'
+      additionalProperties: false
+    NoteCms:
+      type: object
+      properties:
+        noteVisibilityTypeId:
+          type: integer
+          description: See the Reference API for more information on types of visibility for notes.
+          format: int32
+        appliesToRestrictionTypeIds:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/NoteCms'
-          nullable: true
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-        authorityType:
+            type: integer
+            format: int32
+        priority:
           type: integer
           format: int32
-        legalName:
-          type: string
-          nullable: true
-        capabilities:
-          $ref: '#/components/schemas/Capabilities'
-        capabilitiesState:
-          $ref: '#/components/schemas/CapabilitiesState'
-        highwayAuthority:
-          type: string
-          nullable: true
-        dataQuality:
-          $ref: '#/components/schemas/DataQuality'
-        lastTmoUpdate:
-          type: string
-          format: date-time
-          nullable: true
-        reviewTerminalIds:
-          type: boolean
-        shape:
-          $ref: '#/components/schemas/Polygon'
-      additionalProperties: false
-    GeometryCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        crs:
-          $ref: '#/components/schemas/Crs'
-        geometries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Geometry'
-          nullable: true
-      additionalProperties: false
-    AuthoritySnapshotInfoDocOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/AuthoritySnapshotInfoDoc'
-      additionalProperties: false
-    Osp:
-      type: object
-      properties:
-        onStreetParkingId:
-          type: string
-          description: GUID of the OSP
-          nullable: true
-        zoneId:
-          type: string
-          description: GUID of the zone this OSP belongs to
-          nullable: true
-        authorityId:
-          type: string
-          description: GUID of the authority this OSP belongs to
-          nullable: true
-        address:
-          $ref: '#/components/schemas/AddressCms'
-        length:
-          type: number
-          description: Length in meters of the OSP. Can be null
-          format: double
-          nullable: true
-        bays:
-          type: integer
-          description: Number of bays that are in this OSP
-          format: int32
-          nullable: true
-        restrictionTypeDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/SetRestrictionDetail'
-          description: Information about which set of restrictions apply to this OSP
-          nullable: true
-        notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteCms'
-          description: List of free text information about this OSP
-          nullable: true
-        electricPoint:
-          $ref: '#/components/schemas/ElectricPointCms'
-        venueId:
-          type: string
-          description: The venue to which this OSP is linked to. This determines when an OSP should follow the event day restriction instead of standard operating hours
-          nullable: true
-        sourceTag:
-          type: string
-          description: Internal tracking ID
-          nullable: true
-        sensorIds:
-          type: array
-          items:
-            type: string
-          description: List of sensors that are linked to the OSP (obsolete)
-          nullable: true
-        centroid:
-          $ref: '#/components/schemas/LatLng'
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-        linkedOspIds:
-          type: array
-          items:
-            type: string
-          description: 'IDs of any OSPs that are ''linked'' to this one. When calculating parking availability and cost, the restrictions of any linked OSPs should
-
-            be taken into account as well as the restrictions of this OSP. Used for scenarios where multiple OSPs apply to the same section of kerb.'
-          nullable: true
-      additionalProperties: false
-    MFeatureCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/MFeature'
-          nullable: true
-        properties:
-          nullable: true
+        title:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+        telephone:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     FetchFullAuthorityBySlugQuery:
       required:
@@ -2823,12 +2470,61 @@ components:
           type: string
           description: The name of the authority. You can find this by making a request to fetchAllAuthorities endpoint
       additionalProperties: false
-    CrsProperties:
+    FindAuthorityIdsByViewportQuery:
+      required:
+      - viewport
       type: object
       properties:
-        name:
-          type: string
-          nullable: true
+        viewport:
+          type: object
+          properties:
+            type:
+              type:
+              - string
+              - 'null'
+            crs:
+              $ref: '#/components/schemas/Crs'
+            coordinates:
+              type:
+              - array
+              - 'null'
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: double
+          additionalProperties: false
+          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 300km2.
+      additionalProperties: false
+      description: A request to search for zone default information by viewport
+    AuthoritySnapshotInfoDocOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/AuthoritySnapshotInfoDoc'
+      additionalProperties: false
+    Capabilities:
+      type: object
+      properties:
+        allowIsPubliclyViewable:
+          type: boolean
+        allowChargePointRequests:
+          type: boolean
+        isVisibleOnPublicConsultation:
+          type: boolean
+        enableSessionRecordingInternal:
+          type: boolean
+        enableSessionRecordingPublic:
+          type: boolean
+        inMaintenanceMode:
+          type: boolean
+        enableAssets:
+          type: boolean
       additionalProperties: false
     LinkedEntitlementSet:
       type: object
@@ -2837,53 +2533,633 @@ components:
           type: string
           format: uuid
         setId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: GUID of the applicable set.
-          nullable: true
         parkingEntitlementTypeIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: integer
             format: int32
           description: The entitlement IDs to which this set applies. See the reference API for more information.
-          nullable: true
       additionalProperties: false
       description: A SetId and a list of EntitlementTypeIds linked to a particular restriction type on an OSP or Zone entity.
-    OperatingHoursSet:
+    AuthorityOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/Authority'
+      additionalProperties: false
+    PolygonZoneFeatureCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PolygonZoneFeature'
+        properties: {}
+      additionalProperties: false
+    FuelTypeCms:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      description: '
+
+
+        *Petrol (1)
+
+        *Diesel (2)
+
+        *Hybrid (3)
+
+        *Electric (4)
+
+        *HydrogenFuelCell (5)
+
+        *LPG (6)
+
+        '
+      format: int32
+    FetchFullAuthorityInfoBySlugQuery:
+      required:
+      - slug
+      type: object
+      properties:
+        slug:
+          minLength: 1
+          type: string
+          description: The name of the authority. You can find this by making a request to fetchAllAuthorities endpoint
+        maxDate:
+          type:
+          - string
+          - 'null'
+          description: The date at which you wish to view the restrictions
+          format: date-time
+      additionalProperties: false
+    RuleTimeCms:
+      type: object
+      properties:
+        months:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+        days:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Applicable Days
+        weekNumbers:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Week number to apply Days
+        hours:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HoursCms'
+        firstDate:
+          $ref: '#/components/schemas/MonthAndDayCms'
+        lastDate:
+          $ref: '#/components/schemas/MonthAndDayCms'
+      additionalProperties: false
+    Authority_2:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        countryId:
+          type:
+          - string
+          - 'null'
+        authoritySlugs:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        ordnanceSurvey:
+          $ref: '#/components/schemas/OrdnanceSurvey'
+        hasFreeParkingOutsideZone:
+          type:
+          - boolean
+          - 'null'
+        timeZoneId:
+          type:
+          - string
+          - 'null'
+          description: IANA time zone ID.
+        privacyPolicyUrl:
+          type:
+          - string
+          - 'null'
+        paymentProviderId:
+          type:
+          - string
+          - 'null'
+          description: The default Payment ProviderId for the authority. See the Reference API for more information.
+          format: uuid
+        centroid:
+          $ref: '#/components/schemas/LatLng'
+        boundingBox:
+          $ref: '#/components/schemas/BoundingBox'
+        fallbackZoneId:
+          type: string
+          format: uuid
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NoteCms'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        authorityType:
+          type: integer
+          format: int32
+        legalName:
+          type:
+          - string
+          - 'null'
+        capabilities:
+          $ref: '#/components/schemas/Capabilities'
+        capabilitiesState:
+          $ref: '#/components/schemas/CapabilitiesState'
+        highwayAuthority:
+          type:
+          - string
+          - 'null'
+        dataQuality:
+          $ref: '#/components/schemas/DataQuality'
+        lastTmoUpdate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reviewTerminalIds:
+          type: boolean
+      additionalProperties: false
+    TariffEmissionsAdjustmentCms:
+      type: object
+      properties:
+        emissionsBandId:
+          type: string
+          description: Identifier of the corresponding Ylp.Cms.Core.Domain.Model.EmissionsBandCms.
+          format: uuid
+        amount:
+          type: integer
+          description: Amout in pence by which to adjust the price. A positive value represents a surcharge, a negative value represents a discount.
+          format: int32
+        surchargeDetail:
+          $ref: '#/components/schemas/TariffDetailSurchargeCms'
+      additionalProperties: false
+      description: An adjustment to a tariff for vehicles that fall into a specified Ylp.Cms.Core.Domain.Model.EmissionsBandCms.
+    ExemptionCms:
+      type: object
+      properties:
+        exemptionTypeId:
+          type: integer
+          description: The type of the exemption. See the reference API for more information
+          format: int32
+        parkingEntitlementTypeId:
+          type: integer
+          description: The entitlement one must have to be eligible for this exemption. See the reference API for more information
+          format: int32
+        exemptionTimeTypeId:
+          type: integer
+          description: Time when the exemption is applicable. See the reference API for more information
+          format: int32
+        exemptionApplies:
+          type: boolean
+          description: Whether the exemption is in effect (this can be used to override a different exemption)
+        maxStay:
+          type:
+          - integer
+          - 'null'
+          description: The maximum stay duration when eligible for this exemption
+          format: int32
+        noReturn:
+          type:
+          - integer
+          - 'null'
+          description: The time before you can return to the same place after having reached the max stay duration
+          format: int32
+      additionalProperties: false
+    AuthoritySnapshotInfoDocResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        data:
+          $ref: '#/components/schemas/AuthoritySnapshotInfoDoc'
+      additionalProperties: false
+    EmissionsBandSet:
       type: object
       properties:
         guid:
           type: string
           format: uuid
         setId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         formattedName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
-        operatingHours:
-          $ref: '#/components/schemas/OperatingHoursCms'
+        emissionsBands:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EmissionsBandCms'
       additionalProperties: false
-    AddressCms:
+    OperatingHoursCms:
       type: object
       properties:
-        street:
-          type: string
-          nullable: true
-        postcode:
-          type: string
-          nullable: true
-        city:
-          type: string
-          nullable: true
-        country:
-          type: string
-          nullable: true
+        standardDays:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RuleCms'
+          description: List of Ylp.Cms.Core.Domain.Model.RuleCms applicable on normal days
+        eventDays:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RuleCms'
+          description: List of Ylp.Cms.Core.Domain.Model.RuleCms applicable on event days in an associated venue
       additionalProperties: false
+    SetCollection:
+      type: object
+      properties:
+        operatingHoursSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/OperatingHoursSet'
+        exemptionsSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExemptionsSet'
+        exceptionsSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExceptionsSet'
+        tariffSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TariffSet'
+        emissionsBandSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/EmissionsBandSet'
+        isEmpty:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    EmissionsBandCms:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Band name
+        emissions:
+          $ref: '#/components/schemas/Int32Range'
+        fuelTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FuelTypeCms'
+          description: 'List of applicable fuel types
+
+
+            *Petrol (1)
+
+            *Diesel (2)
+
+            *Hybrid (3)
+
+            *Electric (4)
+
+            *HydrogenFuelCell (5)
+
+            *LPG (6)
+
+            '
+        registrationYears:
+          $ref: '#/components/schemas/Int32Range'
+      additionalProperties: false
+    AuthoritySnapshotInfoDoc:
+      type: object
+      properties:
+        ospsUrl:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryOspFeatureCollection'
+          description: Provides the URL where you can fetch the OSPs as a list of FeatureCollections by Zone ID
+        zonesUrl:
+          $ref: '#/components/schemas/PolygonZoneFeatureCollection'
+        setsUrl:
+          $ref: '#/components/schemas/SetCollection'
+        mtfsUrl:
+          $ref: '#/components/schemas/MFeatureCollection'
+      additionalProperties: false
+    FullAuthority:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+        regionId:
+          type:
+          - string
+          - 'null'
+        countryId:
+          type:
+          - string
+          - 'null'
+        authoritySlugs:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        ordnanceSurvey:
+          $ref: '#/components/schemas/OrdnanceSurvey'
+        hasFreeParkingOutsideZone:
+          type:
+          - boolean
+          - 'null'
+        timeZoneId:
+          type:
+          - string
+          - 'null'
+          description: IANA time zone ID.
+        privacyPolicyUrl:
+          type:
+          - string
+          - 'null'
+        paymentProviderId:
+          type:
+          - string
+          - 'null'
+          description: The default Payment ProviderId for the authority. See the Reference API for more information.
+          format: uuid
+        centroid:
+          $ref: '#/components/schemas/LatLng'
+        boundingBox:
+          $ref: '#/components/schemas/BoundingBox'
+        fallbackZoneId:
+          type: string
+          format: uuid
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NoteCms'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        authorityType:
+          type: integer
+          format: int32
+        legalName:
+          type:
+          - string
+          - 'null'
+        capabilities:
+          $ref: '#/components/schemas/Capabilities'
+        capabilitiesState:
+          $ref: '#/components/schemas/CapabilitiesState'
+        highwayAuthority:
+          type:
+          - string
+          - 'null'
+        dataQuality:
+          $ref: '#/components/schemas/DataQuality'
+        lastTmoUpdate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        reviewTerminalIds:
+          type: boolean
+        shape:
+          $ref: '#/components/schemas/Polygon'
+      additionalProperties: false
+    RuleCms:
+      type: object
+      properties:
+        ruleTime:
+          $ref: '#/components/schemas/RuleTimeCms'
+        parkingEntitlementTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Determines who this rule applies to. See the reference API for more information
+        maxStay:
+          type:
+          - integer
+          - 'null'
+          description: Maximum stay duration in minutes.
+          format: int32
+        minStay:
+          type:
+          - integer
+          - 'null'
+          description: Minimum stay duration in minutes.
+          format: int32
+        noReturn:
+          type:
+          - integer
+          - 'null'
+          description: No return duration in minutes.
+          format: int32
+        noReturnUntil:
+          type:
+          - string
+          - 'null'
+          description: No return duration in minutes.
+          example: 00:00:00
+      additionalProperties: false
+    Int32Range:
+      type: object
+      properties:
+        min:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        max:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    TariffDetailSurchargeCms:
+      type: object
+      properties:
+        surchargeType:
+          type: integer
+          description: Required property that determines how surcharge is calculated
+          format: int32
+        surchargeTypeEnum:
+          $ref: '#/components/schemas/SurchargeType'
+        value:
+          type:
+          - integer
+          - 'null'
+          description: ''
+          format: int32
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Additional of Surcharge including Rules
+        ruleType:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      additionalProperties: false
+    SetRestrictionDetail:
+      type: object
+      properties:
+        restrictionTypeId:
+          type: integer
+          description: Type of the bay this restriction applies to. See the reference API for more information
+          format: int32
+        operatingHoursSets:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LinkedEntitlementSet'
+          description: Indicates the hours of operation when the restriction is in effect.
+        exceptionsSet:
+          $ref: '#/components/schemas/LinkedSet'
+        locationNumber:
+          type:
+          - string
+          - 'null'
+          description: Used in conjunction with the payment provider on the authority to determine how the charge the user
+        terminalIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: The IDs of the payment terminals available at this OSP.
+        exemptionsSet:
+          $ref: '#/components/schemas/LinkedSet'
+        tariffsSet:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/LinkedEntitlementSet'
+          description: Indicates the applicable tariffs in the case of restrictions that can have a tariff
+      additionalProperties: false
+    Geometry:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+      additionalProperties: false
+    AuthoritySearchResponse:
+      type: object
+      properties:
+        authorities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AuthoritySearchResult'
+          description: List of search results returned in this response
+      additionalProperties: false
+      description: Response shape for authority search requests
     MovingTrafficFeatureType:
       enum:
       - 0
@@ -2961,561 +3237,105 @@ components:
 
         '
       format: int32
-    ZoneType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      type: integer
-      description: "Known zone types.\n\n*ControlledParkingZone (1) - An ordinary zone in which authority-defined restrictions are in place.\n*RestrictedParkingZone (2) - A zone in which parking is never allowed.\n*FreeParking (3) - A zone in which parking is always allowed.\n*Private (4) - A region not under authority control (such as a shopping centre).\n*CongestionCharge (5) - A region in which congestion charges apply.\n*Container (7) - A zone that exists to contain OSPs that don't really belong in a zone.\n*ResidentsParkingScheme (8) - Same structure as a controlled parking zone\n*PermitParkingArea (9) - Area of residential streets where parking is reserved for permit holders Gn++n++ a sign at the entrance to the street will show that parking is for permit holders only. \nPPAs may not have signs or bay markings within them. Sometimes there may be small plates to remind motorists of the controls in place\n*PedestrianZone (10) - Area where no parking is allowed\n*PedestrianAndCycleZone (11) - Area where no parking is allowed\n*Estate (12) - A housing estate under authority control.\n"
-      format: int32
-    Capabilities:
+    TariffDetailCms:
       type: object
       properties:
-        allowIsPubliclyViewable:
-          type: boolean
-        allowChargePointRequests:
-          type: boolean
-        isVisibleOnPublicConsultation:
-          type: boolean
-        enableSessionRecordingInternal:
-          type: boolean
-        enableSessionRecordingPublic:
-          type: boolean
-        inMaintenanceMode:
-          type: boolean
-        enableAssets:
-          type: boolean
-      additionalProperties: false
-    RuleTimeCms:
-      type: object
-      properties:
-        months:
-          type: array
-          items:
-            type: integer
-            format: int32
-          nullable: true
-        days:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Applicable Days
-          nullable: true
-        weekNumbers:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Week number to apply Days
-          nullable: true
-        hours:
-          type: array
-          items:
-            $ref: '#/components/schemas/HoursCms'
-          nullable: true
-        firstDate:
-          $ref: '#/components/schemas/MonthAndDayCms'
-        lastDate:
-          $ref: '#/components/schemas/MonthAndDayCms'
-      additionalProperties: false
-    AuthorityIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Authority_2'
-          nullable: true
-      additionalProperties: false
-    PolygonZoneFeature:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        geometry:
-          $ref: '#/components/schemas/Polygon'
-        properties:
-          $ref: '#/components/schemas/Zone'
-      additionalProperties: false
-    Authority_2:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          nullable: true
-        regionId:
-          type: string
-          nullable: true
-        countryId:
-          type: string
-          nullable: true
-        authoritySlugs:
-          type: array
-          items:
-            type: string
-          nullable: true
-        ordnanceSurvey:
-          $ref: '#/components/schemas/OrdnanceSurvey'
-        hasFreeParkingOutsideZone:
-          type: boolean
-          nullable: true
-        timeZoneId:
-          type: string
-          description: IANA time zone ID.
-          nullable: true
-        privacyPolicyUrl:
-          type: string
-          nullable: true
-        paymentProviderId:
-          type: string
-          description: The default Payment ProviderId for the authority. See the Reference API for more information.
-          format: uuid
-          nullable: true
-        centroid:
-          $ref: '#/components/schemas/LatLng'
-        boundingBox:
-          $ref: '#/components/schemas/BoundingBox'
-        fallbackZoneId:
-          type: string
-          format: uuid
-        notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoteCms'
-          nullable: true
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-        authorityType:
+        price:
           type: integer
-          format: int32
-        legalName:
-          type: string
-          nullable: true
-        capabilities:
-          $ref: '#/components/schemas/Capabilities'
-        capabilitiesState:
-          $ref: '#/components/schemas/CapabilitiesState'
-        highwayAuthority:
-          type: string
-          nullable: true
-        dataQuality:
-          $ref: '#/components/schemas/DataQuality'
-        lastTmoUpdate:
-          type: string
-          format: date-time
-          nullable: true
-        reviewTerminalIds:
-          type: boolean
-      additionalProperties: false
-    MFeature:
-      type: object
-      properties:
-        geoType:
-          type: string
-          nullable: true
-        featureId:
-          type: string
-          format: uuid
-        featureType:
-          $ref: '#/components/schemas/MovingTrafficFeatureType'
-        authorityId:
-          type: string
-          format: uuid
-        note:
-          type: string
-          nullable: true
-        streetName:
-          type: string
-          nullable: true
-        guid:
-          type: string
-          format: uuid
-          readOnly: true
-      additionalProperties: false
-    FetchFullAuthorityInfoBySlugQuery:
-      required:
-      - slug
-      type: object
-      properties:
-        slug:
-          minLength: 1
-          type: string
-          description: The name of the authority. You can find this by making a request to fetchAllAuthorities endpoint
-        maxDate:
-          type: string
-          description: The date at which you wish to view the restrictions
-          format: date-time
-          nullable: true
-      additionalProperties: false
-    SetCollection:
-      type: object
-      properties:
-        operatingHoursSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperatingHoursSet'
-          nullable: true
-        exemptionsSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExemptionsSet'
-          nullable: true
-        exceptionsSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExceptionsSet'
-          nullable: true
-        tariffSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TariffSet'
-          nullable: true
-        emissionsBandSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmissionsBandSet'
-          nullable: true
-        isEmpty:
-          type: boolean
-          readOnly: true
-      additionalProperties: false
-    ExemptionCms:
-      type: object
-      properties:
-        exemptionTypeId:
-          type: integer
-          description: The type of the exemption. See the reference API for more information
-          format: int32
-        parkingEntitlementTypeId:
-          type: integer
-          description: The entitlement one must have to be eligible for this exemption. See the reference API for more information
-          format: int32
-        exemptionTimeTypeId:
-          type: integer
-          description: Time when the exemption is applicable. See the reference API for more information
-          format: int32
-        exemptionApplies:
-          type: boolean
-          description: Whether the exemption is in effect (this can be used to override a different exemption)
-        maxStay:
-          type: integer
-          description: The maximum stay duration when eligible for this exemption
-          format: int32
-          nullable: true
-        noReturn:
-          type: integer
-          description: The time before you can return to the same place after having reached the max stay duration
-          format: int32
-          nullable: true
-      additionalProperties: false
-    MonthAndDayCms:
-      type: object
-      properties:
-        month:
-          type: integer
-          format: int32
-        day:
-          type: integer
-          format: int32
-      additionalProperties: false
-    AuthoritySearchResult:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Entity ID of the authority referred to by this result
-          nullable: true
-        countryId:
-          type: string
-          description: Country ID of the authority referred to by this result
-          nullable: true
-        entityETag:
-          type: string
-          description: 'The Etag of the current latest version of the Authority referred to by this result. This allows
+          description: 'The price in pence charged for parking for the indicated
 
-            clients to determine if they have the latest version of the authority in their local cache and only
-
-            request the entity if it is missing.'
-          nullable: true
-      additionalProperties: false
-    Note:
-      type: object
-      properties:
-        message:
-          type: string
-          description: The text of the note
-          nullable: true
-      additionalProperties: false
-      description: Models a note that can be attached to an entity
-    Crs:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        properties:
-          $ref: '#/components/schemas/CrsProperties'
-      additionalProperties: false
-    SetRestrictionDetail:
-      type: object
-      properties:
-        restrictionTypeId:
-          type: integer
-          description: Type of the bay this restriction applies to. See the reference API for more information
-          format: int32
-        operatingHoursSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedEntitlementSet'
-          description: Indicates the hours of operation when the restriction is in effect.
-          nullable: true
-        exceptionsSet:
-          $ref: '#/components/schemas/LinkedSet'
-        locationNumber:
-          type: string
-          description: Used in conjunction with the payment provider on the authority to determine how the charge the user
-          nullable: true
-        terminalIds:
-          type: array
-          items:
-            type: string
-          description: The IDs of the payment terminals available at this OSP.
-          nullable: true
-        exemptionsSet:
-          $ref: '#/components/schemas/LinkedSet'
-        tariffsSet:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedEntitlementSet'
-          description: Indicates the applicable tariffs in the case of restrictions that can have a tariff
-          nullable: true
-      additionalProperties: false
-    Authority:
-      type: object
-      properties:
-        entityId:
-          type: string
-          description: Unique identifier for this entity
-          nullable: true
-        name:
-          type: string
-          description: User-readable name for this entity
-          nullable: true
-        eTag:
-          type: string
-          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
-
-            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
-
-            not match the requested tag - i.e. just those entities that have changed.'
-          nullable: true
-        notes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Note'
-          description: Any special notes associated with this authority
-          nullable: true
-        paymentProviders:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentProvider'
-          nullable: true
-        entityType:
-          $ref: '#/components/schemas/MapEntityType'
-        countryId:
-          type: string
-          description: ID of the country in which the authority resides
-          nullable: true
-        geometry:
-          $ref: '#/components/schemas/GeometryCollection'
-        hasFreeParkingOutsideZone:
-          type: boolean
-          description: "This flag gives an indication of whether parking is likely to be available outside of designated\r\ncontrolled parking zones. The flag indicates the availability of parking for sections of the kerb where\r\nthis API does NOT return a specific OnStreetParking result. If TRUE, parking is likely to be free and\r\nunrestricted where the Parking Search results do not indicate otherwise. if FALSE, it is likely to be no parking.\r\n            \r\nThis is an indication only, and clients should inform their end users that they should always check local\r\nsignage when parking.\r\n            \r\nIf NULL, it is not known whether parking is available for this authority outside of designated zones.\r\n            \r\nNOTE that inside controlled parking zones, it is likely that parking is not available in areas where no\r\nOnStreetParking result is returned."
-          nullable: true
-      additionalProperties: false
-      description: Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-    RuleCms:
-      type: object
-      properties:
-        ruleTime:
-          $ref: '#/components/schemas/RuleTimeCms'
-        parkingEntitlementTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Determines who this rule applies to. See the reference API for more information
-          nullable: true
-        maxStay:
-          type: integer
-          description: Maximum stay duration in minutes.
-          format: int32
-          nullable: true
-        minStay:
-          type: integer
-          description: Minimum stay duration in minutes.
-          format: int32
-          nullable: true
-        noReturn:
-          type: integer
-          description: No return duration in minutes.
-          format: int32
-          nullable: true
-        noReturnUntil:
-          type: string
-          description: No return duration in minutes.
-          nullable: true
-          example: 00:00:00
-      additionalProperties: false
-    TariffEmissionsAdjustmentCms:
-      type: object
-      properties:
-        emissionsBandId:
-          type: string
-          description: Identifier of the corresponding Ylp.Cms.Core.Domain.Model.EmissionsBandCms.
-          format: uuid
-        amount:
-          type: integer
-          description: Amout in pence by which to adjust the price. A positive value represents a surcharge, a negative value represents a discount.
+            Ylp.Cms.Core.Domain.Model.TariffDetailCms.Duration.'
           format: int32
         surchargeDetail:
           $ref: '#/components/schemas/TariffDetailSurchargeCms'
-      additionalProperties: false
-      description: An adjustment to a tariff for vehicles that fall into a specified Ylp.Cms.Core.Domain.Model.EmissionsBandCms.
-    GeometryOspFeature:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        id:
-          type: string
-          nullable: true
-        geometry:
-          $ref: '#/components/schemas/Geometry'
-        properties:
-          $ref: '#/components/schemas/Osp'
-      additionalProperties: false
-    ElectricPointCms:
-      type: object
-      properties:
-        manufacturer:
-          type: string
-          nullable: true
-        manufacturerContactNumber:
-          type: string
-          nullable: true
-        chargeFee:
-          type: string
-          nullable: true
-        website:
-          type: string
-          nullable: true
-        electricConnections:
-          type: array
-          items:
-            $ref: '#/components/schemas/ElectricConnectionCms'
-          nullable: true
-      additionalProperties: false
-    PolygonZoneFeatureCollection:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolygonZoneFeature'
-          nullable: true
-        properties:
-          nullable: true
-      additionalProperties: false
-    Geometry:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        crs:
-          $ref: '#/components/schemas/Crs'
-      additionalProperties: false
-    AuthoritySnapshotInfoDocResult:
-      type: object
-      properties:
-        success:
+        emissionsAdjustments:
+          $ref: '#/components/schemas/TariffEmissionsAdjustmentSetCms'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: 'The duration in minutes for which you can park if you pay
+
+            Ylp.Cms.Core.Domain.Model.TariffDetailCms.Price. Null if there is a fixed charge regardless
+
+            of duration.'
+          format: int32
+        minimumPriceIncrement:
+          type:
+          - integer
+          - 'null'
+          description: 'The smallest unit by which the price can increment. If null, then
+
+            the minimum increment will be the same as Ylp.Cms.Core.Domain.Model.TariffDetailCms.Price.'
+          format: int32
+        singlePaymentCanCrossMidnight:
           type: boolean
-          readOnly: true
-        data:
-          $ref: '#/components/schemas/AuthoritySnapshotInfoDoc'
+          description: 'Indicates whether a payment of one minimum increment is allowed
+
+            to cross over midnight.'
+        from:
+          type: integer
+          description: 'The offset in minutes into a parking session from which this rate
+
+            applies.'
+          format: int32
+        upTo:
+          type:
+          - integer
+          - 'null'
+          description: 'Set on variable rate tariffs to indicate the maximum stay length
+
+            for which this entry applies.'
+          format: int32
       additionalProperties: false
-    ZoneSetRestrictionDetail:
+      description: 'One entry in the tariff details in a
+
+        Ylp.Cms.Core.Domain.Model.TariffForTimesAndDatesCms.'
+    AddressCms:
       type: object
       properties:
-        restrictionTypeId:
-          type: integer
-          description: Type of the bay this restriction applies to. See the reference API for more information
-          format: int32
-        operatingHoursSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkedEntitlementSet'
-          description: Indicates the hours of operation when the restriction is in effect.
-          nullable: true
-        exceptionsSet:
-          $ref: '#/components/schemas/LinkedSet'
+        street:
+          type:
+          - string
+          - 'null'
+        postcode:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    NoteCms:
+    TariffEmissionsAdjustmentSetCms:
       type: object
       properties:
-        noteVisibilityTypeId:
-          type: integer
-          description: See the Reference API for more information on types of visibility for notes.
-          format: int32
-        appliesToRestrictionTypeIds:
-          type: array
+        emissionsBandSetId:
+          type: string
+          description: Identifier of the corresponding Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
+          format: uuid
+        adjustments:
+          type:
+          - array
+          - 'null'
           items:
-            type: integer
-            format: int32
-          nullable: true
-        priority:
-          type: integer
-          format: int32
-        title:
+            $ref: '#/components/schemas/TariffEmissionsAdjustmentCms'
+          description: The adjustments to apply to the tariff. There should be one entry for each band in the corresponding Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
+      additionalProperties: false
+      description: A set of adjustments to the price defined in a Ylp.Cms.Core.Domain.Model.TariffDetailCms according to the bands defined in a Ylp.Cms.Core.Domain.Model.Sets.EmissionsBandSet.
+    FetchAuthorityByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minLength: 1
           type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
-        url:
-          type: string
-          nullable: true
-        telephone:
-          type: string
-          nullable: true
+          description: Identifier of the Authority to fetch
       additionalProperties: false
     MapEntityType:
       enum:
@@ -3541,154 +3361,471 @@ components:
 
         '
       format: int32
-    EmissionsBandSet:
+    ExemptionsSet:
       type: object
       properties:
         guid:
           type: string
           format: uuid
         setId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         formattedName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
-        emissionsBands:
-          type: array
+        exemptions:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/EmissionsBandCms'
-          nullable: true
+            $ref: '#/components/schemas/ExemptionCms'
       additionalProperties: false
-    TariffDetailCms:
+    GeometryOspFeature:
       type: object
       properties:
-        price:
-          type: integer
-          description: 'The price in pence charged for parking for the indicated
-
-            Ylp.Cms.Core.Domain.Model.TariffDetailCms.Duration.'
-          format: int32
-        surchargeDetail:
-          $ref: '#/components/schemas/TariffDetailSurchargeCms'
-        emissionsAdjustments:
-          $ref: '#/components/schemas/TariffEmissionsAdjustmentSetCms'
-        duration:
-          type: integer
-          description: 'The duration in minutes for which you can park if you pay
-
-            Ylp.Cms.Core.Domain.Model.TariffDetailCms.Price. Null if there is a fixed charge regardless
-
-            of duration.'
-          format: int32
-          nullable: true
-        minimumPriceIncrement:
-          type: integer
-          description: 'The smallest unit by which the price can increment. If null, then
-
-            the minimum increment will be the same as Ylp.Cms.Core.Domain.Model.TariffDetailCms.Price.'
-          format: int32
-          nullable: true
-        singlePaymentCanCrossMidnight:
-          type: boolean
-          description: 'Indicates whether a payment of one minimum increment is allowed
-
-            to cross over midnight.'
-        from:
-          type: integer
-          description: 'The offset in minutes into a parking session from which this rate
-
-            applies.'
-          format: int32
-        upTo:
-          type: integer
-          description: 'Set on variable rate tariffs to indicate the maximum stay length
-
-            for which this entry applies.'
-          format: int32
-          nullable: true
+        type:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        geometry:
+          $ref: '#/components/schemas/Geometry'
+        properties:
+          $ref: '#/components/schemas/Osp'
       additionalProperties: false
-      description: 'One entry in the tariff details in a
-
-        Ylp.Cms.Core.Domain.Model.TariffForTimesAndDatesCms.'
-    BadRequestResponse:
+    BoundingBox:
+      type: object
+      properties:
+        topLeft:
+          $ref: '#/components/schemas/LatLng'
+        bottomRight:
+          $ref: '#/components/schemas/LatLng'
+      additionalProperties: false
+    Polygon:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+        coordinates:
+          type:
+          - array
+          - 'null'
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+                format: double
+      additionalProperties: false
+    Zone:
+      type: object
+      properties:
+        zoneId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the zone
+        authorityId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the authority this zone belongs to
+        parentZoneId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the zone in which this zone is contained (can be null)
+        type:
+          $ref: '#/components/schemas/ZoneType'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the zone
+        restrictionTypeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ZoneSetRestrictionDetail'
+          description: Default restrictions that apply in this zone
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NoteCms'
+          description: Free text notes applicable to this zone
+        venueId:
+          type:
+          - string
+          - 'null'
+          description: VenueID to which this zone is associated. This will influence when event day operating hours are in effect
+        sourceTag:
+          type:
+          - string
+          - 'null'
+          description: Internal tracking code
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      additionalProperties: false
+    LatLng:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+      additionalProperties: false
+    AuthorityIReadOnlyCollectionOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
-        message:
-          type: string
-          nullable: true
-        errors:
-          type: array
+        result:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
+            $ref: '#/components/schemas/Authority_2'
       additionalProperties: false
-    FindAuthorityIdsByViewportQuery:
-      required:
-      - viewport
+    TariffForTimesAndDatesCms:
       type: object
       properties:
-        viewport:
-          type: object
-          properties:
-            type:
-              type: string
-              nullable: true
-            crs:
-              $ref: '#/components/schemas/Crs'
-            coordinates:
-              type: array
-              items:
-                type: array
-                items:
-                  type: array
-                  items:
-                    type: number
-                    format: double
-              nullable: true
-          additionalProperties: false
-          description: Viewport for the query, expressed as a GeoJson polygon !:https://tools.ietf.org/html/rfc7946#section-3.1.6. Required. Limited to 300km2.
+        setName:
+          type:
+          - string
+          - 'null'
+          description: The name of the tariff set to which this tariff belongs.
+        parkingEntitlementTypeIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: The payment types for which these tariff details apply.
+        details:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TariffDetailCms'
+          description: 'The details of the tariff that applies for the entitlement types
+
+            and dates indicated by this entry.'
+        timeFrom:
+          type:
+          - string
+          - 'null'
+          description: 'For tariffs that vary by time of day, this indicates the
+
+            (inclusive) start time from which these particular tariff details
+
+            apply.'
+          example: 00:00:00
+        timeTo:
+          type:
+          - string
+          - 'null'
+          description: 'For tariffs that vary by time of day, this indicates the
+
+            (exclusive) end time to which these particular tariff details
+
+            apply.'
+          example: 00:00:00
+        firstDate:
+          $ref: '#/components/schemas/MonthAndDayCms'
+        lastDate:
+          $ref: '#/components/schemas/MonthAndDayCms'
+        months:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: The months of the year on which these details apply.
+        days:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: 'The days of the week (1 = Mon, 7 = Sun) on which these details
+
+            apply.'
+        timeType:
+          type:
+          - integer
+          - 'null'
+          description: Indicates the Type of Tariff
+          format: int32
       additionalProperties: false
-      description: A request to search for zone default information by viewport
-    FuelTypeCms:
+      description: 'Contains tariff details applicable to a particular set of dates and
+
+        times, and for a particular set of entitlement types.'
+    GeometryOspFeatureCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryOspFeature'
+        properties: {}
+      additionalProperties: false
+    PaymentProvider:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (if the payment provider is present on Reference API)
+        name:
+          type:
+          - string
+          - 'null'
+          description: Provider name
+        cardPaymentsExternalUrl:
+          type:
+          - string
+          - 'null'
+          description: URL for taking payments (if online payments are supported)
+        paymentsTelephone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for taking payments (if pay-by-phone is supported)
+        paymentsAppDeepLinks:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentDeepLinks'
+          description: Payment Mobile apps deep links by platform
+      additionalProperties: false
+      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
+    DataQuality:
       enum:
       - 1
       - 2
       - 3
       - 4
-      - 5
-      - 6
       type: integer
       description: '
 
 
-        *Petrol (1)
+        *HdPlus (1)
 
-        *Diesel (2)
+        *Hd (2)
 
-        *Hybrid (3)
+        *Md (3)
 
-        *Electric (4)
-
-        *HydrogenFuelCell (5)
-
-        *LPG (6)
+        *Sd (4)
 
         '
       format: int32
+    MonthAndDayCms:
+      type: object
+      properties:
+        month:
+          type: integer
+          format: int32
+        day:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OrdnanceSurvey:
+      type: object
+      properties:
+        apiKey:
+          type:
+          - string
+          - 'null'
+        license:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PolygonZoneFeature:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        geometry:
+          $ref: '#/components/schemas/Polygon'
+        properties:
+          $ref: '#/components/schemas/Zone'
+      additionalProperties: false
+    GeometryCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+        geometries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Geometry'
+      additionalProperties: false
+    Osp:
+      type: object
+      properties:
+        onStreetParkingId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the OSP
+        zoneId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the zone this OSP belongs to
+        authorityId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the authority this OSP belongs to
+        address:
+          $ref: '#/components/schemas/AddressCms'
+        length:
+          type:
+          - number
+          - 'null'
+          description: Length in meters of the OSP. Can be null
+          format: double
+        bays:
+          type:
+          - integer
+          - 'null'
+          description: Number of bays that are in this OSP
+          format: int32
+        restrictionTypeDetails:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SetRestrictionDetail'
+          description: Information about which set of restrictions apply to this OSP
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/NoteCms'
+          description: List of free text information about this OSP
+        electricPoint:
+          $ref: '#/components/schemas/ElectricPointCms'
+        venueId:
+          type:
+          - string
+          - 'null'
+          description: The venue to which this OSP is linked to. This determines when an OSP should follow the event day restriction instead of standard operating hours
+        sourceTag:
+          type:
+          - string
+          - 'null'
+          description: Internal tracking ID
+        sensorIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of sensors that are linked to the OSP (obsolete)
+        centroid:
+          $ref: '#/components/schemas/LatLng'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        linkedOspIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'IDs of any OSPs that are ''linked'' to this one. When calculating parking availability and cost, the restrictions of any linked OSPs should
+
+            be taken into account as well as the restrictions of this OSP. Used for scenarios where multiple OSPs apply to the same section of kerb.'
+      additionalProperties: false
+    ElectricPointCms:
+      type: object
+      properties:
+        manufacturer:
+          type:
+          - string
+          - 'null'
+        manufacturerContactNumber:
+          type:
+          - string
+          - 'null'
+        chargeFee:
+          type:
+          - string
+          - 'null'
+        website:
+          type:
+          - string
+          - 'null'
+        electricConnections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ElectricConnectionCms'
+      additionalProperties: false
     DaySpecificRestrictionExceptionCms:
       type: object
       properties:
         publicHolidayOrNamedDayId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Reference to the applicable day defined on the Ylp.Reference.Contracts.Model.Country
-          nullable: true
         restrictionExceptionTypeId:
           type: integer
           description: Type of exception that applies. See the reference API for more information
@@ -3696,88 +3833,24 @@ components:
         operatingHours:
           $ref: '#/components/schemas/OperatingHoursCms'
       additionalProperties: false
-    AuthoritySearchResponse:
+    ExceptionsCms:
       type: object
       properties:
-        authorities:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthoritySearchResult'
-          description: List of search results returned in this response
-          nullable: true
-      additionalProperties: false
-      description: Response shape for authority search requests
-    FullAuthorityOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/FullAuthority'
-      additionalProperties: false
-    EmissionsBandCms:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier
-          format: uuid
-        name:
-          type: string
-          description: Band name
-          nullable: true
-        emissions:
-          $ref: '#/components/schemas/Int32Range'
-        fuelTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/FuelTypeCms'
-          description: 'List of applicable fuel types
-
-
-            *Petrol (1)
-
-            *Diesel (2)
-
-            *Hybrid (3)
-
-            *Electric (4)
-
-            *HydrogenFuelCell (5)
-
-            *LPG (6)
-
-            '
-          nullable: true
-        registrationYears:
-          $ref: '#/components/schemas/Int32Range'
-      additionalProperties: false
-    PaymentDeepLinks:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-          description: 'Deep link schemas (eg: ringgo://, etc)'
-          nullable: true
-        packageName:
-          type: string
-          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
-          nullable: true
-      additionalProperties: false
-    Int32Range:
-      type: object
-      properties:
-        min:
-          type: integer
+        allHolidaysRestrictionExceptionTypeId:
+          type:
+          - integer
+          - 'null'
+          description: The exception type that applies on every public holiday
           format: int32
-          nullable: true
-        max:
-          type: integer
-          format: int32
-          nullable: true
+        allHolidaysOperatingHours:
+          $ref: '#/components/schemas/OperatingHoursCms'
+        daySpecificRestrictionExceptions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/DaySpecificRestrictionExceptionCms'
+          description: A list of Ylp.Cms.Core.Domain.Model.DaySpecificRestrictionExceptionCms for specific days
       additionalProperties: false
     TariffSet:
       type: object
@@ -3786,43 +3859,230 @@ components:
           type: string
           format: uuid
         setId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         formattedName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           readOnly: true
         tariffs:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/TariffForTimesAndDatesCms'
-          nullable: true
       additionalProperties: false
-    TariffDetailSurchargeCms:
+    HoursCms:
       type: object
       properties:
-        surchargeType:
-          type: integer
-          description: Required property that determines how surcharge is calculated
-          format: int32
-        surchargeTypeEnum:
-          $ref: '#/components/schemas/SurchargeType'
-        value:
-          type: integer
-          description: ''
-          format: int32
-          nullable: true
-        notes:
+        start:
           type: string
-          description: Additional of Surcharge including Rules
-          nullable: true
-        ruleType:
+          description: ISO-8601 time pattern, extended as required to accommodate nanoseconds.
+          example: 00:00:00
+        end:
+          type: string
+          description: ISO-8601 time pattern, extended as required to accommodate nanoseconds.
+          example: 00:00:00
+      additionalProperties: false
+    OperatingHoursSet:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        setId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        formattedName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        operatingHours:
+          $ref: '#/components/schemas/OperatingHoursCms'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    LinkedSet:
+      type: object
+      properties:
+        setGuid:
+          type: string
+          format: uuid
+        setId:
+          type:
+          - string
+          - 'null'
+          description: GUID of the applicable set.
+      additionalProperties: false
+      description: A SetId linked to a particular restriction type on an OSP or Zone entity. The set cannot support Entitlements.
+    ElectricConnectionCms:
+      type: object
+      properties:
+        type:
           type: integer
           format: int32
-          nullable: true
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          format: int32
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    MFeatureCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MFeature'
+        properties: {}
+      additionalProperties: false
+    ZoneType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      type: integer
+      description: "Known zone types.\n\n*ControlledParkingZone (1) - An ordinary zone in which authority-defined restrictions are in place.\n*RestrictedParkingZone (2) - A zone in which parking is never allowed.\n*FreeParking (3) - A zone in which parking is always allowed.\n*Private (4) - A region not under authority control (such as a shopping centre).\n*CongestionCharge (5) - A region in which congestion charges apply.\n*Container (7) - A zone that exists to contain OSPs that don't really belong in a zone.\n*ResidentsParkingScheme (8) - Same structure as a controlled parking zone\n*PermitParkingArea (9) - Area of residential streets where parking is reserved for permit holders Gn++n++ a sign at the entrance to the street will show that parking is for permit holders only. \nPPAs may not have signs or bay markings within them. Sometimes there may be small plates to remind motorists of the controls in place\n*PedestrianZone (10) - Area where no parking is allowed\n*PedestrianAndCycleZone (11) - Area where no parking is allowed\n*Estate (12) - A housing estate under authority control.\n"
+      format: int32
+    CapabilitiesState:
+      type: object
+      properties:
+        isStaticPubliclyViewable:
+          type: boolean
+        isMovingPubliclyViewable:
+          type: boolean
+        isOffStreetPubliclyViewable:
+          type: boolean
+        acceptChargePointRequests:
+          type: boolean
+        hideTariffsOnMapSchedules:
+          type: boolean
+        hideTariffsOnStreets:
+          type: boolean
+        hideRestrictedSpeedLimitsOnStreets:
+          type: boolean
+      additionalProperties: false
+    ExceptionsSet:
+      type: object
+      properties:
+        guid:
+          type: string
+          format: uuid
+        setId:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        formattedName:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+        exceptions:
+          $ref: '#/components/schemas/ExceptionsCms'
+      additionalProperties: false
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+        packageName:
+          type:
+          - string
+          - 'null'
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
+      additionalProperties: false
+    Note:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: The text of the note
+      additionalProperties: false
+      description: Models a note that can be attached to an entity
+    NotFoundResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     AuthorityListResult:
       type: object
@@ -3831,100 +4091,19 @@ components:
           type: boolean
           readOnly: true
         data:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Authority_2'
-          nullable: true
-      additionalProperties: false
-    TariffForTimesAndDatesCms:
-      type: object
-      properties:
-        setName:
-          type: string
-          description: The name of the tariff set to which this tariff belongs.
-          nullable: true
-        parkingEntitlementTypeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: The payment types for which these tariff details apply.
-          nullable: true
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/TariffDetailCms'
-          description: 'The details of the tariff that applies for the entitlement types
-
-            and dates indicated by this entry.'
-          nullable: true
-        timeFrom:
-          type: string
-          description: 'For tariffs that vary by time of day, this indicates the
-
-            (inclusive) start time from which these particular tariff details
-
-            apply.'
-          nullable: true
-          example: 00:00:00
-        timeTo:
-          type: string
-          description: 'For tariffs that vary by time of day, this indicates the
-
-            (exclusive) end time to which these particular tariff details
-
-            apply.'
-          nullable: true
-          example: 00:00:00
-        firstDate:
-          $ref: '#/components/schemas/MonthAndDayCms'
-        lastDate:
-          $ref: '#/components/schemas/MonthAndDayCms'
-        months:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: The months of the year on which these details apply.
-          nullable: true
-        days:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: 'The days of the week (1 = Mon, 7 = Sun) on which these details
-
-            apply.'
-          nullable: true
-        timeType:
-          type: integer
-          description: Indicates the Type of Tariff
-          format: int32
-          nullable: true
-      additionalProperties: false
-      description: 'Contains tariff details applicable to a particular set of dates and
-
-        times, and for a particular set of entitlement types.'
-    Error:
-      type: object
-      properties:
-        property:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
       additionalProperties: false
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

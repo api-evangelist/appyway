@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes OffStreetRestrictionTypes API
+  title: AppyWay Availability RealTime ActivityTypes Off Street Restriction Types API
   version: '1.0'
   description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
 servers:
@@ -56,18 +56,6 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
-    RestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/RestrictionType'
-          nullable: true
-      additionalProperties: false
     RestrictionType:
       type: object
       properties:
@@ -76,17 +64,20 @@ components:
           description: Unique identifier
           format: int32
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Name
-          nullable: true
         description:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Description
-          nullable: true
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Shorthand code that represents this entitlement.
-          nullable: true
         canHaveNoLoadingRules:
           type: boolean
           description: Indicates whether there could be a loading rule attached to this restriction type
@@ -104,11 +95,25 @@ components:
           type: boolean
           description: Indicates that this restriction type is classed as part of Traffic Regulation Orders.
         legalName:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The restriction type's alternative name used on legal traffic order documents.
-          nullable: true
         hasBayCount:
           type: boolean
+      additionalProperties: false
+    RestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RestrictionType'
       additionalProperties: false
   securitySchemes:
     apiKey:

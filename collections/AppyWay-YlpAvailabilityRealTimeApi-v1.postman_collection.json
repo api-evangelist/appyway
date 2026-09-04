@@ -1,0 +1,380 @@
+{
+  "item": [
+    {
+      "id": "628189a7-dd1f-42cc-b7fa-1e9bb7d4bb39",
+      "name": "Ping",
+      "request": {
+        "name": "Ping",
+        "description": {
+          "content": "Returns Status (pong) of the Availability Realtime service",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "ping"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "7fba3be3-4c54-4c8a-900f-5002b28cd1ff",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "0abadc46-f95c-4c67-be71-f3f1ff12c132",
+          "name": "Unauthorized",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "64205582-53fb-42e8-a8cc-83a57df47d6f",
+          "name": "Forbidden",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "e40a0a6c-4537-42a5-b8b9-6d163633ff08",
+          "name": "Too many requests",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "796cdd18-0d2a-429f-a631-60410fe8c2da",
+      "name": "Fetch realtime availability by entity Ids",
+      "request": {
+        "name": "Fetch realtime availability by entity Ids",
+        "description": {
+          "content": "Returns the availability for the list of given entity Ids.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "queries",
+            "fetchAvailabilityByEntityIds"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ids\": [\n        \"<string>\",\n        \"<string>\"\n    ]\n}"
+        }
+      },
+      "response": [
+        {
+          "id": "d0f30191-e245-4de2-9fee-1cb2bab25bd3",
+          "name": "OK",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "queries",
+                "fetchAvailabilityByEntityIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}"
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n \"success\": true,\n \"result\": [\n  {\n   \"entityId\": \"string\",\n   \"entityType\": 1,\n   \"dataSourceType\": 0,\n   \"groupId\": \"string\",\n   \"totalSpaces\": 0,\n   \"availableSpaces\": 0,\n   \"parentId\": \"string\"\n  }\n ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "e59307c0-2c01-4969-8fa1-13c96664f826",
+          "name": "Bad Request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "queries",
+                "fetchAvailabilityByEntityIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}"
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n \"success\": true,\n \"message\": \"string\",\n \"errors\": [\n  {\n   \"property\": \"string\",\n   \"code\": \"string\",\n   \"message\": \"string\"\n  }\n ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8b2eb890-0401-49f2-a1e1-eb4fb72ecfca",
+          "name": "Unauthorized",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "queries",
+                "fetchAvailabilityByEntityIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}"
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "d1912dc5-500e-4f2e-a903-3d816ea7df93",
+          "name": "Forbidden",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "queries",
+                "fetchAvailabilityByEntityIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}"
+            }
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "ac364eee-4976-43a9-be7a-bee3c1f3cfa9",
+          "name": "Too many requests",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "queries",
+                "fetchAvailabilityByEntityIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ids\": [\n        \"string\"\n    ]\n}"
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "id": "baseUrl",
+      "type": "string",
+      "value": "https://api.appyway.com/v1/availability-realtime"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "type": "string",
+        "value": "{{API-KEY-LIVE}}"
+      },
+      {
+        "key": "key",
+        "type": "string",
+        "value": "API-KEY"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb4ee690-d8c3-4952-9d83-6485592bbfbb",
+    "name": "Availability RealTime (v1.0|LIVE|Public)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

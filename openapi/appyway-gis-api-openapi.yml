@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay Availability RealTime ActivityTypes GIS API
   version: '1.0'
@@ -243,42 +243,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    WfsStreamActionResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/WfsStreamActionResult'
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    GeoJsonExportStreamResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/GeoJsonExportStreamResult'
-      additionalProperties: false
-    WfsStreamActionResult:
-      type: object
-      additionalProperties: false
     GeoJsonExportStreamResult:
       type: object
       properties:
@@ -316,18 +280,59 @@ components:
           type: integer
           format: int32
       additionalProperties: false
+    GeoJsonExportStreamResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+      additionalProperties: false
     Error:
       type: object
       properties:
         property:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         code:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    WfsStreamActionResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/WfsStreamActionResult'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    WfsStreamActionResult:
+      type: object
       additionalProperties: false
   responses:
     TooManyRequests:

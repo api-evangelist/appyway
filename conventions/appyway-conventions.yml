@@ -1,0 +1,148 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started,
+  https://docs.appyway.com/docs/public-docs/50055c042f423-authentication,
+  https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting, and the four
+  provider-published OpenAPI documents in github.com/YellowLineParking/Public-Api-Specs
+provider: AppyWay
+providerId: appyway
+summary: >-
+  AppyWay ships a command/query RPC-over-HTTP API: almost every operation is a POST to a
+  verb-named path (fetchX / findX) that reads data, plus a handful of GET export routes.
+  The surface is entirely read-only — there is no create, update or delete operation in
+  any of the four published contracts — which makes idempotency, dry-run and
+  reversibility structurally not applicable rather than missing.
+auth:
+  style: api-key
+  transport: header
+  header: API-KEY
+  docs: https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+  obtaining: Keys are issued by AppyWay on request to apisupport@appyway.com. There is no self-serve key issuance.
+  failure: 401 Unauthorized when the key is missing or invalid; 403 Forbidden when the key lacks permission for the requested authority.
+  note: >-
+    auth.appyway.com is an Auth0 tenant serving a full OIDC discovery document, but that
+    is the product login for the AppyWay web applications. The published REST contracts
+    declare only the apiKey scheme.
+url_form:
+  pattern: https://api.appyway.com/{version}/{section}/{endpoint}
+  sections:
+  - path: /v1/explorer
+    purpose: Search parking rules and prices; fetch geospatial data for map applications.
+  - path: /v1/traffic-data
+    purpose: Bulk fetch of on-street restriction data for an authority, plus GIS exports.
+  - path: /v1/reference
+    purpose: Standard reference data used throughout the AppyWay API.
+  - path: /v1/availability-realtime
+    purpose: Real-time bay availability for known entity ids.
+  docs: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+request_style:
+  transport: JSON over HTTPS
+  verb_usage: >-
+    POST is used as a query transport, not as a mutation signal. fetchAllCountries,
+    findParkingQuotesByViewport and their siblings are all POST and all read-only; the
+    request body carries the query. GET is used only for /ping and the GIS export routes.
+  content_type: application/json
+data_formats:
+  dates: ISO 8601; may be sent in UTC or with an offset, always returned in UTC.
+  durations:
+    format: "[-][d.]hh:mm:ss[.fffffff]"
+    note: Days and fractional seconds may be omitted and are assumed zero when absent.
+  geospatial: GeoJSON for the Explorer geometry payloads and the Traffic Data .geojson exports; DXF for the CAD export route.
+  docs: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+response_envelope:
+  shape: >-
+    Every response is wrapped: {"success": bool, "result": {...}} on success, and
+    {"success": false, "message": "...", "errors": [{"property","code","message"}]} on
+    failure. The envelope is not RFC 9457 problem+json.
+  success_field: success
+  payload_field: result
+  error_field: errors
+  see: errors/appyway-problem-types.yml
+pagination:
+  style: none
+  detail: >-
+    No published contract declares a page, cursor, limit or offset parameter, and no
+    response schema carries a next/total field. Bulk reads are scoped instead by
+    identifier list (fetchEntitiesByIds) or by map viewport (findParkingEntitiesByViewport),
+    and whole-authority extracts are served by the Traffic Data export routes.
+field_expansion:
+  supported: false
+  detail: >-
+    No sparse-fieldset or expand parameter. Response breadth is selected by choosing the
+    operation — fetchFullAuthorityBySlug versus fetchAllAuthorities — rather than by a query flag.
+caching:
+  conditional_requests: true
+  detail: >-
+    All 25 Reference API read operations declare a 304 Not Modified response, so the
+    reference data surface supports conditional requests. The Explorer, Traffic Data and
+    Availability contracts declare no 304.
+  evidence: github.com/YellowLineParking/Public-Api-Specs api-specs/AppyWay/YlpReferenceApi/AppyWay-YlpReferenceApi-v1.oas.json
+request_id_tracing:
+  supported: unknown
+  detail: No correlation-id or request-id header is documented in the guides or declared in any contract.
+versioning:
+  style: uri-path
+  current: v1
+  detail: The major version is the first path segment (/v1/...). info.version is "1.0" in all four contracts.
+  see: lifecycle/appyway-lifecycle.yml
+rate_limit_signaling:
+  status_on_exhaustion: 429
+  headers: none published
+  detail: >-
+    The rate-limiting guide states that limits differ per endpoint, that AppyWay may
+    raise or lower them, and that clients should back off exponentially with jitter. No
+    RateLimit-* / X-RateLimit-* header contract and no Retry-After guarantee is published;
+    all four OpenAPI documents declare a shared 429 response with no headers block.
+  docs: https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting
+  see: rate-limits/appyway-rate-limits.yml
+idempotency:
+  coverage: na
+  mechanism: none
+  scope: []
+  detail: >-
+    Not applicable rather than absent: the published surface has no mutating operation.
+    All 55 operations across the four contracts are reads (fetch*/find*/export*/ping/wfs),
+    so there is no write to replay and no Idempotency-Key header to look for. Repeating
+    any published call is naturally safe.
+reversibility:
+  grade: na
+  detail: >-
+    Not applicable. Reversibility asks whether an agent can undo an action it took; the
+    AppyWay public API exposes no action to undo. There is no create, update, delete,
+    cancel, refund, void or restore operation in any of the four published contracts, and
+    the docs describe the product as a data API over UK kerbside and parking regulation.
+  write_surfaces: []
+  evidence: >-
+    Enumerated from the provider's own specs on 2026-09-04 — 18 Explorer operations, 26
+    Reference, 9 Traffic Data, 2 Availability RealTime — every one of them a read.
+dry_run_mode:
+  supported: na
+  detail: Not applicable for the same reason as reversibility — no write surface to rehearse.
+  sandbox_alternative: >-
+    A Stoplight Prism mock of each contract is publicly reachable and answers with any
+    API-KEY value; see sandbox/appyway-sandbox.yml.
+known_defects:
+- id: refined-spec-server-drift
+  severity: high
+  detail: >-
+    An API Evangelist finding about our own record, not about AppyWay. All 30 refined
+    per-tag documents under openapi/ carry servers[0].url
+    https://api.appyway.com/v1/availability-realtime, inherited from whichever source
+    spec the refine pass read first. Only the Availability operations actually live at
+    that base — the Reference, Explorer and Traffic Data operations are served from
+    /v1/reference, /v1/explorer and /v1/traffic-data respectively, as their source
+    contracts in openapi/_original/ correctly state. The per-entry baseURL values written
+    into apis.yml on 2026-09-04 are correct and were mapped operation-by-operation back to
+    the source contracts; the refined servers[] blocks were deliberately left untouched
+    and need a refine-openapis re-run to correct.
+  affected: openapi/appyway-*-api-openapi.yml (30 files)
+cross_links:
+  errors: errors/appyway-problem-types.yml
+  lifecycle: lifecycle/appyway-lifecycle.yml
+  authentication: authentication/appyway-authentication.yml
+  rate_limits: rate-limits/appyway-rate-limits.yml
+  conformance: conformance/appyway-conformance.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

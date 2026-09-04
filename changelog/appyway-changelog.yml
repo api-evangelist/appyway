@@ -1,0 +1,81 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://github.com/YellowLineParking/Public-Api-Specs — the provider's own public
+  contract repository, read through the GitHub commits and releases API on 2026-09-04.
+provider: AppyWay
+providerId: appyway
+scheme: deployment-tagged
+current_version: v1 (info.version 1.0)
+finding: >-
+  AppyWay publishes no human-readable changelog or release-notes page anywhere on
+  appyway.com or docs.appyway.com. What it does publish is better in one respect and worse
+  in another: every platform deployment pushes the regenerated OpenAPI, YAML and Postman
+  artefacts to a public GitHub repository, tagged "Deployment 'Deployments-NNNNN'". That
+  gives a precisely dated, diffable record of contract change — but the messages carry no
+  description, so what changed can only be recovered by diffing the specs, and a breaking
+  removal looks identical to an additive one.
+breaking_change_notice: none
+entries_note: >-
+  Dates below are the dates the contract files themselves changed, not every repository
+  push. Additions and removals are not stated because the provider does not state them;
+  the two changes we could establish by diff are recorded in
+  lifecycle/appyway-lifecycle.yml under observed_removals.
+entries:
+- date: '2026-08-24'
+  release: Deployments-52082
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-07-02'
+  release: Deployments-51823
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-06-11'
+  release: Deployments-51698
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-05-05'
+  release: Deployments-51354
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-04-29'
+  release: Deployments-51321
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-02-12'
+  release: Deployments-50777
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-01-27'
+  release: Deployments-50643
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2026-01-02'
+  release: Deployments-50532
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-10-14'
+  release: Deployments-50105
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-09-23'
+  release: Deployments-50013
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-07-23'
+  release: Deployments-49385
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-07-09'
+  release: Deployments-49290
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-06-16'
+  release: Deployments-49038
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-06-02'
+  release: Deployments-48875
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-05-15'
+  release: Deployments-48698
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-05-13'
+  release: Deployments-48590
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-05-09'
+  release: Deployments-48571
+  contracts_changed: [Explorer, Reference, Traffic Data]
+- date: '2025-04-24'
+  release: Deployments-48367
+  contracts_changed: [Availability RealTime, Explorer, Reference, Traffic Data]
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

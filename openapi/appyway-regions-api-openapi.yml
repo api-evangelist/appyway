@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: AppyWay Availability RealTime ActivityTypes Regions API
   version: '1.0'
@@ -197,84 +197,89 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    StringOkResponse:
+    Event:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the event
+        date:
+          type: string
+          description: Date when the event takes place
+          example: '2020-01-20'
+        start:
+          type:
+          - string
+          - 'null'
+          description: Start time of the event
+          example: 00:00:00
+        end:
+          type:
+          - string
+          - 'null'
+          description: End time of the event
+          example: 00:00:00
+      additionalProperties: false
+    Region:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the region
+        countryId:
+          type:
+          - string
+          - 'null'
+          description: Id of the Country this region belongs to
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the region
+        venues:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Venue'
+          description: A list of venues that are available in the region. Venues are linked to zones and will affect the operating hours on dates where there's an event at the venue
+      additionalProperties: false
+    Venue:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the region venue
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the venue
+        eventsMustSupplyHours:
+          type: boolean
+          description: Indicates whether an event at this venue supplies the hours or whether it should take the hours from the applicable operating hours
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Event'
+          description: List of events that will take place at this venue
+      additionalProperties: false
+    RegionOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          type: string
-          nullable: true
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type: string
-          nullable: true
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          nullable: true
-      additionalProperties: false
-    Region:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the region
-          nullable: true
-        countryId:
-          type: string
-          description: Id of the Country this region belongs to
-          nullable: true
-        name:
-          type: string
-          description: Name of the region
-          nullable: true
-        venues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Venue'
-          description: A list of venues that are available in the region. Venues are linked to zones and will affect the operating hours on dates where there's an event at the venue
-          nullable: true
-      additionalProperties: false
-    FetchRegionByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-      additionalProperties: false
-    Event:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the event
-          nullable: true
-        date:
-          type: string
-          description: Date when the event takes place
-          example: '2020-01-20'
-        start:
-          type: string
-          description: Start time of the event
-          nullable: true
-          example: 00:00:00
-        end:
-          type: string
-          description: End time of the event
-          nullable: true
-          example: 00:00:00
+          $ref: '#/components/schemas/Region'
       additionalProperties: false
     RegionIReadOnlyCollectionOkResponse:
       type: object
@@ -283,31 +288,11 @@ components:
           type: boolean
           readOnly: true
         result:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/Region'
-          nullable: true
-      additionalProperties: false
-    Venue:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the region venue
-          nullable: true
-        name:
-          type: string
-          description: Name of the venue
-          nullable: true
-        eventsMustSupplyHours:
-          type: boolean
-          description: Indicates whether an event at this venue supplies the hours or whether it should take the hours from the applicable operating hours
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-          description: List of events that will take place at this venue
-          nullable: true
       additionalProperties: false
     ChangeRegionVenuesCommand:
       required:
@@ -325,27 +310,59 @@ components:
           items:
             $ref: '#/components/schemas/Venue'
       additionalProperties: false
-    RegionOkResponse:
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    FetchRegionByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
+    StringOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/Region'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type: string
-          nullable: true
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   responses:
     TooManyRequests:
