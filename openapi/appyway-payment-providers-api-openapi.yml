@@ -1,20 +1,20 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Payment Providers API
+  title: AppyWay Platform Payment Providers API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/reference
 security:
 - apiKey: []
 - oAuth2: []
 tags:
-- name: PaymentProviders
+- name: Payment Providers
 paths:
   /fetchAllPaymentProviders:
     post:
       tags:
-      - PaymentProviders
+      - Payment Providers
       summary: AppyWay Fetch All Payment Providers
       description: Returns a list with all the supported payment providers.
       operationId: post-fetchallpaymentproviders
@@ -42,14 +42,23 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   schemas:
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+        packageName:
+          type:
+          - string
+          - 'null'
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
+      additionalProperties: false
     PaymentProvider:
       type: object
       properties:
@@ -81,22 +90,6 @@ components:
           description: Payment Mobile apps deep links by platform
       additionalProperties: false
       description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-    PaymentDeepLinks:
-      type: object
-      properties:
-        schemas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Deep link schemas (eg: ringgo://, etc)'
-        packageName:
-          type:
-          - string
-          - 'null'
-          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
-      additionalProperties: false
     PaymentProviderIReadOnlyCollectionOkResponse:
       type: object
       properties:
@@ -110,6 +103,13 @@ components:
           items:
             $ref: '#/components/schemas/PaymentProvider'
       additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Regions API
+  title: AppyWay Platform Regions API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/reference
 security:
 - apiKey: []
 - oAuth2: []
@@ -197,31 +197,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Event:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the event
-        date:
-          type: string
-          description: Date when the event takes place
-          example: '2020-01-20'
-        start:
-          type:
-          - string
-          - 'null'
-          description: Start time of the event
-          example: 00:00:00
-        end:
-          type:
-          - string
-          - 'null'
-          description: End time of the event
-          example: 00:00:00
-      additionalProperties: false
     Region:
       type: object
       properties:
@@ -281,51 +256,6 @@ components:
         result:
           $ref: '#/components/schemas/Region'
       additionalProperties: false
-    RegionIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Region'
-      additionalProperties: false
-    ChangeRegionVenuesCommand:
-      required:
-      - id
-      - venues
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the region
-        venues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Venue'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     BadRequestResponse:
       type: object
       properties:
@@ -343,16 +273,6 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    FetchRegionByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-      additionalProperties: false
     StringOkResponse:
       type: object
       properties:
@@ -363,6 +283,86 @@ components:
           type:
           - string
           - 'null'
+      additionalProperties: false
+    Event:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the event
+        date:
+          type: string
+          description: Date when the event takes place
+          example: '2020-01-20'
+        start:
+          type:
+          - string
+          - 'null'
+          description: Start time of the event
+          example: 00:00:00
+        end:
+          type:
+          - string
+          - 'null'
+          description: End time of the event
+          example: 00:00:00
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    FetchRegionByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
+    ChangeRegionVenuesCommand:
+      required:
+      - id
+      - venues
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the region
+        venues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Venue'
+      additionalProperties: false
+    RegionIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Region'
       additionalProperties: false
   responses:
     TooManyRequests:

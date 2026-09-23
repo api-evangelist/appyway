@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Moving Exception Types API
+  title: AppyWay Platform Moving Exception Types API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/reference
 security:
 - apiKey: []
 - oAuth2: []
@@ -44,13 +44,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   schemas:
     MovingExceptionTypeIReadOnlyCollectionOkResponse:
       type: object
@@ -64,22 +57,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/MovingExceptionType'
-      additionalProperties: false
-    ApplicableRestrictionType:
-      type: object
-      properties:
-        movingRestrictionTypeId:
-          type: integer
-          description: Id of the moving restriction type this exception type is applicable to
-          format: int32
-        movingRestrictionTypeOptionIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
-          description: Moving restriction option ids
       additionalProperties: false
     MovingExceptionType:
       type: object
@@ -106,6 +83,29 @@ components:
             $ref: '#/components/schemas/ApplicableRestrictionType'
           description: Applicable restriction types
       additionalProperties: false
+    ApplicableRestrictionType:
+      type: object
+      properties:
+        movingRestrictionTypeId:
+          type: integer
+          description: Id of the moving restriction type this exception type is applicable to
+          format: int32
+        movingRestrictionTypeOptionIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Moving restriction option ids
+      additionalProperties: false
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

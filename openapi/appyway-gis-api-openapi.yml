@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes GIS API
+  title: AppyWay Traffic Data GIS API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: The AppyWay Traffic Data API provides real-time and historical traffic data for developers to integrate into their applications.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/traffic-data
 security:
 - apiKey: []
 - oAuth2: []
@@ -49,7 +49,7 @@ paths:
       tags:
       - GIS
       summary: AppyWay Export Authority static Restrictions as GeoJSON by ID
-      description: Returns a GeoJSON containing the restrictions of an authority. <br />
+      description: Returns a GeoJSON containing the restrictions of an authority.
       operationId: get-exportauthorityrestrictionsbyid-authorityid-geojson
       parameters:
       - name: authorityId
@@ -149,7 +149,7 @@ paths:
     get:
       tags:
       - GIS
-      summary: AppyWay Export Authority static Restrictions as GeoJSON by a given slug.
+      summary: AppyWay Export Authority static Restrictions as GeoJSON by a given slug
       description: Returns a GeoJSON containing the moving restrictions of an authority.
       operationId: get-exportauthorityrestrictionsbyslug-slug-geojson
       parameters:
@@ -181,7 +181,7 @@ paths:
     get:
       tags:
       - GIS
-      summary: AppyWay Executes a Web Feature Service (WFS) query.
+      summary: AppyWay Executes a Web Feature Service (WFS) query
       description: Executes a Web Feature Service (WFS) query.
       operationId: get-wfs
       responses:
@@ -243,13 +243,31 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    GeoJsonExportStreamResult:
+    GeoJsonExportStreamResultOkResponse:
       type: object
       properties:
-        content:
-          $ref: '#/components/schemas/Stream'
-        gZipped:
+        success:
           type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     Stream:
       type: object
@@ -280,14 +298,17 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    GeoJsonExportStreamResultOkResponse:
+    WfsStreamActionResultOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+          $ref: '#/components/schemas/WfsStreamActionResult'
+      additionalProperties: false
+    WfsStreamActionResult:
+      type: object
       additionalProperties: false
     Error:
       type: object
@@ -305,34 +326,13 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    WfsStreamActionResultOkResponse:
+    GeoJsonExportStreamResult:
       type: object
       properties:
-        success:
+        content:
+          $ref: '#/components/schemas/Stream'
+        gZipped:
           type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/WfsStreamActionResult'
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    WfsStreamActionResult:
-      type: object
       additionalProperties: false
   responses:
     TooManyRequests:

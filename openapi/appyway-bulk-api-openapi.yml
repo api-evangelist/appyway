@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Bulk API
+  title: AppyWay Explorer Bulk API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: The AppyWay Explorer API allows developers to access a wealth of data related to parking and electric vehicle charging infrastructure.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/explorer
 security:
 - apiKey: []
 - oAuth2: []
@@ -178,22 +178,15 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   schemas:
-    FetchEntitiesByIdsQuery:
-      type: object
-      properties:
-        ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of Ids of entities to fetch
-        geometryPreference:
-          $ref: '#/components/schemas/GeometryPreference'
-      additionalProperties: false
-      description: Request allowing a client to fetch a list of entities
-    GeometryCollection:
+    Geometry:
       type: object
       properties:
         type:
@@ -202,93 +195,7 @@ components:
           - 'null'
         crs:
           $ref: '#/components/schemas/Crs'
-        geometries:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Geometry'
       additionalProperties: false
-    GeometryCollectionFeatureInfoFeatureCollection:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        features:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeature'
-        properties: {}
-      additionalProperties: false
-    Authority:
-      type: object
-      properties:
-        entityId:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for this entity
-        name:
-          type:
-          - string
-          - 'null'
-          description: User-readable name for this entity
-        eTag:
-          type:
-          - string
-          - 'null'
-          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
-
-            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
-
-            not match the requested tag - i.e. just those entities that have changed.'
-        notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Note'
-          description: Any special notes associated with this authority
-        paymentProviders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentProvider'
-        entityType:
-          $ref: '#/components/schemas/MapEntityType'
-        countryId:
-          type:
-          - string
-          - 'null'
-          description: ID of the country in which the authority resides
-        geometry:
-          $ref: '#/components/schemas/GeometryCollection'
-        hasFreeParkingOutsideZone:
-          type:
-          - boolean
-          - 'null'
-          description: "This flag gives an indication of whether parking is likely to be available outside of designated\ncontrolled parking zones. The flag indicates the availability of parking for sections of the kerb where\nthis API does NOT return a specific OnStreetParking result. If TRUE, parking is likely to be free and\nunrestricted where the Parking Search results do not indicate otherwise. if FALSE, it is likely to be no parking.\n            \nThis is an indication only, and clients should inform their end users that they should always check local\nsignage when parking.\n            \nIf NULL, it is not known whether parking is available for this authority outside of designated zones.\n            \nNOTE that inside controlled parking zones, it is likely that parking is not available in areas where no\nOnStreetParking result is returned."
-      additionalProperties: false
-      description: Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-    BasemapTranslation:
-      enum:
-      - 1
-      - 2
-      type: integer
-      description: 'Enumeration for the different types of base maps
-
-
-        *OrdnanceSurvey (1) - Ordnance Survey: Realistic mapping
-
-        *OpenStreetMaps (2) - Open street map.
-
-        '
-      format: int32
     FeatureInfo:
       type: object
       properties:
@@ -296,30 +203,6 @@ components:
           $ref: '#/components/schemas/BasemapTranslation'
       additionalProperties: false
       description: Provides information about the geometry contained in the feature
-    MapEntityType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      type: integer
-      description: 'Enumeration for the different types of Map Entity - objects returned by the API that can be drawn on a map.
-
-
-        *OnStreet (1) - An on-street parking area
-
-        *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
-
-        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
-
-        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
-
-        define rules parking entities that can be overridden by individual entities.
-
-        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-
-        '
-      format: int32
     CarParkOperator:
       type: object
       properties:
@@ -362,39 +245,59 @@ components:
           description: Operator website
       additionalProperties: false
       description: Details of the operator for a car park, including telephone numbers and URLs for phone and online payments (if applicable)
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    CrsProperties:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Crs:
+    GeometryCollectionFeatureInfoFeatureCollection:
       type: object
       properties:
         type:
           type:
           - string
           - 'null'
-        properties:
-          $ref: '#/components/schemas/CrsProperties'
+        features:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryCollectionFeatureInfoFeature'
+        properties: {}
+      additionalProperties: false
+    GeometryPreference:
+      type: object
+      properties:
+        basemap:
+          $ref: '#/components/schemas/BasemapTranslation'
+        geometryTypes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GeometryType'
+          description: 'List of the types of geometries you want to receive for this basemap
+
+
+            *POI (1) - Point of interest: A single point, will be of type "Point"
+
+            *Kerb (2) - Single line along the kerbedge, will be of type "LineString"
+
+            *Outline (3) - A complete representation of the parking area, will be of type "Polygon". Only available for Ordnance Survey base maps
+
+            '
+      additionalProperties: false
+      description: Indicates the type of geometries you want to retrieve
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+        packageName:
+          type:
+          - string
+          - 'null'
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
       additionalProperties: false
     ParkingEntity:
       type: object
@@ -556,6 +459,38 @@ components:
           description: The venue id
       additionalProperties: false
       description: Base class for Map Entities that support parking, either on-street or car parks
+    PaymentProvider:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier (if the payment provider is present on Reference API)
+        name:
+          type:
+          - string
+          - 'null'
+          description: Provider name
+        cardPaymentsExternalUrl:
+          type:
+          - string
+          - 'null'
+          description: URL for taking payments (if online payments are supported)
+        paymentsTelephone:
+          type:
+          - string
+          - 'null'
+          description: Phone number for taking payments (if pay-by-phone is supported)
+        paymentsAppDeepLinks:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentDeepLinks'
+          description: Payment Mobile apps deep links by platform
+      additionalProperties: false
+      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
     Zone:
       type: object
       properties:
@@ -607,117 +542,6 @@ components:
         A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
 
         define rules parking entities that can be overridden by individual entities.'
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    ZoneType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 7
-      - 8
-      - 9
-      - 10
-      type: integer
-      description: "Different types of Zone\n\n*ControlledParkingZone (1) - An ordinary zone in which authority-defined restrictions are in place.\n*RestrictedParkingZone (2) - A zone in which parking is never allowed.\n*FreeParking (3) - A zone in which parking is always allowed.\n*Private (4) - A region not under authority control (such as a shopping centre).\n*CongestionCharge (5) - A region in which congestion charges apply.\n*Container (7) - A zone that exists to contain On Street Parking entities that don't really belong in a zone.\n*ResidentsParkingScheme (8) - A zone in which a resident's permit parking scheme applies\n*PermitParkingArea (9) - Area of residential streets where parking is reserved for permit holders Gn++n++ a sign at the entrance to the street will show that parking is for permit holders only. \nPPAs may not have signs or bay markings within them. Sometimes there may be small plates to remind motorists of the controls in place\n*PedestrianZone (10) - Pedestrian area where no parking is allowed\n"
-      format: int32
-    GeometryPreference:
-      type: object
-      properties:
-        basemap:
-          $ref: '#/components/schemas/BasemapTranslation'
-        geometryTypes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GeometryType'
-          description: 'List of the types of geometries you want to receive for this basemap
-
-
-            *POI (1) - Point of interest: A single point, will be of type "Point"
-
-            *Kerb (2) - Single line along the kerbedge, will be of type "LineString"
-
-            *Outline (3) - A complete representation of the parking area, will be of type "Polygon". Only available for Ordnance Survey base maps
-
-            '
-      additionalProperties: false
-      description: Indicates the type of geometries you want to retrieve
-    PaymentProvider:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier (if the payment provider is present on Reference API)
-        name:
-          type:
-          - string
-          - 'null'
-          description: Provider name
-        cardPaymentsExternalUrl:
-          type:
-          - string
-          - 'null'
-          description: URL for taking payments (if online payments are supported)
-        paymentsTelephone:
-          type:
-          - string
-          - 'null'
-          description: Phone number for taking payments (if pay-by-phone is supported)
-        paymentsAppDeepLinks:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentDeepLinks'
-          description: Payment Mobile apps deep links by platform
-      additionalProperties: false
-      description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-    Address:
-      type: object
-      properties:
-        street:
-          type:
-          - string
-          - 'null'
-          description: Street address
-        city:
-          type:
-          - string
-          - 'null'
-          description: Town or city
-        country:
-          type:
-          - string
-          - 'null'
-          description: Country
-        postcode:
-          type:
-          - string
-          - 'null'
-          description: Postal code
-      additionalProperties: false
-      description: A standard address for an Onstreet bay or Car park
     OnStreetParkingType:
       enum:
       - 1
@@ -840,6 +664,250 @@ components:
 
         '
       format: int32
+    Address:
+      type: object
+      properties:
+        street:
+          type:
+          - string
+          - 'null'
+          description: Street address
+        city:
+          type:
+          - string
+          - 'null'
+          description: Town or city
+        country:
+          type:
+          - string
+          - 'null'
+          description: Country
+        postcode:
+          type:
+          - string
+          - 'null'
+          description: Postal code
+      additionalProperties: false
+      description: A standard address for an Onstreet bay or Car park
+    MapEntitiesResponseOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/MapEntitiesResponse'
+      additionalProperties: false
+    FetchEntitiesByIdsQuery:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of Ids of entities to fetch
+        geometryPreference:
+          $ref: '#/components/schemas/GeometryPreference'
+      additionalProperties: false
+      description: Request allowing a client to fetch a list of entities
+    GeometryCollection:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        crs:
+          $ref: '#/components/schemas/Crs'
+        geometries:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Geometry'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    Note:
+      type: object
+      properties:
+        message:
+          type:
+          - string
+          - 'null'
+          description: The text of the note
+      additionalProperties: false
+      description: Models a note that can be attached to an entity
+    Crs:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        properties:
+          $ref: '#/components/schemas/CrsProperties'
+      additionalProperties: false
+    ZoneType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 7
+      - 8
+      - 9
+      - 10
+      type: integer
+      description: "Different types of Zone\n\n*ControlledParkingZone (1) - An ordinary zone in which authority-defined restrictions are in place.\n*RestrictedParkingZone (2) - A zone in which parking is never allowed.\n*FreeParking (3) - A zone in which parking is always allowed.\n*Private (4) - A region not under authority control (such as a shopping centre).\n*CongestionCharge (5) - A region in which congestion charges apply.\n*Container (7) - A zone that exists to contain On Street Parking entities that don't really belong in a zone.\n*ResidentsParkingScheme (8) - A zone in which a resident's permit parking scheme applies\n*PermitParkingArea (9) - Area of residential streets where parking is reserved for permit holders Gn++n++ a sign at the entrance to the street will show that parking is for permit holders only. \nPPAs may not have signs or bay markings within them. Sometimes there may be small plates to remind motorists of the controls in place\n*PedestrianZone (10) - Pedestrian area where no parking is allowed\n"
+      format: int32
+    MapEntityType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: 'Enumeration for the different types of Map Entity - objects returned by the API that can be drawn on a map.
+
+
+        *OnStreet (1) - An on-street parking area
+
+        *Carpark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
+
+        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of On-Street and Car park entities.
+
+        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
+
+        define rules parking entities that can be overridden by individual entities.
+
+        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+
+        '
+      format: int32
+    Authority:
+      type: object
+      properties:
+        entityId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for this entity
+        name:
+          type:
+          - string
+          - 'null'
+          description: User-readable name for this entity
+        eTag:
+          type:
+          - string
+          - 'null'
+          description: 'ETag for the entity. The ETag is specific to each version of this entity and changes whenever the entity data changes. Clients can
+
+            send the eTags of cached entities to the server when requesting data and the server can return only entities for which the current ETag does
+
+            not match the requested tag - i.e. just those entities that have changed.'
+        notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Note'
+          description: Any special notes associated with this authority
+        paymentProviders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+        entityType:
+          $ref: '#/components/schemas/MapEntityType'
+        countryId:
+          type:
+          - string
+          - 'null'
+          description: ID of the country in which the authority resides
+        geometry:
+          $ref: '#/components/schemas/GeometryCollection'
+        hasFreeParkingOutsideZone:
+          type:
+          - boolean
+          - 'null'
+          description: "This flag gives an indication of whether parking is likely to be available outside of designated\ncontrolled parking zones. The flag indicates the availability of parking for sections of the kerb where\nthis API does NOT return a specific OnStreetParking result. If TRUE, parking is likely to be free and\nunrestricted where the Parking Search results do not indicate otherwise. if FALSE, it is likely to be no parking.\n            \nThis is an indication only, and clients should inform their end users that they should always check local\nsignage when parking.\n            \nIf NULL, it is not known whether parking is available for this authority outside of designated zones.\n            \nNOTE that inside controlled parking zones, it is likely that parking is not available in areas where no\nOnStreetParking result is returned."
+      additionalProperties: false
+      description: Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+    BasemapTranslation:
+      enum:
+      - 1
+      - 2
+      type: integer
+      description: 'Enumeration for the different types of base maps
+
+
+        *OrdnanceSurvey (1) - Ordnance Survey: Realistic mapping
+
+        *OpenStreetMaps (2) - Open street map.
+
+        '
+      format: int32
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    CrsProperties:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    GeometryCollectionFeatureInfoFeature:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        geometry:
+          $ref: '#/components/schemas/GeometryCollection'
+        properties:
+          $ref: '#/components/schemas/FeatureInfo'
+      additionalProperties: false
     MapEntitiesResponse:
       type: object
       properties:
@@ -866,41 +934,6 @@ components:
           description: Authorities returned from the query
       additionalProperties: false
       description: Response shape for a request for multiple Map Entities
-    MapEntitiesResponseOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/MapEntitiesResponse'
-      additionalProperties: false
-    Note:
-      type: object
-      properties:
-        message:
-          type:
-          - string
-          - 'null'
-          description: The text of the note
-      additionalProperties: false
-      description: Models a note that can be attached to an entity
-    PaymentDeepLinks:
-      type: object
-      properties:
-        schemas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Deep link schemas (eg: ringgo://, etc)'
-        packageName:
-          type:
-          - string
-          - 'null'
-          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
-      additionalProperties: false
     GeometryType:
       enum:
       - 1
@@ -918,39 +951,6 @@ components:
 
         '
       format: int32
-    GeometryCollectionFeatureInfoFeature:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        id:
-          type:
-          - string
-          - 'null'
-        geometry:
-          $ref: '#/components/schemas/GeometryCollection'
-        properties:
-          $ref: '#/components/schemas/FeatureInfo'
-      additionalProperties: false
-    Geometry:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        crs:
-          $ref: '#/components/schemas/Crs'
-      additionalProperties: false
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

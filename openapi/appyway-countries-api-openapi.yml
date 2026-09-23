@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Countries API
+  title: AppyWay Platform Countries API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/reference
 security:
 - apiKey: []
 - oAuth2: []
@@ -205,14 +205,23 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   schemas:
+    ChangeCountrySpecialDaysCommand:
+      required:
+      - id
+      - specialDays
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the country
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+      additionalProperties: false
     CountryOkResponse:
       type: object
       properties:
@@ -222,17 +231,24 @@ components:
         result:
           $ref: '#/components/schemas/Country'
       additionalProperties: false
-    FetchCountryByIdQuery:
-      required:
-      - id
+    BadRequestResponse:
       type: object
       properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
-    CountryIReadOnlyCollectionOkResponse:
+    StringOkResponse:
       type: object
       properties:
         success:
@@ -240,10 +256,8 @@ components:
           readOnly: true
         result:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/Country'
       additionalProperties: false
     Country:
       type: object
@@ -348,21 +362,28 @@ components:
             example: '2020-01-20'
           description: Dates on which this day is in effect
       additionalProperties: false
-    ChangeCountrySpecialDaysCommand:
+    CountryIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Country'
+      additionalProperties: false
+    FetchCountryByIdQuery:
       required:
       - id
-      - specialDays
       type: object
       properties:
         id:
           maxLength: 36
           minLength: 1
           type: string
-          description: Unique identifier of the country
-        specialDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpecialDay'
       additionalProperties: false
     Error:
       type: object
@@ -380,34 +401,13 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    StringOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

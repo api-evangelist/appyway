@@ -1,10 +1,10 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Restriction Types API
+  title: AppyWay Platform Restriction Types API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility.
 servers:
-- url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/reference
 security:
 - apiKey: []
 - oAuth2: []
@@ -56,6 +56,19 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
+    RestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RestrictionType'
+      additionalProperties: false
     RestrictionType:
       type: object
       properties:
@@ -101,19 +114,6 @@ components:
           description: The restriction type's alternative name used on legal traffic order documents.
         hasBayCount:
           type: boolean
-      additionalProperties: false
-    RestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RestrictionType'
       additionalProperties: false
   securitySchemes:
     apiKey:

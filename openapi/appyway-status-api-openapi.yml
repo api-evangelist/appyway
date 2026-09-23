@@ -1,10 +1,13 @@
 openapi: 3.2.0
 info:
-  title: AppyWay Availability RealTime ActivityTypes Status API
+  title: Appyway Status API
   version: '1.0'
-  description: AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking. Additionally, the API helps businesses optimize their operations by providing detailed information on traffic conditions and road closures, allowing for more efficient route planning and delivery scheduling. Overall, the AppyWay Availability RealTime API is a valuable tool for businesses looking to streamline their operations and improve the customer experience.
+  description: 'Operations tagged Status across 4 of this provider''s published API definitions: appyway-availability-realtime-api-openapi.yml, appyway-explorer-api-openapi.yml, appyway-platform-api-openapi.yml, appyway-traffic-data-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.appyway.com/v1/availability-realtime
+- url: https://api.appyway.com/v1/explorer
+- url: https://api.appyway.com/v1/reference
+- url: https://api.appyway.com/v1/traffic-data
 security:
 - apiKey: []
 - oAuth2: []
@@ -27,14 +30,28 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+    servers:
+    - url: https://api.appyway.com/v1/availability-realtime
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Forbidden:
       description: Forbidden
     Unauthorized:
       description: Unauthorized
+    TooManyRequests:
+      description: Too many requests
+  schemas:
+    StringOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY
@@ -47,3 +64,8 @@ components:
           authorizationUrl: https://auth.appyway.com/authorize
           tokenUrl: https://auth.appyway.com/oauth/token
       type: oauth2
+x-refined-from:
+- appyway-availability-realtime-api-openapi.yml
+- appyway-explorer-api-openapi.yml
+- appyway-platform-api-openapi.yml
+- appyway-traffic-data-api-openapi.yml
