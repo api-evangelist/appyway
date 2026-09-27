@@ -40,14 +40,20 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
+    ExemptionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExemptionType'
+      additionalProperties: false
     ExemptionType:
       type: object
       properties:
@@ -67,19 +73,13 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates what exemption there could be for a specific activity, vehicle or person
-    ExemptionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExemptionType'
-      additionalProperties: false
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

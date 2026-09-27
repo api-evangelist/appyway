@@ -242,16 +242,14 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   schemas:
-    GeoJsonExportStreamResultOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/GeoJsonExportStreamResult'
-      additionalProperties: false
     BadRequestResponse:
       type: object
       properties:
@@ -268,6 +266,23 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    GeoJsonExportStreamResult:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/Stream'
+        gZipped:
+          type: boolean
+      additionalProperties: false
+    WfsStreamActionResultOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/WfsStreamActionResult'
       additionalProperties: false
     Stream:
       type: object
@@ -298,14 +313,14 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    WfsStreamActionResultOkResponse:
+    GeoJsonExportStreamResultOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/WfsStreamActionResult'
+          $ref: '#/components/schemas/GeoJsonExportStreamResult'
       additionalProperties: false
     WfsStreamActionResult:
       type: object
@@ -326,21 +341,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    GeoJsonExportStreamResult:
-      type: object
-      properties:
-        content:
-          $ref: '#/components/schemas/Stream'
-        gZipped:
-          type: boolean
-      additionalProperties: false
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

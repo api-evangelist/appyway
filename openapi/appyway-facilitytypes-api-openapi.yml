@@ -48,19 +48,6 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
-    FacilityTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FacilityType'
-      additionalProperties: false
     FacilityType:
       type: object
       properties:
@@ -80,6 +67,19 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates a facility that is available at an OSP
+    FacilityTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FacilityType'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

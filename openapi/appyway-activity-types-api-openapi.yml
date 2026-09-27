@@ -50,6 +50,19 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
+    AuthorityTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AuthorityType'
+      additionalProperties: false
     AuthorityType:
       type: object
       properties:
@@ -73,19 +86,6 @@ components:
         canHaveShape:
           type: boolean
           description: Indicates whether authorities of this type can have a shape
-      additionalProperties: false
-    AuthorityTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AuthorityType'
       additionalProperties: false
   securitySchemes:
     apiKey:

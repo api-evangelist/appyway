@@ -76,43 +76,13 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
     Unauthorized:
       description: Unauthorized
   schemas:
-    EntityType:
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      description: 'Enumeration for the different types of Entity
-
-
-        *OnStreet (1) - An on street parking area
-
-        *CarPark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
-
-        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of OnStreet and Carpark entities.
-
-        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
-
-        define rules parking entities that can be overridden by individual entities.
-
-        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
-
-        *CarParkFloor (5) - An off-street parking facility (car park) floor.
-
-        *CarParkBay (6) - An off-street parking facility (car park) bay.
-
-        '
-      format: int32
     BadRequestResponse:
       type: object
       properties:
@@ -164,19 +134,6 @@ components:
           description: OnStreetParking will have a ParentId as the AuthorityId, CarPark will have a ParentId as the CarParkId
       additionalProperties: false
       description: Parking Availability model for our Entities
-    ParkingAvailabilityIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ParkingAvailability'
-      additionalProperties: false
     FetchAvailabilityByEntityIdsQuery:
       type: object
       properties:
@@ -187,22 +144,6 @@ components:
           items:
             type: string
           description: List of Ids of entities to get real time availability for
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     DataSourceType:
       enum:
@@ -224,6 +165,65 @@ components:
 
         '
       format: int32
+    EntityType:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      description: 'Enumeration for the different types of Entity
+
+
+        *OnStreet (1) - An on street parking area
+
+        *CarPark (2) - An off-street parking facility (car park) including surface and multi-storey car parks.
+
+        *Zone (3) - A zone is an area defined by the local authority that acts as a container for a set of OnStreet and Carpark entities.
+
+        A zone may define common parking rules that are applicable generally across parts of the kerb (e.g. Single Yellow Lines) and may
+
+        define rules parking entities that can be overridden by individual entities.
+
+        *Authority (4) - Defines the area controlled by a particular local authority. Authorities may contain zones and may also contain parking entities directly.
+
+        *CarParkFloor (5) - An off-street parking facility (car park) floor.
+
+        *CarParkBay (6) - An off-street parking facility (car park) bay.
+
+        '
+      format: int32
+    ParkingAvailabilityIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ParkingAvailability'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

@@ -40,27 +40,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
-    ExceptionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExceptionType'
-      additionalProperties: false
     ExceptionType:
       type: object
       properties:
@@ -80,6 +60,26 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates how operating hours can be altered because of holidays or named days
+    ExceptionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExceptionType'
+      additionalProperties: false
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

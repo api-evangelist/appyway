@@ -48,6 +48,19 @@ components:
     Unauthorized:
       description: Unauthorized
   schemas:
+    ExemptionTimeTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExemptionTimeType'
+      additionalProperties: false
     ExemptionTimeType:
       type: object
       properties:
@@ -67,19 +80,6 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the different definitions of when an exemption can be active
-    ExemptionTimeTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExemptionTimeType'
-      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

@@ -917,14 +917,18 @@ tags:
 type: Index
 deliveryModel:
   model: unknown
-  open_source: false
+  license_evidence:
+    not_product:
+    - yellowlineparking/public-api-specs
+  open_source: unknown
   commercial: false
   callable_host: true
   label: Delivery model not determined — needs a product licence on record
   confidence: low
   source:
-    - openapi
-  generated: '2026-08-28'
+  - openapi
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: enterprise

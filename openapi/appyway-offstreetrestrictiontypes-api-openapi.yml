@@ -49,26 +49,13 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
     Unauthorized:
       description: Unauthorized
   schemas:
-    RestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RestrictionType'
-      additionalProperties: false
     RestrictionType:
       type: object
       properties:
@@ -114,6 +101,19 @@ components:
           description: The restriction type's alternative name used on legal traffic order documents.
         hasBayCount:
           type: boolean
+      additionalProperties: false
+    RestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RestrictionType'
       additionalProperties: false
   securitySchemes:
     apiKey:

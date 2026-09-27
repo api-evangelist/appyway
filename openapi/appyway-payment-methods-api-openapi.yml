@@ -41,26 +41,13 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
     Unauthorized:
       description: Unauthorized
   schemas:
-    PaymentMethodIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-      additionalProperties: false
     PaymentMethod:
       type: object
       properties:
@@ -80,6 +67,19 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the method that you pay for a stay at a Parking Entity
+    PaymentMethodIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

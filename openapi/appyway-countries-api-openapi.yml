@@ -205,32 +205,14 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   schemas:
-    ChangeCountrySpecialDaysCommand:
-      required:
-      - id
-      - specialDays
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the country
-        specialDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpecialDay'
-      additionalProperties: false
-    CountryOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/Country'
-      additionalProperties: false
     BadRequestResponse:
       type: object
       properties:
@@ -248,16 +230,47 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       additionalProperties: false
-    StringOkResponse:
+    ChangeCountrySpecialDaysCommand:
+      required:
+      - id
+      - specialDays
       type: object
       properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the country
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+      additionalProperties: false
+    SpecialDay:
+      type: object
+      properties:
+        id:
           type:
           - string
           - 'null'
+          description: Unique identifier
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name
+        isHoliday:
+          type: boolean
+          description: Indicates whether this day is considered a holiday
+        dates:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            description: ISO-8601 date pattern
+            example: '2020-01-20'
+          description: Dates on which this day is in effect
       additionalProperties: false
     Country:
       type: object
@@ -336,31 +349,35 @@ components:
           type: boolean
           description: Whether this country uses the metric system for speed limits
       additionalProperties: false
-    SpecialDay:
+    CountryOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/Country'
+      additionalProperties: false
+    FetchCountryByIdQuery:
+      required:
+      - id
       type: object
       properties:
         id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name
-        isHoliday:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
+    StringOkResponse:
+      type: object
+      properties:
+        success:
           type: boolean
-          description: Indicates whether this day is considered a holiday
-        dates:
+          readOnly: true
+        result:
           type:
-          - array
+          - string
           - 'null'
-          items:
-            type: string
-            description: ISO-8601 date pattern
-            example: '2020-01-20'
-          description: Dates on which this day is in effect
       additionalProperties: false
     CountryIReadOnlyCollectionOkResponse:
       type: object
@@ -374,16 +391,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/Country'
-      additionalProperties: false
-    FetchCountryByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
       additionalProperties: false
     Error:
       type: object
@@ -401,13 +408,6 @@ components:
           - string
           - 'null'
       additionalProperties: false
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

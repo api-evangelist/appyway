@@ -43,6 +43,19 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    PaymentProviderIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+      additionalProperties: false
     PaymentDeepLinks:
       type: object
       properties:
@@ -90,24 +103,11 @@ components:
           description: Payment Mobile apps deep links by platform
       additionalProperties: false
       description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-    PaymentProviderIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentProvider'
-      additionalProperties: false
   responses:
-    TooManyRequests:
-      description: Too many requests
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
     Unauthorized:
       description: Unauthorized
   securitySchemes:

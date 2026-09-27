@@ -196,7 +196,31 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
   schemas:
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     Region:
       type: object
       properties:
@@ -223,6 +247,25 @@ components:
             $ref: '#/components/schemas/Venue'
           description: A list of venues that are available in the region. Venues are linked to zones and will affect the operating hours on dates where there's an event at the venue
       additionalProperties: false
+    RegionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          $ref: '#/components/schemas/Region'
+      additionalProperties: false
+    FetchRegionByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
     Venue:
       type: object
       properties:
@@ -247,31 +290,18 @@ components:
             $ref: '#/components/schemas/Event'
           description: List of events that will take place at this venue
       additionalProperties: false
-    RegionOkResponse:
+    RegionIReadOnlyCollectionOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/Region'
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Region'
       additionalProperties: false
     StringOkResponse:
       type: object
@@ -280,6 +310,38 @@ components:
           type: boolean
           readOnly: true
         result:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangeRegionVenuesCommand:
+      required:
+      - id
+      - venues
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the region
+        venues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Venue'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
           type:
           - string
           - 'null'
@@ -309,68 +371,6 @@ components:
           description: End time of the event
           example: 00:00:00
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    FetchRegionByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-      additionalProperties: false
-    ChangeRegionVenuesCommand:
-      required:
-      - id
-      - venues
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the region
-        venues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Venue'
-      additionalProperties: false
-    RegionIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Region'
-      additionalProperties: false
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY
