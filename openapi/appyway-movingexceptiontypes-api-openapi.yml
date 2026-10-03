@@ -44,14 +44,36 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
+    MovingExceptionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MovingExceptionType'
+      additionalProperties: false
+    ApplicableRestrictionType:
+      type: object
+      properties:
+        movingRestrictionTypeId:
+          type: integer
+          description: Id of the moving restriction type this exception type is applicable to
+          format: int32
+        movingRestrictionTypeOptionIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            format: int32
+          description: Moving restriction option ids
+      additionalProperties: false
     MovingExceptionType:
       type: object
       properties:
@@ -77,35 +99,13 @@ components:
             $ref: '#/components/schemas/ApplicableRestrictionType'
           description: Applicable restriction types
       additionalProperties: false
-    ApplicableRestrictionType:
-      type: object
-      properties:
-        movingRestrictionTypeId:
-          type: integer
-          description: Id of the moving restriction type this exception type is applicable to
-          format: int32
-        movingRestrictionTypeOptionIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            format: int32
-          description: Moving restriction option ids
-      additionalProperties: false
-    MovingExceptionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MovingExceptionType'
-      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

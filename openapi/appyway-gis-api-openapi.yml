@@ -242,31 +242,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     GeoJsonExportStreamResult:
       type: object
       properties:
@@ -275,14 +251,30 @@ components:
         gZipped:
           type: boolean
       additionalProperties: false
-    WfsStreamActionResultOkResponse:
+    GeoJsonExportStreamResultOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/WfsStreamActionResult'
+          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     Stream:
       type: object
@@ -313,34 +305,42 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    GeoJsonExportStreamResultOkResponse:
+    WfsStreamActionResult:
+      type: object
+      additionalProperties: false
+    WfsStreamActionResultOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          $ref: '#/components/schemas/GeoJsonExportStreamResult'
+          $ref: '#/components/schemas/WfsStreamActionResult'
       additionalProperties: false
-    WfsStreamActionResult:
-      type: object
-      additionalProperties: false
-    Error:
+    BadRequestResponse:
       type: object
       properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
+        success:
+          type: boolean
+          readOnly: true
         message:
           type:
           - string
           - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

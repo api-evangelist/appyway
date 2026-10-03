@@ -43,13 +43,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
     ZoneTypeIReadOnlyCollectionOkResponse:
       type: object
@@ -93,6 +86,13 @@ components:
           type: boolean
           description: Indicates whether zones of this type can have a shape
       additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

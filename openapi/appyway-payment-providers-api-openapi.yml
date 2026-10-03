@@ -104,12 +104,12 @@ components:
       additionalProperties: false
       description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
   responses:
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
     Unauthorized:
       description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

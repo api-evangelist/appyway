@@ -205,47 +205,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
-    ChangeCountrySpecialDaysCommand:
-      required:
-      - id
-      - specialDays
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the country
-        specialDays:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpecialDay'
-      additionalProperties: false
     SpecialDay:
       type: object
       properties:
@@ -271,6 +231,52 @@ components:
             description: ISO-8601 date pattern
             example: '2020-01-20'
           description: Dates on which this day is in effect
+      additionalProperties: false
+    CountryIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Country'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     Country:
       type: object
@@ -349,15 +355,6 @@ components:
           type: boolean
           description: Whether this country uses the metric system for speed limits
       additionalProperties: false
-    CountryOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/Country'
-      additionalProperties: false
     FetchCountryByIdQuery:
       required:
       - id
@@ -379,35 +376,38 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    CountryIReadOnlyCollectionOkResponse:
+    ChangeCountrySpecialDaysCommand:
+      required:
+      - id
+      - specialDays
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the country
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+      additionalProperties: false
+    CountryOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
         result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Country'
+          $ref: '#/components/schemas/Country'
       additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

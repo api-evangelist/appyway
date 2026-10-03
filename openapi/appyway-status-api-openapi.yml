@@ -34,12 +34,12 @@ paths:
     - url: https://api.appyway.com/v1/availability-realtime
 components:
   responses:
-    Forbidden:
-      description: Forbidden
-    Unauthorized:
-      description: Unauthorized
     TooManyRequests:
       description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   schemas:
     StringOkResponse:
       type: object

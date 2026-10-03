@@ -42,27 +42,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
   schemas:
-    AuthorityTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AuthorityType'
-      additionalProperties: false
     AuthorityType:
       type: object
       properties:
@@ -87,6 +67,26 @@ components:
           type: boolean
           description: Indicates whether authorities of this type can have a shape
       additionalProperties: false
+    AuthorityTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AuthorityType'
+      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY
