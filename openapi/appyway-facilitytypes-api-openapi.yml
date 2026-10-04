@@ -74,12 +74,12 @@ components:
       additionalProperties: false
       description: Indicates a facility that is available at an OSP
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

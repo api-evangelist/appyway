@@ -74,12 +74,12 @@ components:
       additionalProperties: false
       description: Indicates how operating hours can be altered because of holidays or named days
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

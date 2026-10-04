@@ -42,36 +42,14 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   schemas:
-    PaymentProviderIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentProvider'
-      additionalProperties: false
-    PaymentDeepLinks:
-      type: object
-      properties:
-        schemas:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Deep link schemas (eg: ringgo://, etc)'
-        packageName:
-          type:
-          - string
-          - 'null'
-          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
-      additionalProperties: false
     PaymentProvider:
       type: object
       properties:
@@ -103,13 +81,35 @@ components:
           description: Payment Mobile apps deep links by platform
       additionalProperties: false
       description: Indicates the payment provider that you can use to pay for an stay at a Parking Entity
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
+    PaymentDeepLinks:
+      type: object
+      properties:
+        schemas:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Deep link schemas (eg: ringgo://, etc)'
+        packageName:
+          type:
+          - string
+          - 'null'
+          description: 'Deep link package name (only applies to android, eg: co.uk.ringgo.android)'
+      additionalProperties: false
+    PaymentProviderIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentProvider'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

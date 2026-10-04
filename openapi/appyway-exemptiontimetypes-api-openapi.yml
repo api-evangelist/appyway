@@ -40,13 +40,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
   schemas:
     ExemptionTimeTypeIReadOnlyCollectionOkResponse:
       type: object
@@ -80,6 +73,13 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the different definitions of when an exemption can be active
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

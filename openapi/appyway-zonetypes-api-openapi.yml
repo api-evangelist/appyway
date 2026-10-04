@@ -87,12 +87,12 @@ components:
           description: Indicates whether zones of this type can have a shape
       additionalProperties: false
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

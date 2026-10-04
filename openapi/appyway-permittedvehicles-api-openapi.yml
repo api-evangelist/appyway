@@ -42,12 +42,12 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   schemas:
     PermittedVehicle:
       type: object

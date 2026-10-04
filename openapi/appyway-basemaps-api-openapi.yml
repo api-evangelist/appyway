@@ -43,13 +43,26 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   schemas:
+    BaseMapIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/BaseMap'
+      additionalProperties: false
     BaseMap:
       type: object
       properties:
@@ -74,19 +87,6 @@ components:
           items:
             type: string
           description: Indicates in which countries this base map has tiles available
-      additionalProperties: false
-    BaseMapIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/BaseMap'
       additionalProperties: false
   securitySchemes:
     apiKey:

@@ -75,13 +75,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
   schemas:
     Error:
       type: object
@@ -98,39 +91,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    DataSourceType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 4
-      type: integer
-      description: 'Enumeration for the different data source types
-
-
-        *Unknown (0) - Unknown
-
-        *Sensor (1) - Sensor
-
-        *Barrier (2) - Barrier
-
-        *Camera (4) - Camera
-
-        '
-      format: int32
-    ParkingAvailabilityIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ParkingAvailability'
       additionalProperties: false
     ParkingAvailability:
       type: object
@@ -166,6 +126,47 @@ components:
           description: OnStreetParking will have a ParentId as the AuthorityId, CarPark will have a ParentId as the CarParkId
       additionalProperties: false
       description: Parking Availability model for our Entities
+    FetchAvailabilityByEntityIdsQuery:
+      type: object
+      properties:
+        ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of Ids of entities to get real time availability for
+      additionalProperties: false
+    ParkingAvailabilityIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ParkingAvailability'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     EntityType:
       enum:
       - 1
@@ -196,34 +197,33 @@ components:
 
         '
       format: int32
-    FetchAvailabilityByEntityIdsQuery:
-      type: object
-      properties:
-        ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: List of Ids of entities to get real time availability for
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
+    DataSourceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 4
+      type: integer
+      description: 'Enumeration for the different data source types
+
+
+        *Unknown (0) - Unknown
+
+        *Sensor (1) - Sensor
+
+        *Barrier (2) - Barrier
+
+        *Camera (4) - Camera
+
+        '
+      format: int32
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

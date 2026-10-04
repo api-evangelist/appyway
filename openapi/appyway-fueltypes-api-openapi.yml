@@ -41,19 +41,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    FuelTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FuelType'
-      additionalProperties: false
     FuelType:
       type: object
       properties:
@@ -73,13 +60,26 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the type of fuel
+    FuelTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FuelType'
+      additionalProperties: false
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

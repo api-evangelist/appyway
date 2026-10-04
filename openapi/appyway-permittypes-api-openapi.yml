@@ -40,6 +40,13 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   schemas:
     PermitTypeIReadOnlyCollectionOkResponse:
       type: object
@@ -73,13 +80,6 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates a permit a vehicle operator has
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

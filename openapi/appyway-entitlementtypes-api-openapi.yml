@@ -49,13 +49,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
   schemas:
     EntitlementType:
       type: object
@@ -107,6 +100,17 @@ components:
           description: Indicates the legal names of the restriction type that this entitlement can apply to
       additionalProperties: false
       description: Indicates the condition on which availability of an OSP depends
+    RestrictionTypeLegalName:
+      type: object
+      properties:
+        restrictionTypeId:
+          type: integer
+          format: int32
+        legalName:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     EntitlementTypeIReadOnlyCollectionOkResponse:
       type: object
       properties:
@@ -120,17 +124,13 @@ components:
           items:
             $ref: '#/components/schemas/EntitlementType'
       additionalProperties: false
-    RestrictionTypeLegalName:
-      type: object
-      properties:
-        restrictionTypeId:
-          type: integer
-          format: int32
-        legalName:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

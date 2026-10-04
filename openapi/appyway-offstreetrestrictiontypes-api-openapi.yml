@@ -48,27 +48,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Too many requests
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
   schemas:
-    RestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RestrictionType'
-      additionalProperties: false
     RestrictionType:
       type: object
       properties:
@@ -115,6 +95,26 @@ components:
         hasBayCount:
           type: boolean
       additionalProperties: false
+    RestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RestrictionType'
+      additionalProperties: false
+  responses:
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

@@ -47,13 +47,26 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    TooManyRequests:
-      description: Too many requests
     Unauthorized:
       description: Unauthorized
     Forbidden:
       description: Forbidden
+    TooManyRequests:
+      description: Too many requests
   schemas:
+    MovingRestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MovingRestrictionType'
+      additionalProperties: false
     MovingRestrictionTypeOption:
       type: object
       properties:
@@ -67,19 +80,6 @@ components:
         value:
           type: integer
           format: int32
-      additionalProperties: false
-    MovingRestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MovingRestrictionType'
       additionalProperties: false
     MovingRestrictionType:
       type: object
