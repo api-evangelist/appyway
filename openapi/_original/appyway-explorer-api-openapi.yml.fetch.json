@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/yellowlineparking/Public-Api-Specs/HEAD/api-specs/AppyWay/YlpExplorerApi/AppyWay-YlpExplorerApi-v1.oas.json",
+ "requested_url": "https://raw.githubusercontent.com/yellowlineparking/Public-Api-Specs/HEAD/api-specs/AppyWay/YlpExplorerApi/AppyWay-YlpExplorerApi-v1.oas.json",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 235017,
+ "sha256": "71156fa53b499ccfa3bce1821a31f0eea6b3cd1f201001a0e5953d73bf99d966",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
