@@ -60,3 +60,19 @@ probes:
 - url: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
   status: 200
   checked: '2026-09-04'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  plans:
+  - name: Contact Sales
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - per-use
