@@ -46,27 +46,7 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
   schemas:
-    MovingRestrictionTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MovingRestrictionType'
-      additionalProperties: false
     MovingRestrictionTypeOption:
       type: object
       properties:
@@ -116,6 +96,26 @@ components:
             $ref: '#/components/schemas/MovingRestrictionTypeOption'
           description: Options
       additionalProperties: false
+    MovingRestrictionTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MovingRestrictionType'
+      additionalProperties: false
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

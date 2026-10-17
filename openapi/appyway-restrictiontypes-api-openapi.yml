@@ -48,6 +48,13 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   schemas:
     RestrictionType:
       type: object
@@ -108,13 +115,6 @@ components:
           items:
             $ref: '#/components/schemas/RestrictionType'
       additionalProperties: false
-  responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
   securitySchemes:
     apiKey:
       name: API-KEY

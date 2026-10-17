@@ -40,20 +40,14 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   schemas:
-    FacilityTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/FacilityType'
-      additionalProperties: false
     FacilityType:
       type: object
       properties:
@@ -73,13 +67,19 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates a facility that is available at an OSP
-  responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
+    FacilityTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/FacilityType'
+      additionalProperties: false
   securitySchemes:
     apiKey:
       name: API-KEY

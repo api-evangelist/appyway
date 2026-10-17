@@ -41,12 +41,12 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   schemas:
     NoteVisibilityTypeIReadOnlyCollectionOkResponse:
       type: object

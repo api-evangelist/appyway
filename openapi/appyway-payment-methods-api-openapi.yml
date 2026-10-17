@@ -40,13 +40,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
-    TooManyRequests:
-      description: Too many requests
   schemas:
     PaymentMethodIReadOnlyCollectionOkResponse:
       type: object
@@ -80,6 +73,13 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the method that you pay for a stay at a Parking Entity
+  responses:
+    TooManyRequests:
+      description: Too many requests
+    Unauthorized:
+      description: Unauthorized
+    Forbidden:
+      description: Forbidden
   securitySchemes:
     apiKey:
       name: API-KEY

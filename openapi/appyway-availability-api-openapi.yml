@@ -76,6 +76,36 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    ParkingAvailabilityIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ParkingAvailability'
+      additionalProperties: false
+    BadRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Error'
+      additionalProperties: false
     Error:
       type: object
       properties:
@@ -92,6 +122,26 @@ components:
           - string
           - 'null'
       additionalProperties: false
+    DataSourceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 4
+      type: integer
+      description: 'Enumeration for the different data source types
+
+
+        *Unknown (0) - Unknown
+
+        *Sensor (1) - Sensor
+
+        *Barrier (2) - Barrier
+
+        *Camera (4) - Camera
+
+        '
+      format: int32
     ParkingAvailability:
       type: object
       properties:
@@ -137,36 +187,6 @@ components:
             type: string
           description: List of Ids of entities to get real time availability for
       additionalProperties: false
-    ParkingAvailabilityIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ParkingAvailability'
-      additionalProperties: false
-    BadRequestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Error'
-      additionalProperties: false
     EntityType:
       enum:
       - 1
@@ -197,33 +217,13 @@ components:
 
         '
       format: int32
-    DataSourceType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 4
-      type: integer
-      description: 'Enumeration for the different data source types
-
-
-        *Unknown (0) - Unknown
-
-        *Sensor (1) - Sensor
-
-        *Barrier (2) - Barrier
-
-        *Camera (4) - Camera
-
-        '
-      format: int32
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

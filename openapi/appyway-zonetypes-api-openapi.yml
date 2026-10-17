@@ -44,19 +44,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    ZoneTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ZoneType'
-      additionalProperties: false
     ZoneType:
       type: object
       properties:
@@ -86,13 +73,26 @@ components:
           type: boolean
           description: Indicates whether zones of this type can have a shape
       additionalProperties: false
+    ZoneTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ZoneType'
+      additionalProperties: false
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

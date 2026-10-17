@@ -41,19 +41,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    ExemptionTimeTypeIReadOnlyCollectionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ExemptionTimeType'
-      additionalProperties: false
     ExemptionTimeType:
       type: object
       properties:
@@ -73,13 +60,26 @@ components:
           description: Description
       additionalProperties: false
       description: Indicates the different definitions of when an exemption can be active
+    ExemptionTimeTypeIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ExemptionTimeType'
+      additionalProperties: false
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

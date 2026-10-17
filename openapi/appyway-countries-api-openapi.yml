@@ -206,61 +206,22 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    CountryIReadOnlyCollectionOkResponse:
+    BadRequestResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
-        result:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Country'
-      additionalProperties: false
-    Error:
-      type: object
-      properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
         message:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    StringOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
+        errors:
           type:
-          - string
+          - array
           - 'null'
-      additionalProperties: false
-    ChangeCountrySpecialDaysCommand:
-      required:
-      - id
-      - specialDays
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the country
-        specialDays:
-          type: array
           items:
-            $ref: '#/components/schemas/SpecialDay'
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     Country:
       type: object
@@ -339,14 +300,21 @@ components:
           type: boolean
           description: Whether this country uses the metric system for speed limits
       additionalProperties: false
-    CountryOkResponse:
+    Error:
       type: object
       properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/Country'
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     FetchCountryByIdQuery:
       required:
@@ -384,30 +352,62 @@ components:
             example: '2020-01-20'
           description: Dates on which this day is in effect
       additionalProperties: false
-    BadRequestResponse:
+    CountryOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
-        message:
+        result:
+          $ref: '#/components/schemas/Country'
+      additionalProperties: false
+    ChangeCountrySpecialDaysCommand:
+      required:
+      - id
+      - specialDays
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the country
+        specialDays:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialDay'
+      additionalProperties: false
+    StringOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
           type:
           - string
           - 'null'
-        errors:
+      additionalProperties: false
+    CountryIReadOnlyCollectionOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Country'
       additionalProperties: false
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY

@@ -197,118 +197,22 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Error:
+    BadRequestResponse:
       type: object
       properties:
-        property:
-          type:
-          - string
-          - 'null'
-        code:
-          type:
-          - string
-          - 'null'
+        success:
+          type: boolean
+          readOnly: true
         message:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    StringOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    Event:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the event
-        date:
-          type: string
-          description: Date when the event takes place
-          example: '2020-01-20'
-        start:
-          type:
-          - string
-          - 'null'
-          description: Start time of the event
-          example: 00:00:00
-        end:
-          type:
-          - string
-          - 'null'
-          description: End time of the event
-          example: 00:00:00
-      additionalProperties: false
-    RegionOkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          readOnly: true
-        result:
-          $ref: '#/components/schemas/Region'
-      additionalProperties: false
-    FetchRegionByIdQuery:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-      additionalProperties: false
-    ChangeRegionVenuesCommand:
-      required:
-      - id
-      - venues
-      type: object
-      properties:
-        id:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: Unique identifier of the region
-        venues:
-          type: array
-          items:
-            $ref: '#/components/schemas/Venue'
-      additionalProperties: false
-    Region:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the region
-        countryId:
-          type:
-          - string
-          - 'null'
-          description: Id of the Country this region belongs to
-        name:
-          type:
-          - string
-          - 'null'
-          description: Name of the region
-        venues:
+        errors:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Venue'
-          description: A list of venues that are available in the region. Venues are linked to zones and will affect the operating hours on dates where there's an event at the venue
+            $ref: '#/components/schemas/Error'
       additionalProperties: false
     Venue:
       type: object
@@ -347,30 +251,126 @@ components:
           items:
             $ref: '#/components/schemas/Region'
       additionalProperties: false
-    BadRequestResponse:
+    Error:
+      type: object
+      properties:
+        property:
+          type:
+          - string
+          - 'null'
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    ChangeRegionVenuesCommand:
+      required:
+      - id
+      - venues
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: Unique identifier of the region
+        venues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Venue'
+      additionalProperties: false
+    RegionOkResponse:
       type: object
       properties:
         success:
           type: boolean
           readOnly: true
-        message:
+        result:
+          $ref: '#/components/schemas/Region'
+      additionalProperties: false
+    FetchRegionByIdQuery:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 36
+          minLength: 1
+          type: string
+      additionalProperties: false
+    StringOkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        result:
           type:
           - string
           - 'null'
-        errors:
+      additionalProperties: false
+    Event:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the event
+        date:
+          type: string
+          description: Date when the event takes place
+          example: '2020-01-20'
+        start:
+          type:
+          - string
+          - 'null'
+          description: Start time of the event
+          example: 00:00:00
+        end:
+          type:
+          - string
+          - 'null'
+          description: End time of the event
+          example: 00:00:00
+      additionalProperties: false
+    Region:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the region
+        countryId:
+          type:
+          - string
+          - 'null'
+          description: Id of the Country this region belongs to
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the region
+        venues:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Venue'
+          description: A list of venues that are available in the region. Venues are linked to zones and will affect the operating hours on dates where there's an event at the venue
       additionalProperties: false
   responses:
-    Unauthorized:
-      description: Unauthorized
-    Forbidden:
-      description: Forbidden
     TooManyRequests:
       description: Too many requests
+    Forbidden:
+      description: Forbidden
+    Unauthorized:
+      description: Unauthorized
   securitySchemes:
     apiKey:
       name: API-KEY
