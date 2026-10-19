@@ -28,3 +28,124 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: appyway-nuget-gallery
+  label: NuGet Gallery
+  partner: nuget
+  partner_name: NuGet Gallery
+  category: official SDK (.NET)
+  type: register
+  channel: package-registry
+  evidence: https://www.nuget.org/packages/Appy.CommandQuery
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: NuGet Gallery (public registry JSON)
+    spec_file: null
+    language: .NET
+    packages:
+    - name: Appy.CommandQuery
+      version: 3.0.0
+      released: '2026-10-01'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.CommandQuery
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Configuration
+      version: 1.3.1
+      released: '2026-02-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Configuration
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Configuration.1Password
+      version: 1.3.1
+      released: '2026-02-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Configuration.1Password
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Configuration.WinRegistry
+      version: 1.2.0
+      released: '2024-11-18'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Configuration.WinRegistry
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.GitDb.Watcher
+      version: 0.11.0
+      released: '2020-06-01'
+      released_field: published
+      lapsed: true
+      page: https://www.nuget.org/packages/Appy.GitDb.Watcher
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Infrastructure.1Password
+      version: 1.3.1
+      released: '2026-02-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Infrastructure.1Password
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Parsing
+      version: 2.0.0
+      released: '2026-10-01'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Parsing
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Spatial.GeoJSON
+      version: 2.0.0
+      released: '2026-10-01'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Spatial.GeoJSON
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Spatial.GeoJSON.Newtonsoft
+      version: 2.0.0
+      released: '2026-10-01'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Spatial.GeoJSON.Newtonsoft
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: Appy.Spatial.GeoJSON.TextJson
+      version: 2.0.0
+      released: '2026-10-01'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/Appy.Spatial.GeoJSON.TextJson
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    - name: appy-op
+      version: 1.3.1
+      released: '2026-02-24'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/appy-op
+      repo_leg: github-org:yellowlineparking
+      publisher_leg: org:appyway
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
