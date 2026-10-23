@@ -69,3 +69,9 @@ x-refined-from:
 - appyway-explorer-api-openapi.yml
 - appyway-platform-api-openapi.yml
 - appyway-traffic-data-api-openapi.yml
+x-provenance:
+  method: harvested
+  publisher: AppyWay
+  source: https://raw.githubusercontent.com/yellowlineparking/Public-Api-Specs/HEAD/api-specs/AppyWay/YlpExplorerApi/AppyWay-YlpExplorerApi-v1.oas.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
