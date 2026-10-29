@@ -1,4 +1,4 @@
-# AppyWay (appyway)
+# AppyWay
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,126 +66,254 @@
 
 AppyWay leverages innovative technology to transform outdated parking systems and urban mobility infrastructure. By providing real-time data and insights, they enable cities and businesses to optimize traffic flow, reduce congestion, and improve access to parking. Through their smart parking solutions, AppyWay simplifies the parking experience for drivers while also helping to create more sustainable and efficient urban environments.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/appyway/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/appyway/refs/heads/main/apis.yml)
+**Areas:** Parking · Traffic · Urban Mobility · Smart Cities · EV Charging
 
-## Scope
+## AppyWay on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for AppyWay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/appyway/](https://apis.io/providers/appyway/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (30)
 
-- Parking
-- Traffic
-- Urban Mobility
-- Smart Cities
-- EV Charging
+- [AppyWay Authorities API](https://apis.io/apis/appyway/appyway-authorities-api/) — The Authorities API from AppyWay — 7 operation(s) for authorities.
+- [AppyWay AuthorityTypes API](https://apis.io/apis/appyway/appyway-authoritytypes-api/) — The AuthorityTypes API from AppyWay — 1 operation(s) for authoritytypes.
+- [AppyWay Availability API](https://apis.io/apis/appyway/appyway-availability-api/) — The Availability API from AppyWay — 1 operation(s) for availability.
+- [AppyWay BaseMaps API](https://apis.io/apis/appyway/appyway-basemaps-api/) — The BaseMaps API from AppyWay — 1 operation(s) for basemaps.
+- [AppyWay Bulk API](https://apis.io/apis/appyway/appyway-bulk-api/) — The Bulk API from AppyWay — 1 operation(s) for bulk.
+- [AppyWay Countries API](https://apis.io/apis/appyway/appyway-countries-api/) — The Countries API from AppyWay — 3 operation(s) for countries.
+- [AppyWay EntitlementTypes API](https://apis.io/apis/appyway/appyway-entitlementtypes-api/) — The EntitlementTypes API from AppyWay — 1 operation(s) for entitlementtypes.
+- [AppyWay ExceptionTypes API](https://apis.io/apis/appyway/appyway-exceptiontypes-api/) — The ExceptionTypes API from AppyWay — 1 operation(s) for exceptiontypes.
+- [AppyWay ExemptionTimeTypes API](https://apis.io/apis/appyway/appyway-exemptiontimetypes-api/) — The ExemptionTimeTypes API from AppyWay — 1 operation(s) for exemptiontimetypes.
+- [AppyWay ExemptionTypes API](https://apis.io/apis/appyway/appyway-exemptiontypes-api/) — The ExemptionTypes API from AppyWay — 1 operation(s) for exemptiontypes.
+- [AppyWay FacilityTypes API](https://apis.io/apis/appyway/appyway-facilitytypes-api/) — The FacilityTypes API from AppyWay — 1 operation(s) for facilitytypes.
+- [AppyWay FuelTypes API](https://apis.io/apis/appyway/appyway-fueltypes-api/) — The FuelTypes API from AppyWay — 1 operation(s) for fueltypes.
+- [AppyWay GIS API](https://apis.io/apis/appyway/appyway-gis-api/) — The GIS API from AppyWay — 4 operation(s) for gis.
+- [AppyWay MovingExceptionTypes API](https://apis.io/apis/appyway/appyway-movingexceptiontypes-api/) — The MovingExceptionTypes API from AppyWay — 1 operation(s) for movingexceptiontypes.
+- [AppyWay MovingRestrictionTypes API](https://apis.io/apis/appyway/appyway-movingrestrictiontypes-api/) — The MovingRestrictionTypes API from AppyWay — 1 operation(s) for movingrestrictiontypes.
+- [AppyWay NoteVisibilityTypes API](https://apis.io/apis/appyway/appyway-notevisibilitytypes-api/) — The NoteVisibilityTypes API from AppyWay — 1 operation(s) for notevisibilitytypes.
+- [AppyWay OffStreetRestrictionTypes API](https://apis.io/apis/appyway/appyway-offstreetrestrictiontypes-api/) — The OffStreetRestrictionTypes API from AppyWay — 1 operation(s) for offstreetrestrictiontypes.
+- [AppyWay OnStreetParkingTypes API](https://apis.io/apis/appyway/appyway-onstreetparkingtypes-api/) — The OnStreetParkingTypes API from AppyWay — 1 operation(s) for onstreetparkingtypes.
+- [AppyWay Parking API](https://apis.io/apis/appyway/appyway-parking-api/) — The Parking API from AppyWay — 11 operation(s) for parking.
+- [AppyWay PermittedVehicles API](https://apis.io/apis/appyway/appyway-permittedvehicles-api/) — The PermittedVehicles API from AppyWay — 1 operation(s) for permittedvehicles.
+- [AppyWay PermitTypes API](https://apis.io/apis/appyway/appyway-permittypes-api/) — The PermitTypes API from AppyWay — 1 operation(s) for permittypes.
+- [AppyWay Regions API](https://apis.io/apis/appyway/appyway-regions-api/) — The Regions API from AppyWay — 3 operation(s) for regions.
+- [AppyWay RestrictionTypes API](https://apis.io/apis/appyway/appyway-restrictiontypes-api/) — The RestrictionTypes API from AppyWay — 1 operation(s) for restrictiontypes.
+- [AppyWay Status API](https://apis.io/apis/appyway/appyway-status-api/) — The Status API from AppyWay — 1 operation(s) for status.
+- [AppyWay Zones API](https://apis.io/apis/appyway/appyway-zones-api/) — The Zones API from AppyWay — 3 operation(s) for zones.
+- [AppyWay ZoneTypes API](https://apis.io/apis/appyway/appyway-zonetypes-api/) — The ZoneTypes API from AppyWay — 1 operation(s) for zonetypes.
+- [AppyWay Activity Types API](https://apis.io/apis/appyway/appyway-activity-types-api/) — The Activity Types API from AppyWay — 1 operation(s) for activity types.
+- [AppyWay Payment Methods API](https://apis.io/apis/appyway/appyway-payment-methods-api/) — The Payment Methods API from AppyWay — 1 operation(s) for payment methods.
+- [AppyWay Payment Providers API](https://apis.io/apis/appyway/appyway-payment-providers-api/) — The Payment Providers API from AppyWay — 1 operation(s) for payment providers.
+- [AppyWay Vehicle Types API](https://apis.io/apis/appyway/appyway-vehicle-types-api/) — The Vehicle Types API from AppyWay — 1 operation(s) for vehicle types.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-08
-- **Modified:** 2026-04-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### AppyWay Availability RealTime API
+Model Context Protocol servers that expose the API to agents.
 
-AppyWay Availability RealTime API allows businesses to access real-time data on parking availability, traffic congestion, and road closure information. This API provides up-to-the-minute updates on parking spots, helping users find and reserve parking spaces quickly and easily. By providing this information in real-time, businesses can improve customer satisfaction and reduce the frustration of searching for parking.
+- [appyway-mcp.yml](https://apis.io/servers/appyway/appyway-mcp-yml/)
 
-- **Human URL:** [https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time](https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Congestion
-- Parking
-- Road Closure
-- Traffic
+- [Appyway Agentic Access](https://apis.io/agentic-access/appyway/appyway-agentic-access/)
 
-#### Properties
+#### JSON Schema (1)
 
-- [OpenAPI](openapi/appyway-availability-realtime-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/appyway-availability-realtime-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appyway-availability-realtime-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://docs.appyway.com/docs/public-docs/dc52a602db4c8-availability-real-time)
-- [JSON Schema](json-schema/parking-availability-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/parking-availability-structure.json)
-- [Example](examples/parking-availability-example.json)
-- [JSON-LD](json-ld/appyway-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Spectral Rules](rules/appyway-spectral-rules.yml)
-- [Vocabulary](vocabulary/appyway-vocabulary.yaml)
+The data models the API reads and writes.
 
-### AppyWay Traffic Data API
+- [ParkingAvailability](https://apis.io/schemas/appyway/parking-availability/)
 
-The AppyWay Traffic Data API provides real-time and historical traffic data for developers to integrate into their applications. This data includes information on traffic congestion, accidents, road closures, and other key events that can impact a driver's journey. By utilizing this API, developers can provide their users with up-to-date traffic information, optimize routes for more efficient travel, and enhance overall road safety.
+#### JSON Structure (1)
 
-- **Human URL:** [https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data](https://docs.appyway.com/docs/public-docs/7cb87b08d16a7-traffic-data)
+Data models expressed in JSON Structure.
 
-#### Tags
+- [Parking Availability Structure](https://apis.io/json-structure/appyway/parking-availability-structure/)
 
-- Historical
-- Real-Time
-- Traffic
+#### JSON-LD (1)
 
-#### Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [OpenAPI](openapi/appyway-traffic-data-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/appyway-traffic-data-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appyway-traffic-data-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://docs.appyway.com/docs/public-docs)
+- [Appyway Context](https://apis.io/jsonld/appyway/appyway-context/)
 
-### AppyWay Explorer API
+#### Vocabulary (1)
 
-The AppyWay Explorer API allows developers to access a wealth of data related to parking and electric vehicle charging infrastructure. With this API, developers can seamlessly integrate real-time information such as parking availability, pricing, and location details into their own applications. This allows for improved user experience and convenience for drivers seeking parking spaces or charging stations.
+The provider's domain terms, defined.
 
-- **Human URL:** [https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer](https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer)
+- [Appyway Vocabulary](https://apis.io/vocabularies/appyway/appyway-vocabulary/)
 
-#### Tags
+#### Examples (1)
 
-- Electrical Vehicle Charging
-- Parking
+Example requests and responses.
 
-#### Properties
+- [Parking Availability Example](https://apis.io/examples/appyway/parking-availability-example/)
 
-- [OpenAPI](openapi/appyway-explorer-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/appyway-explorer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appyway-explorer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://docs.appyway.com/docs/public-docs/c655badabdcf0-explorer-api)
+#### Collections (37)
 
-### AppyWay Platform API
+Postman and Open Collection request collections.
 
-AppyWay Platform API allows developers to access a wide range of data related to parking, traffic, and mobility. With this API, developers can integrate real-time parking availability, traffic flow information, and electric vehicle charging locations into their own applications. This enables users to quickly find parking spaces, plan their routes to avoid congestion, and locate nearby charging stations for their electric vehicles.
+- [AppyWay Availability RealTime ActivityTypes API](https://apis.io/collections/appyway/open-appyway-activitytypes-api/)
+- [AppyWay Availability RealTime ActivityTypes Authorities API](https://apis.io/collections/appyway/open-appyway-authorities-api/)
+- [AppyWay Availability RealTime ActivityTypes AuthorityTypes API](https://apis.io/collections/appyway/open-appyway-authoritytypes-api/)
+- [AppyWay RealTime ActivityTypes Availability API](https://apis.io/collections/appyway/open-appyway-availability-api/)
+- [AppyWay Availability RealTime API](https://apis.io/collections/appyway/open-appyway-availability-realtime-api/)
+- [AppyWay Availability RealTime ActivityTypes BaseMaps API](https://apis.io/collections/appyway/open-appyway-basemaps-api/)
+- [AppyWay Availability RealTime ActivityTypes Bulk API](https://apis.io/collections/appyway/open-appyway-bulk-api/)
+- [AppyWay Availability RealTime ActivityTypes Countries API](https://apis.io/collections/appyway/open-appyway-countries-api/)
+- [AppyWay Availability RealTime ActivityTypes EntitlementTypes API](https://apis.io/collections/appyway/open-appyway-entitlementtypes-api/)
+- [AppyWay Availability RealTime ActivityTypes ExceptionTypes API](https://apis.io/collections/appyway/open-appyway-exceptiontypes-api/)
+- [AppyWay Availability RealTime ActivityTypes ExemptionTimeTypes API](https://apis.io/collections/appyway/open-appyway-exemptiontimetypes-api/)
+- [AppyWay Availability RealTime ActivityTypes ExemptionTypes API](https://apis.io/collections/appyway/open-appyway-exemptiontypes-api/)
+- [AppyWay Explorer API](https://apis.io/collections/appyway/open-appyway-explorer-api/)
+- [AppyWay Availability RealTime ActivityTypes FacilityTypes API](https://apis.io/collections/appyway/open-appyway-facilitytypes-api/)
+- [AppyWay Availability RealTime ActivityTypes FuelTypes API](https://apis.io/collections/appyway/open-appyway-fueltypes-api/)
+- [AppyWay Availability RealTime ActivityTypes GIS API](https://apis.io/collections/appyway/open-appyway-gis-api/)
+- [AppyWay Availability RealTime ActivityTypes MovingExceptionTypes API](https://apis.io/collections/appyway/open-appyway-movingexceptiontypes-api/)
+- [AppyWay Availability RealTime ActivityTypes MovingRestrictionTypes API](https://apis.io/collections/appyway/open-appyway-movingrestrictiontypes-api/)
+- [AppyWay Availability RealTime ActivityTypes NoteVisibilityTypes API](https://apis.io/collections/appyway/open-appyway-notevisibilitytypes-api/)
+- [AppyWay Availability RealTime ActivityTypes OffStreetRestrictionTypes API](https://apis.io/collections/appyway/open-appyway-offstreetrestrictiontypes-api/)
+- [AppyWay Availability RealTime ActivityTypes OnStreetParkingTypes API](https://apis.io/collections/appyway/open-appyway-onstreetparkingtypes-api/)
+- [AppyWay Availability RealTime ActivityTypes Parking API](https://apis.io/collections/appyway/open-appyway-parking-api/)
+- [AppyWay Availability RealTime ActivityTypes PaymentMethods API](https://apis.io/collections/appyway/open-appyway-paymentmethods-api/)
+- [AppyWay Availability RealTime ActivityTypes PaymentProviders API](https://apis.io/collections/appyway/open-appyway-paymentproviders-api/)
+- [AppyWay Availability RealTime ActivityTypes PermittedVehicles API](https://apis.io/collections/appyway/open-appyway-permittedvehicles-api/)
+- …and 12 more published on APIs.io
 
-- **Human URL:** [https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference](https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference)
+#### Overlays (30)
 
-#### Tags
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- Parking
-- Traffic
+- [Appyway Activitytypes Overlay](https://apis.io/overlays/appyway/appyway-activitytypes-overlay/)
+- [Appyway Authorities Overlay](https://apis.io/overlays/appyway/appyway-authorities-overlay/)
+- [Appyway Authoritytypes Overlay](https://apis.io/overlays/appyway/appyway-authoritytypes-overlay/)
+- [Appyway Availability Overlay](https://apis.io/overlays/appyway/appyway-availability-overlay/)
+- [Appyway Basemaps Overlay](https://apis.io/overlays/appyway/appyway-basemaps-overlay/)
+- [Appyway Bulk Overlay](https://apis.io/overlays/appyway/appyway-bulk-overlay/)
+- [Appyway Countries Overlay](https://apis.io/overlays/appyway/appyway-countries-overlay/)
+- [Appyway Entitlementtypes Overlay](https://apis.io/overlays/appyway/appyway-entitlementtypes-overlay/)
+- [Appyway Exceptiontypes Overlay](https://apis.io/overlays/appyway/appyway-exceptiontypes-overlay/)
+- [Appyway Exemptiontimetypes Overlay](https://apis.io/overlays/appyway/appyway-exemptiontimetypes-overlay/)
+- [Appyway Exemptiontypes Overlay](https://apis.io/overlays/appyway/appyway-exemptiontypes-overlay/)
+- [Appyway Facilitytypes Overlay](https://apis.io/overlays/appyway/appyway-facilitytypes-overlay/)
+- [Appyway Fueltypes Overlay](https://apis.io/overlays/appyway/appyway-fueltypes-overlay/)
+- [Appyway Gis Overlay](https://apis.io/overlays/appyway/appyway-gis-overlay/)
+- [Appyway Movingexceptiontypes Overlay](https://apis.io/overlays/appyway/appyway-movingexceptiontypes-overlay/)
+- [Appyway Movingrestrictiontypes Overlay](https://apis.io/overlays/appyway/appyway-movingrestrictiontypes-overlay/)
+- [Appyway Notevisibilitytypes Overlay](https://apis.io/overlays/appyway/appyway-notevisibilitytypes-overlay/)
+- [Appyway Offstreetrestrictiontypes Overlay](https://apis.io/overlays/appyway/appyway-offstreetrestrictiontypes-overlay/)
+- [Appyway Onstreetparkingtypes Overlay](https://apis.io/overlays/appyway/appyway-onstreetparkingtypes-overlay/)
+- [Appyway Parking Overlay](https://apis.io/overlays/appyway/appyway-parking-overlay/)
+- [Appyway Paymentmethods Overlay](https://apis.io/overlays/appyway/appyway-paymentmethods-overlay/)
+- [Appyway Paymentproviders Overlay](https://apis.io/overlays/appyway/appyway-paymentproviders-overlay/)
+- [Appyway Permittedvehicles Overlay](https://apis.io/overlays/appyway/appyway-permittedvehicles-overlay/)
+- [Appyway Permittypes Overlay](https://apis.io/overlays/appyway/appyway-permittypes-overlay/)
+- [Appyway Regions Overlay](https://apis.io/overlays/appyway/appyway-regions-overlay/)
+- …and 5 more published on APIs.io
 
-#### Properties
+#### Governance rules (2)
 
-- [OpenAPI](openapi/appyway-platform-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/appyway-platform-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appyway-platform-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference)
+Spectral rulesets for the provider's contracts.
 
-## Common Properties
+- [AppyWay — jsonschema rules](https://apis.io/rules/appyway/appyway-jsonschema-spectral-rules/)
+- [AppyWay API Rules](https://apis.io/rules/appyway/appyway-spectral-rules/)
 
-- [GitHub Organization](https://github.com/YellowLineParking)
-- [LinkedIn](https://www.linkedin.com/company/appyway)
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Appyway Authentication](https://apis.io/security/appyway/appyway-authentication/)
+- [Appyway Domain Security](https://apis.io/security/appyway/appyway-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Appyway Scopes](https://apis.io/scopes/appyway/appyway-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Appyway Plans Pricing](https://apis.io/plans/appyway/appyway-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Appyway Rate Limits](https://apis.io/rate-limits/appyway/appyway-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Appyway Finops](https://apis.io/finops/appyway/appyway-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://appyway.com/)
+- [Getting started](https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started)
+- [API reference](https://docs.appyway.com/docs/public-docs/f19a03a1ac8f5-reference)
+- [Support](https://appyway.com/get-in-touch-support)
 - [Blog](https://appyway.com/blog/)
-- [Blog R S S](https://appyway.com/blog/feed/)
-- [Events](https://appyway.com/london-council-workshop-oct-22/)
-- [Case Studies](https://appyway.com/case-studies/)
-- [Press Releases](https://appyway.com/press/)
-- [Webinars](https://appyway.com/resources/#webinars)
-- [Partners](https://appyway.com/partnerships/)
-- [Authentication](https://docs.appyway.com/docs/public-docs/50055c042f423-authentication)
-- [Rate Limits](https://docs.appyway.com/docs/public-docs/319adf4695d05-rate-limiting)
-- [Integrations](https://appyway.com/integrations)
+- [Privacy policy](https://appyway.com/privacy-policy)
+- [GitHub](https://github.com/YellowLineParking)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 54.7** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 60.0 |
+| Contract governance | 45.5 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 67.3 |
+| Access clarity | 31.6 |
+
+**Agent readiness 45.2** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.1** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/appyway/](https://apis.io/providers/appyway/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AppyWay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/appyway/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
