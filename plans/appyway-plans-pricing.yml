@@ -1,0 +1,78 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: AppyWay
+providerId: appyway
+created: '2026-05-04'
+method: searched
+modified: '2026-09-04'
+reconciled: true
+tags:
+- Parking
+- Traffic
+- Urban Mobility
+- Smart Cities
+- EV Charging
+description: 'AppyWay publishes no plans, no price list and no self-serve signup for its APIs. Re-checked
+  on 2026-09-04: there is no /pricing page on appyway.com (404), no plans or tiers anywhere in the developer
+  documentation, and no machine-readable catalogue endpoint. API keys are issued only by emailing apisupport@appyway.com,
+  so commercial terms and quotas are set per contract. plan_count is an honest zero.'
+notes: Every documented path to access — obtaining a key, raising a rate limit, resolving a problem —
+  routes through apisupport@appyway.com. The docs portal itself is fully public and unauthenticated; it
+  is the commercial surface, not the documentation, that is gated.
+sources:
+- https://www.appyway.com
+- https://docs.appyway.com
+- https://docs.appyway.com/docs/public-docs/50055c042f423-authentication
+plans:
+- id: appyway-contact-sales
+  name: Contact Sales
+  type: enterprise
+  description: No published self-serve plan. Commercial access is arranged directly with the provider;
+    quotas and pricing are governed by individual customer agreements.
+  entries:
+  - label: API Access
+    name: api_access
+    type: flat
+    metric: varies
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Negotiated Commercial Terms
+  - name: Partner Onboarding
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+generated: '2026-09-04'
+plan_count: 0
+source: https://appyway.com (site walked 2026-09-04), https://docs.appyway.com
+probes:
+- url: https://appyway.com/pricing/
+  status: 404
+  checked: '2026-09-04'
+- url: https://appyway.com/
+  status: 200
+  checked: '2026-09-04'
+- url: https://docs.appyway.com/docs/public-docs/6465709b0f811-getting-started
+  status: 200
+  checked: '2026-09-04'
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  plans:
+  - name: Contact Sales
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - per-use
